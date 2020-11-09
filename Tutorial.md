@@ -1,8 +1,7 @@
-Clone project:
+<h4>Clone project:</h4>
 
 * Laragon Terminal:
-
-> cd C:\laragon\www
-> git clone https:[repository-url]
+1. cd C:\laragon\www
+2. git clone https:[repository-url]
 
 
