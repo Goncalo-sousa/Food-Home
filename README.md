@@ -1,5 +1,5 @@
 # Food@Home
-Projeto "Food@Home"
+Project "Food@Home"
 
 Owners:
 * Francisco Santos Neto Ferreira - 2170894@my.ipleiria.pt
