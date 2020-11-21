@@ -171,8 +171,8 @@ h1, h2, h3, h4, h5, h6 {
 </div>
 
 <!-- Header -->
-<header class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px" id="home">
-  <img class="w3-image" src="/storage/app/public/fotos/hamburger.jpg'" alt="Hamburger Catering" width="1600" height="800">
+<header class="w3-display-container w3-content w3-wide" style="max-width:600px;min-width:300px" id="home">
+  <img class="w3-image" src="{{ URL::asset('home/hamburger.jpg') }}" alt="Hamburger Catering" width="1600" height="800">
   <div class="w3-display-bottomleft w3-padding-large w3-opacity">
     <h1 class="w3-xxlarge">Le Catering</h1>
   </div>
