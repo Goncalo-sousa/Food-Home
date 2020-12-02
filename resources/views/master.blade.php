@@ -12,7 +12,7 @@
     @yield('extrastyles')
 </head>
 
-<body>
+<body id="app">
 
 <router-link to="/">Users</router-link>
 <router-link to="/departments">Department</router-link>
@@ -37,6 +37,7 @@ h1, h2, h3, h4, h5, h6 {
     <a href="#home" class="w3-bar-item w3-button">Food@Home</a>
     <!-- Right-sided navbar links. Hide them on small screens -->
     <div class="w3-right w3-hide-small">
+      <router-link class="w3-bar-item w3-button" to="/register">Register</router-link>
       <a href="#menu" class="w3-bar-item w3-button">Menu</a>
       <a href="#contact" class="w3-bar-item w3-button">Contact</a>
       <a href="#about" class="w3-bar-item w3-button">About</a>
@@ -78,7 +79,7 @@ h1, h2, h3, h4, h5, h6 {
   <div class="w3-row w3-padding-64" id="menu">
     <div class="w3-col l6 w3-padding-large">
       <h1 class="w3-center">Our Menu</h1><br>
-      <h4>Bread Basket</h4>
+      <h4>Bread Basket</h4> 
       <p class="w3-text-grey">Assortment of fresh baked fruit breads and muffins 5.50</p><br>
     
       <h4>Honey Almond Granola with Fruits</h4>
@@ -119,7 +120,7 @@ h1, h2, h3, h4, h5, h6 {
 <!-- End page content -->
 </div>
 
-    <div class="container" id="app">
+    <div class="container">
         @yield('content')
     </div>
     @yield('pagescript')
@@ -130,5 +131,7 @@ h1, h2, h3, h4, h5, h6 {
 <footer class="w3-center w3-light-grey w3-padding-32">
   <p>Trabalho realizado em âmbito da UC desenvolvimento de aplicações distribuidas <a href="" target="_blank" class="w3-hover-text-green"></a></p>
 </footer>
+
+<script src="./resources/js/app.js"></script>
 
 </html>
