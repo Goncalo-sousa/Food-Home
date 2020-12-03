@@ -1,5 +1,7 @@
 <template>
-
+  <div>
+      O ricardo e um conas
+  </div>
 </template>
 
 <script>

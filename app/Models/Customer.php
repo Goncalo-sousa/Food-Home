@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+    protected $fillable = [
+        'address',
+        'phone',
+        'nif',
+    ];
+
     public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo('App\Models\User', "id");
     }
 
     public function orders()

@@ -13,7 +13,7 @@ class User extends JsonResource
      * @return array
      */
     public function toArray($request)
-    {
+    {   
         return [
             'id' => $this->id,
             'type' => $this->type,
