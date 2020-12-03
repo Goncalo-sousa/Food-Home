@@ -12,17 +12,6 @@
     @yield('extrastyles')
 </head>
 
-<body id="app">
-
-<router-link to="/">Users</router-link>
-<router-link to="/departments">Department</router-link>
-
-<router-view></router-view>
-
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{{ URL::asset('css/home.css') }}">
 <style>
 body {font-family: "Times New Roman", Georgia, Serif;}
 h1, h2, h3, h4, h5, h6 {
@@ -31,6 +20,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 </style>
 
+<body >
+<div id="app">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{ URL::asset('css/home.css') }}">
+
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
@@ -38,9 +33,6 @@ h1, h2, h3, h4, h5, h6 {
     <!-- Right-sided navbar links. Hide them on small screens -->
     <div class="w3-right w3-hide-small">
       <router-link class="w3-bar-item w3-button" to="/register">Register</router-link>
-      <a href="#menu" class="w3-bar-item w3-button">Menu</a>
-      <a href="#contact" class="w3-bar-item w3-button">Contact</a>
-      <a href="#about" class="w3-bar-item w3-button">About</a>
     </div>
   </div>
 </div>
@@ -124,7 +116,7 @@ h1, h2, h3, h4, h5, h6 {
         @yield('content')
     </div>
     @yield('pagescript')
-
+</div>
 </body>
 
 <!-- Footer -->
@@ -132,6 +124,10 @@ h1, h2, h3, h4, h5, h6 {
   <p>Trabalho realizado em âmbito da UC desenvolvimento de aplicações distribuidas <a href="" target="_blank" class="w3-hover-text-green"></a></p>
 </footer>
 
-<script src="./resources/js/app.js"></script>
+<script src="{{ mix('js/app.js') }}"></script>
+
+
+
+
 
 </html>
