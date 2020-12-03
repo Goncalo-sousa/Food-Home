@@ -17,4 +17,9 @@ class Customer extends Model
     {
         return $this->belongsTo('App\Models\User', "id");
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
