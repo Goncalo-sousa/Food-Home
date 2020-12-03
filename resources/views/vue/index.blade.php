@@ -5,6 +5,7 @@
 @section('content')
 
 <router-link to="/">Main</router-link>
+<router-link to="/products">Menu </router-link>
 <router-view></router-view>
 
 @endsection
