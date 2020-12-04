@@ -5,7 +5,6 @@
         <tr>
           <th>Name</th>
           <th>Email</th>
-
         </tr>
       </thead>
       <tbody>
@@ -34,7 +33,12 @@ export default {
       title: "List Users",
       users: [],
     };
-  }
+  },
+   mounted() {
+    axios.get("api/user").then((response) => {
+      this.users = response.data.data;
+    });
+   }
 }
 </script>
 

@@ -41,11 +41,11 @@
           <router-link class="w3-bar-item w3-button" to="/manageusers">Users</router-link>
         </div>
       </div>
-      
-      @yield('content')
     </div>
+    @yield('content')
+  </div>
 
-    @yield('pagescript')
+  @yield('pagescript')
 </body>
 
 </html>

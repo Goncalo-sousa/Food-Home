@@ -2044,13 +2044,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       title: "List Users",
       users: []
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("api/user").then(function (response) {
+      _this.users = response.data.data;
+    });
   }
 });
 
