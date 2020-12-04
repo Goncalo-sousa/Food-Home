@@ -1,46 +1,47 @@
 <template>
-<table class="table table-striped">
+  <table class="table table-striped">
     <thead>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Photo</th>
-            <th>Price</th>
-            <th>Description</th>
-        </tr>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Photo</th>
+        <th>Price</th>
+        <th>Description</th>
+      </tr>
     </thead>
     <tbody>
-    <tr v-for="product of products" :key="product.id">
-            <th>{{product.name}}</th>
-            <th>{{product.type}}</th>
-            <th>{{product.photo_url}}</th>
-            <th>{{product.price}}</th>
-            <th>{{product.description}}</th>
-            <td>
-                <button class="btn btn-primary" v-on:click="editProduct(product)">Edit</Button>
-                <button class="btn btn-danger" @click="deleteProduct(product)">Delete</Button>
-            </td>
-    </tr>
+      <tr v-for="product of products" :key="product.id">
+        <th>{{ product.name }}</th>
+        <th>{{ product.type }}</th>
+        <th>{{ product.photo_url }}</th>
+        <th>{{ product.price }}€</th>
+        <th>{{ product.description }}</th>
+        <td>
+          <button class="btn btn-primary" v-on:click="editProduct(product)">
+            Edit
+          </button>
+          <button class="btn btn-danger" @click="deleteProduct(product)">
+            Delete
+          </button>
+        </td>
+      </tr>
     </tbody>
-</table>
-  
+  </table>
 </template>
 
 <script>
 export default {
-
-    props:['products'],
-    methods:{
-        editProduct(product){
-            this.$router.push({path : `/products/${products.id}`})
-        },
-        deleteProducts(product){
-            this.$emit('delete-product',product)
-        }
-    }
-}
+  props: ["products"],
+  methods: {
+    editProduct(product) {
+      this.$router.push({ path: `/products/${products.id}` });
+    },
+    deleteProducts(product) {
+      this.$emit("delete-product", product);
+    },
+  },
+};
 </script>
 
 <style>
-
 </style>
