@@ -2054,7 +2054,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("api/user").then(function (response) {
+    axios.get("api/users").then(function (response) {
       _this.users = response.data.data;
     });
   }

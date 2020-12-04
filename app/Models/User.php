@@ -47,12 +47,13 @@ class User extends Authenticatable
     public function customer()
     {
         return $this->hasOne('App\Models\Customer', "id")->where('type', 'C');
+    }
     public function orders()
     {
         return $this->hasMany(Order_item::class);
     }
 
-    public function customers()
+    public function customer_id()
     {
         return $this->belongsTo(Customer::class,'id');
     }

@@ -35,7 +35,7 @@ export default {
     };
   },
    mounted() {
-    axios.get("api/user").then((response) => {
+    axios.get("api/users").then((response) => {
       this.users = response.data.data;
     });
    }
