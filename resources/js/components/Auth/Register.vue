@@ -1,6 +1,6 @@
 <template>
-  <div>
-      O ricardo e um conas
+  <div class="jumbotron">
+     <h1> Atirei o pau ao gato-to-to mas o gato-to-to</h1>
   </div>
 </template>
 

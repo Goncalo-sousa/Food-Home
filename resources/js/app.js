@@ -6,18 +6,18 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import MainComponent from './Main.vue'
-import RegisterComponent from './components/Auth/Register'
+import RegisterComponent from './components/Auth/Register.vue'
 import ProductsComponent from './components/products.vue'
 import EditUserComponent from './components/edit_product.vue'
+import ManageUsersComponent from './components/Admin/manageUsers.vue'
 
 
 const routes = [
-    // {path: '/', redirect:'/users'},
     { path: '/', component: MainComponent },
-    //{path : '/register', component: RegisterComponent},
-   // {path: '/users', component:AppComponent},
-    {path: '/users/:id', component:EditUserComponent},
-    {path: '/products', component:ProductsComponent},
+    { path: '/register', component: RegisterComponent },
+    { path: '/manageusers', component: ManageUsersComponent },
+    { path: '/users/:id', component: EditUserComponent },
+    { path: '/products', component: ProductsComponent },
 
 ]
 

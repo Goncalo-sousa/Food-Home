@@ -3,7 +3,7 @@
       <div class="jumbotron">
          <h1></h1>
         </div>
-          <products :products="products" @edit-product="editProduct" @delete-product="deleteProduct"></products>
+          <!-- <products :products="products" @edit-product="editProduct" @delete-product="deleteProduct"></products> -->
 
 
          <div class="alert" v-if="successMessage || failMessage" :class="{'alert-success':successMessage, 'alert-danger':failMessage}" @click="closeMessage" >
@@ -33,7 +33,7 @@ export default {
         successMessage: '',
         failMessage: '',
         currentProduct: {},
-        Products: [],
+        products: [],
         }
        
     },
