@@ -20,7 +20,16 @@ export default {
     return {
       title: "list users",
       users: [],
+      editingUser: false,
+      currentUser: {},
     };
+  },
+  methods:{
+    editUser: function (user) {
+      console.log(user.name);
+      this.currentUser = Object.assign({}, user);
+      this.editingUser = true;
+    },
   },
   mounted() {
     axios.get("api/users").then((response) => {

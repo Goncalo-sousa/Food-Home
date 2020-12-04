@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/users', 'Api\UserController@index');
 Route::get('/products', 'Api\ProductController@index');
 
+Route::get('/users/{user}', 'Api\UserController@show');
 Route::put('users/{user}', 'Api\UserController@update');
 Route::delete('users/{user}', 'Api\UserController@destroy');
 

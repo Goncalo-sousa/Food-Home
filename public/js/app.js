@@ -2059,13 +2059,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["user", "departments"],
+  props: ["user"],
   data: function data() {
-    return {
-      user: undefined,
-      departments: []
-    };
+    return {};
   },
   methods: {
     saveUser: function saveUser() {// this.$emit("save-user", this.user);
@@ -2074,7 +2085,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     cancelEdit: function cancelEdit() {
       // this.$emit("cancel-edit");
       this.$router.push({
-        path: "/users"
+        path: "/management"
       });
     }
   },
@@ -2195,8 +2206,17 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       title: "list users",
-      users: []
+      users: [],
+      editingUser: false,
+      currentUser: {}
     };
+  },
+  methods: {
+    editUser: function editUser(user) {
+      console.log(user.name);
+      this.currentUser = Object.assign({}, user);
+      this.editingUser = true;
+    }
   },
   mounted: function mounted() {
     var _this = this;
@@ -20924,6 +20944,51 @@ var render = function() {
                 }
               }
             })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Blocked:")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.user.blocked,
+                    expression: "user.blocked"
+                  }
+                ],
+                staticClass: "form-control",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.user,
+                      "blocked",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { disabled: "", value: "" } }, [
+                  _vm._v("Please select one")
+                ]),
+                _vm._v(" "),
+                _c("option", [_vm._v("0")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("1")])
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [

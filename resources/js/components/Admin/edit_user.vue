@@ -1,7 +1,6 @@
 <template>
   <div class="jumbotron">
     <h2>Edit User</h2>
-
     <form v-if="user">
       <div class="form-group">
         <label>Name:</label>
@@ -11,7 +10,22 @@
         <label>Email:</label>
         <input type="text" class="form-control" v-model="user.email" />
       </div>
-    
+      <!-- <div class="form-group">
+        <label>Type:</label>
+        <select class="form-control" v-model="user.type">
+          <option v-for="type in types" :k >
+            {{ user.type }}
+          </option>
+        </select>
+      </div> -->
+      <div class="form-group">
+        <label>Blocked:</label>
+        <select class="form-control" v-model="user.blocked">
+          <option disabled value="">Please select one</option>
+          <option>0</option>
+          <option>1</option>
+        </select>
+      </div>
       <div class="form-group">
         <button class="btn btn-primary" @click.prevent="saveUser()">
           Save
@@ -26,12 +40,9 @@
 
 <script>
 export default {
-  props: ["user", "departments"],
+  props: ["user"],
   data: function () {
-    return {
-      user: undefined,
-      departments: [],
-    };
+    return {};
   },
   methods: {
     saveUser() {
@@ -40,7 +51,7 @@ export default {
     },
     cancelEdit() {
       // this.$emit("cancel-edit");
-      this.$router.push({ path: "/users" });
+      this.$router.push({ path: "/management" });
     },
   },
   async created() {
