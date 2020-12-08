@@ -6,7 +6,6 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import MainComponent from './Main.vue'
-import RegisterComponent from './components/Auth/Register'
 import LoginComponent from './components/Auth/Login'
 import RegisterComponent from './components/Auth/Register.vue'
 import ProductsComponent from './components/products.vue'
