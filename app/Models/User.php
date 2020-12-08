@@ -47,7 +47,9 @@ class User extends Authenticatable
     public function customer()
     {
         return $this->hasOne('App\Models\Customer', "id")->where('type', 'C');
-    public function orders()
+    }
+    
+        public function orders()
     {
         return $this->hasMany(Order_item::class);
     }
