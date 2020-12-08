@@ -48,12 +48,8 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\Customer', "id")->where('type', 'C');
     }
-<<<<<<< HEAD
     
         public function orders()
-=======
-    public function orders()
->>>>>>> e126d831cf225c5141daf42dd01e81c625b11c75
     {
         return $this->hasMany(Order_item::class);
     }
