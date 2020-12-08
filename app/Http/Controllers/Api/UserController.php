@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\User as UserResource;
 use App\Models\User;
@@ -27,7 +28,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $user->fill($request->validated());
+        $user->password = bcrypt($user->password);
+        $user->save();
+        return response()->json(new UserResource($user), 201);
     }
 
     /**
@@ -36,9 +41,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        return new UserResource($id);
+        return new UserResource($user);
     }
 
     /**
@@ -48,9 +53,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->update($request->validated());
+        return new UserResource($user);
     }
 
     /**
@@ -59,8 +65,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json(null, 204);
     }
 }

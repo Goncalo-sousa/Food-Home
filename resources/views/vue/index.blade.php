@@ -4,7 +4,6 @@
 
 @section('content')
 
-<router-link to="/">Main</router-link>
 <router-view></router-view>
 
 @endsection

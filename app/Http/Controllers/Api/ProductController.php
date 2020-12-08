@@ -19,6 +19,8 @@ class ProductController extends Controller
         return ProductResource::collection(Product::all());
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
