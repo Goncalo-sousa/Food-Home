@@ -25,8 +25,9 @@
         <router-link class="w3-bar-item w3-button" to="/">Food@Home</router-link>
         <!-- Right-sided navbar links. Hide them on small screens -->
         <div class="w3-right w3-hide-small">
-          <router-link class="w3-bar-item w3-button" to="/register">Register</router-link>
-          <router-link class="w3-bar-item w3-button" to="/login">Login</router-link>
+          <router-link v-if="!$store.state.user" class="w3-bar-item w3-button" to="/register">Register</router-link>
+          <router-link v-if="!$store.state.user" class="w3-bar-item w3-button" to="/login">Login</router-link>
+          <button v-if="$store.state.user" @click.prevent="LogOut" class="w3-bar-item w3-button">Logout</button>
         </div>
       </div>
     </div>

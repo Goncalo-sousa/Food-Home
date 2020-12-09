@@ -13,7 +13,11 @@ import EditProductComponent from './components/edit_product.vue'
 import ManageUsersComponent from './components/Admin/manageUsers.vue'
 import EditUserComponent from './components/Admin/edit_user.vue'
 import ManagementComponent from './components/Admin/management.vue'
+import store from './store';
+import VueCookies from 'vue-cookies'
+import axios from 'axios';
 
+Vue.use(VueCookies)
 Vue.component('manage-users', ManageUsersComponent);
 Vue.component('products', ProductsComponent);
 
@@ -34,5 +38,22 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: '#app',
-    router //=router:router
+    store,
+    router,
+    methods : {
+        LogOut : function () {
+           this.$store.dispatch('LogOut');
+           this.$router.push('/login');
+        }
+    },
+    mounted : function () {
+       let token = Vue.$cookies.get('XSRF-TOKEN')
+       if(token){
+        axios.get('/api/user', {headers: {['X-XSRF-TOKEN'] : token}}).then(response => {
+               this.$store.dispatch('LogIn', response.data)
+           }).catch(error => {
+               console.log(error)
+           })
+       }
+    }
 })

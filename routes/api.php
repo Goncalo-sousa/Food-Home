@@ -24,7 +24,10 @@ Route::delete('users/{user}', 'Api\UserController@destroy');
 Route::put('products/{product}', 'Api\ProductController@update');
 Route::delete('products/{product}', 'Api\ProductController@destroy');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
