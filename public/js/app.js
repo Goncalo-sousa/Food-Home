@@ -22090,7 +22090,7 @@ var render = function() {
           _vm._v(" "),
           _c("th", [_vm._v(_vm._s(product.type))]),
           _vm._v(" "),
-          _c("th", [_vm._v(_vm._s(product.photo_url))]),
+          _c("th", [_c("img", { attrs: { src: product.photo_url } })]),
           _vm._v(" "),
           _c("th", [_vm._v(_vm._s(product.price) + "€")]),
           _vm._v(" "),
@@ -39675,8 +39675,8 @@ var Errors = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\laragon\www\Food-Home\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\Food-Home\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })
