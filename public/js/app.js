@@ -22090,7 +22090,15 @@ var render = function() {
           _vm._v(" "),
           _c("th", [_vm._v(_vm._s(product.type))]),
           _vm._v(" "),
-          _c("th", [_c("img", { attrs: { src: product.photo_url } })]),
+          _c("th", [
+            _c("img", {
+              attrs: {
+                src: "storage/products/" + product.photo_url,
+                width: "150",
+                height: "150"
+              }
+            })
+          ]),
           _vm._v(" "),
           _c("th", [_vm._v(_vm._s(product.price) + "€")]),
           _vm._v(" "),
