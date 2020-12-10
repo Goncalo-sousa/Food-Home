@@ -22100,8 +22100,8 @@ var render = function() {
             _c("img", {
               attrs: {
                 src: "storage/products/" + product.photo_url,
-                width: "150",
-                height: "150"
+                width: "50",
+                height: "50"
               }
             })
           ]),
