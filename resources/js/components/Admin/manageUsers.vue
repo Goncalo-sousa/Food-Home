@@ -15,6 +15,7 @@
           <td>{{ user.email }}</td>
           <td>{{ user.type }}</td>
           <td>{{ user.blocked }}</td>
+          <th><img v-bind:src="'storage/fotos/'+user.photo_url" width="50vw" height="50vh"></th>
            <td>
             <button class="btn btn-primary" v-on:click="editUser(user)">
               Edit

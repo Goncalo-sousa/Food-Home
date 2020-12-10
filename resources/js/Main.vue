@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-    <products
+    <products 
       v-bind:products="products"
       @edit-product="editProduct"
       @delete-product="deleteProduct"
@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import EditProductComponent from "./components/edit_product.vue";
-import Products from "./components/products.vue";
+import EditProductComponent from "./components/products/edit_product.vue";
+import Products from "./components/products/products.vue";
 
 export default {
   data: function () {

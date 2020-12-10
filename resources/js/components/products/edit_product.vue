@@ -29,11 +29,6 @@
                 </div>
 
 
-
-                
-
-                
-
                 <div class="form-group">
                 <button class="btn btn-primary" @click.prevent="saveProduct()">Save</Button>
                         <button class="btn btn-secondary" v-on:click="cancelEdit()">Cancel</Button>    

@@ -8,8 +8,8 @@ Vue.use(VueRouter)
 import MainComponent from './Main.vue'
 import LoginComponent from './components/Auth/Login'
 import RegisterComponent from './components/Auth/Register.vue'
-import ProductsComponent from './components/products.vue'
-import EditProductComponent from './components/edit_product.vue'
+import ProductsComponent from './components/products/products.vue'
+import EditProductComponent from './components/products/edit_product.vue'
 import ManageUsersComponent from './components/Admin/manageUsers.vue'
 import EditUserComponent from './components/Admin/edit_user.vue'
 import ManagementComponent from './components/Admin/management.vue'
@@ -57,3 +57,9 @@ const app = new Vue({
        }
     }
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+    // if the user is not authenticated, `next` is called twice
+    next()
+  })
