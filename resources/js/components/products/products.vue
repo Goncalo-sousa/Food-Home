@@ -13,7 +13,7 @@
       <tr v-for="product of products" :key="product.id">
         <th>{{ product.name }}</th>
         <th>{{ product.type }}</th>
-        <th><img v-bind:src="'storage/products/'+product.photo_url" width="50" height="50"></th>
+        <th><img v-bind:src="'storage/products/'+product.photo_url" width="50vw" height="50vh"></th>
         <th>{{ product.price }}€</th>
         <th>{{ product.description }}</th>
         <td>

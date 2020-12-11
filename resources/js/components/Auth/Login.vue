@@ -49,7 +49,7 @@ export default {
             console.log("User has logged in");
             console.dir(response.data);
             this.$store.dispatch('LogIn', response.data)
-            this.$router.push('/')
+            this.$router.push({path: '/'})
           })
           .catch((error) => {
             console.log("Invalid Authentication");

@@ -1,4 +1,4 @@
-<template>
+<template >
    <div class="jumbotron">
          <h2>Edit Product</h2>
 

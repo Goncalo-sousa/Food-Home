@@ -17,18 +17,20 @@ import store from './store';
 import VueCookies from 'vue-cookies'
 import axios from 'axios';
 
+
+
 Vue.use(VueCookies)
 Vue.component('manage-users', ManageUsersComponent);
 Vue.component('products', ProductsComponent);
 
 const routes = [
     { path: '/', component: MainComponent },
-    { path: '/register', component: RegisterComponent },
-    { path: '/login', component: LoginComponent},
-    { path: '/management', component: ManagementComponent },
+    { path: '/register', name: 'Register', component: RegisterComponent },
+    { path: '/login', name: 'Login', component: LoginComponent },
+    { path: '/management', name: 'Management', component: ManagementComponent, meta: { requiresAuth: true } },
     { path: '/users/:id', component: EditUserComponent },
     { path: '/products/:id', component: EditProductComponent },
-    { path: '/products', component: ProductsComponent },
+    { path: '/products', name: 'Products', component: ProductsComponent },
 ]
 
 
@@ -40,26 +42,25 @@ const app = new Vue({
     el: '#app',
     store,
     router,
-    methods : {
-        LogOut : function () {
-           this.$store.dispatch('LogOut');
-           this.$router.push('/login');
+    methods: {
+        LogOut: function () {
+            this.$store.dispatch('LogOut');
+            this.$router.push('/login');
         }
     },
-    mounted : function () {
-       let token = Vue.$cookies.get('XSRF-TOKEN')
-       if(token){
-        axios.get('/api/user', {headers: {['X-XSRF-TOKEN'] : token}}).then(response => {
-               this.$store.dispatch('LogIn', response.data)
-           }).catch(error => {
-               console.log(error)
-           })
-       }
+    mounted: function () {
+        let token = Vue.$cookies.get('XSRF-TOKEN')
+        if (token) {
+            axios.get('/api/user', { headers: { ['X-XSRF-TOKEN']: token } }).then(response => {
+                this.$store.dispatch('LogIn', response.data)
+            }).catch(error => {
+                console.log(error)
+            })
+        }
     }
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
-    // if the user is not authenticated, `next` is called twice
-    next()
-  })
+    if (to.name == 'Management' && !store.getters.isAuthenticated) next({ name: 'Login' })
+    else next()
+})

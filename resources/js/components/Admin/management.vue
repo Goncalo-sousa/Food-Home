@@ -5,7 +5,6 @@
     <edit-user
       v-if="editingUser"
       :user="currentUser"
-      :departments="departments"
       @cancel-edit="cancelEdit"
       @save-user="saveUser"
     />

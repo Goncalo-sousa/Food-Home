@@ -2158,6 +2158,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["users"],
   methods: {
@@ -2185,7 +2191,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _manageUsers_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manageUsers.vue */ "./resources/js/components/Admin/manageUsers.vue");
-//
 //
 //
 //
@@ -2291,7 +2296,9 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.$store.dispatch('LogIn', response.data);
 
-          _this.$router.push('/');
+          _this.$router.push({
+            path: '/'
+          });
         })["catch"](function (error) {
           console.log("Invalid Authentication");
         });
@@ -21489,7 +21496,7 @@ var render = function() {
       _vm._v(" "),
       _vm.editingUser
         ? _c("edit-user", {
-            attrs: { user: _vm.currentUser, departments: _vm.departments },
+            attrs: { user: _vm.currentUser },
             on: { "cancel-edit": _vm.cancelEdit, "save-user": _vm.saveUser }
           })
         : _vm._e()
@@ -22100,8 +22107,8 @@ var render = function() {
             _c("img", {
               attrs: {
                 src: "storage/products/" + product.photo_url,
-                width: "50",
-                height: "50"
+                width: "50vw",
+                height: "50vh"
               }
             })
           ]),
@@ -38804,13 +38811,19 @@ var routes = [{
   component: _Main_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
   path: '/register',
+  name: 'Register',
   component: _components_Auth_Register_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
   path: '/login',
+  name: 'Login',
   component: _components_Auth_Login__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
   path: '/management',
-  component: _components_Admin_management_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+  name: 'Management',
+  component: _components_Admin_management_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
+  meta: {
+    requiresAuth: true
+  }
 }, {
   path: '/users/:id',
   component: _components_Admin_edit_user_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
@@ -38819,6 +38832,7 @@ var routes = [{
   component: _components_products_edit_product_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
   path: '/products',
+  name: 'Products',
   component: _components_products_products_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
@@ -38852,11 +38866,9 @@ var app = new Vue({
   }
 });
 router.beforeEach(function (to, from, next) {
-  if (to.name !== 'Login' && !isAuthenticated) next({
+  if (to.name == 'Management' && !_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters.isAuthenticated) next({
     name: 'Login'
-  }); // if the user is not authenticated, `next` is called twice
-
-  next();
+  });else next();
 });
 
 /***/ }),
