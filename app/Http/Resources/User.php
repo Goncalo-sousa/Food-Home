@@ -21,6 +21,7 @@ class User extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'photo_url'=>$this->photo_url,
+            'deleted_at'=>$this->deleted_at,
         ];
     }
 }

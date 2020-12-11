@@ -7,10 +7,13 @@
           <th>Email</th>
           <th>Type</th>
           <th>Blocked</th>
+          <th>Photo</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="user of users" :key="user.id">
+          <!-- <tr v-if="user.deleted_at != null"> -->
+            <!-- {{console.log(user.deleted_at)}} -->
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.type }}</td>
@@ -30,6 +33,7 @@
               Delete
             </button>
           </td>
+          </tr>
         </tr>
       </tbody>
     </table>
@@ -45,7 +49,7 @@ export default {
       this.$router.push({ path: `/users/${user.id}` });
     },
     deleteUser(user) {
-      this.$emit("delete-user", user);
+      // this.$emit("delete-user", user);
     },
   },
 };

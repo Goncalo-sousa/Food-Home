@@ -64,3 +64,8 @@ router.beforeEach((to, from, next) => {
     if (to.name == 'Management' && !store.getters.isAuthenticated) next({ name: 'Login' })
     else next()
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.name == 'Management' && store.state.user.type != 'EM') next({ path: '/' })
+    else next()
+})

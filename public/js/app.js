@@ -2164,6 +2164,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["users"],
   methods: {
@@ -2173,8 +2177,7 @@ __webpack_require__.r(__webpack_exports__);
         path: "/users/".concat(user.id)
       });
     },
-    deleteUser: function deleteUser(user) {
-      this.$emit("delete-user", user);
+    deleteUser: function deleteUser(user) {// this.$emit("delete-user", user);
     }
   }
 });
@@ -21463,7 +21466,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Type")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Blocked")])
+        _c("th", [_vm._v("Blocked")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Photo")])
       ])
     ])
   }
@@ -38868,6 +38873,11 @@ var app = new Vue({
 router.beforeEach(function (to, from, next) {
   if (to.name == 'Management' && !_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters.isAuthenticated) next({
     name: 'Login'
+  });else next();
+});
+router.beforeEach(function (to, from, next) {
+  if (to.name == 'Management' && _store__WEBPACK_IMPORTED_MODULE_9__["default"].state.user.type != 'EM') next({
+    path: '/'
   });else next();
 });
 
