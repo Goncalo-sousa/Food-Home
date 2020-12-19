@@ -4,19 +4,25 @@
       <tr>
         <th>Name</th>
         <th>Type</th>
-        <th>Photo</th>
         <th>Price</th>
         <th>Description</th>
+        <th>Photo</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="product of products" :key="product.id">
-        <th>{{ product.name }}</th>
-        <th>{{ product.type }}</th>
-        <th><img v-bind:src="'storage/products/'+product.photo_url" width="50vw" height="50vh"></th>
-        <th>{{ product.price }}€</th>
-        <th>{{ product.description }}</th>
-        <td>
+        <th v-if="product.deleted_at == null">{{ product.name }}</th>
+        <th v-if="product.deleted_at == null">{{ product.type }}</th>
+        <th v-if="product.deleted_at == null">{{ product.price }}€</th>
+        <th v-if="product.deleted_at == null">{{ product.description }}</th>
+        <th v-if="product.deleted_at == null">
+          <img
+            v-bind:src="'storage/products/' + product.photo_url"
+            width="50vw"
+            height="50vh"
+          />
+        </th>
+        <td v-if="product.deleted_at == null">
           <button class="btn btn-primary" v-on:click="editProduct(product)">
             Edit
           </button>
@@ -37,7 +43,7 @@ export default {
       this.$router.push({ path: `/products/${products.id}` });
     },
     deleteProducts(product) {
-      this.$emit("delete-product", product);
+      // this.$emit("delete-product", product);
     },
   },
 };

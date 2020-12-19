@@ -2167,7 +2167,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["users"],
   methods: {
@@ -2589,6 +2588,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["products"],
   methods: {
@@ -2597,8 +2602,7 @@ __webpack_require__.r(__webpack_exports__);
         path: "/products/".concat(products.id)
       });
     },
-    deleteProducts: function deleteProducts(product) {
-      this.$emit("delete-product", product);
+    deleteProducts: function deleteProducts(product) {// this.$emit("delete-product", product);
     }
   }
 });
@@ -21394,58 +21398,72 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "manage-users" }, [
-    _c("table", { staticClass: "table table-striped" }, [
+    _c("table", { staticClass: "table" }, [
       _vm._m(0),
       _vm._v(" "),
       _c(
         "tbody",
         _vm._l(_vm.users, function(user) {
           return _c("tr", { key: user.id }, [
-            _c("td", [_vm._v(_vm._s(user.name))]),
+            user.deleted_at != null
+              ? _c("td", [_vm._v(_vm._s(user.name))])
+              : _vm._e(),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.email))]),
+            user.deleted_at != null
+              ? _c("td", [_vm._v(_vm._s(user.email))])
+              : _vm._e(),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.type))]),
+            user.deleted_at != null
+              ? _c("td", [_vm._v(_vm._s(user.type))])
+              : _vm._e(),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.blocked))]),
+            user.deleted_at != null
+              ? _c("td", [_vm._v(_vm._s(user.blocked))])
+              : _vm._e(),
             _vm._v(" "),
-            _c("th", [
-              _c("img", {
-                attrs: {
-                  src: "storage/fotos/" + user.photo_url,
-                  width: "50vw",
-                  height: "50vh"
-                }
-              })
-            ]),
+            user.deleted_at != null
+              ? _c("th", [
+                  user.photo_url != null
+                    ? _c("img", {
+                        attrs: {
+                          src: "storage/fotos/" + user.photo_url,
+                          width: "50vw",
+                          height: "50vh"
+                        }
+                      })
+                    : _vm._e()
+                ])
+              : _vm._e(),
             _vm._v(" "),
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  on: {
-                    click: function($event) {
-                      return _vm.editUser(user)
-                    }
-                  }
-                },
-                [_vm._v("\n            Edit\n          ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  on: {
-                    click: function($event) {
-                      return _vm.deleteUser(user)
-                    }
-                  }
-                },
-                [_vm._v("\n            Delete\n          ")]
-              )
-            ])
+            user.deleted_at != null
+              ? _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.editUser(user)
+                        }
+                      }
+                    },
+                    [_vm._v("\n            Edit\n          ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteUser(user)
+                        }
+                      }
+                    },
+                    [_vm._v("\n            Delete\n          ")]
+                  )
+                ])
+              : _vm._e()
           ])
         }),
         0
@@ -21458,7 +21476,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "thead-dark" }, [
       _c("tr", [
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
@@ -21468,7 +21486,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Blocked")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Photo")])
+        _c("th", [_vm._v("Photo")]),
+        _vm._v(" "),
+        _c("th")
       ])
     ])
   }
@@ -22104,51 +22124,63 @@ var render = function() {
       "tbody",
       _vm._l(_vm.products, function(product) {
         return _c("tr", { key: product.id }, [
-          _c("th", [_vm._v(_vm._s(product.name))]),
+          product.deleted_at == null
+            ? _c("th", [_vm._v(_vm._s(product.name))])
+            : _vm._e(),
           _vm._v(" "),
-          _c("th", [_vm._v(_vm._s(product.type))]),
+          product.deleted_at == null
+            ? _c("th", [_vm._v(_vm._s(product.type))])
+            : _vm._e(),
           _vm._v(" "),
-          _c("th", [
-            _c("img", {
-              attrs: {
-                src: "storage/products/" + product.photo_url,
-                width: "50vw",
-                height: "50vh"
-              }
-            })
-          ]),
+          product.deleted_at == null
+            ? _c("th", [_vm._v(_vm._s(product.price) + "€")])
+            : _vm._e(),
           _vm._v(" "),
-          _c("th", [_vm._v(_vm._s(product.price) + "€")]),
+          product.deleted_at == null
+            ? _c("th", [_vm._v(_vm._s(product.description))])
+            : _vm._e(),
           _vm._v(" "),
-          _c("th", [_vm._v(_vm._s(product.description))]),
-          _vm._v(" "),
-          _c("td", [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                on: {
-                  click: function($event) {
-                    return _vm.editProduct(product)
+          product.deleted_at == null
+            ? _c("th", [
+                _c("img", {
+                  attrs: {
+                    src: "storage/products/" + product.photo_url,
+                    width: "50vw",
+                    height: "50vh"
                   }
-                }
-              },
-              [_vm._v("\n          Edit\n        ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger",
-                on: {
-                  click: function($event) {
-                    return _vm.deleteProduct(product)
-                  }
-                }
-              },
-              [_vm._v("\n          Delete\n        ")]
-            )
-          ])
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          product.deleted_at == null
+            ? _c("td", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        return _vm.editProduct(product)
+                      }
+                    }
+                  },
+                  [_vm._v("\n          Edit\n        ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteProduct(product)
+                      }
+                    }
+                  },
+                  [_vm._v("\n          Delete\n        ")]
+                )
+              ])
+            : _vm._e()
         ])
       }),
       0
@@ -22166,11 +22198,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Type")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Photo")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Price")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Description")])
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Photo")])
       ])
     ])
   }
@@ -38825,10 +38857,7 @@ var routes = [{
 }, {
   path: '/management',
   name: 'Management',
-  component: _components_Admin_management_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-  meta: {
-    requiresAuth: true
-  }
+  component: _components_Admin_management_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
 }, {
   path: '/users/:id',
   component: _components_Admin_edit_user_vue__WEBPACK_IMPORTED_MODULE_7__["default"]

@@ -1,31 +1,30 @@
 <template>
   <div class="manage-users">
-    <table class="table table-striped">
-      <thead>
+    <table class="table">
+      <thead class="thead-dark">
         <tr>
           <th>Name</th>
           <th>Email</th>
           <th>Type</th>
           <th>Blocked</th>
           <th>Photo</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="user of users" :key="user.id">
-          <!-- <tr v-if="user.deleted_at != null"> -->
-            <!-- {{console.log(user.deleted_at)}} -->
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.type }}</td>
-          <td>{{ user.blocked }}</td>
-          <th>
-            <img
+          <td v-if="user.deleted_at != null">{{ user.name }}</td>
+          <td v-if="user.deleted_at != null">{{ user.email }}</td>
+          <td v-if="user.deleted_at != null">{{ user.type }}</td>
+          <td v-if="user.deleted_at != null">{{ user.blocked }}</td>
+          <th v-if="user.deleted_at != null">
+            <img v-if="user.photo_url != null"
               v-bind:src="'storage/fotos/' + user.photo_url"
               width="50vw"
               height="50vh"
             />
           </th>
-          <td>
+          <td v-if="user.deleted_at != null">
             <button class="btn btn-primary" v-on:click="editUser(user)">
               Edit
             </button>

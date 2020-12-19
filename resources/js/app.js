@@ -27,7 +27,7 @@ const routes = [
     { path: '/', component: MainComponent },
     { path: '/register', name: 'Register', component: RegisterComponent },
     { path: '/login', name: 'Login', component: LoginComponent },
-    { path: '/management', name: 'Management', component: ManagementComponent, meta: { requiresAuth: true } },
+    { path: '/management', name: 'Management', component: ManagementComponent},
     { path: '/users/:id', component: EditUserComponent },
     { path: '/products/:id', component: EditProductComponent },
     { path: '/products', name: 'Products', component: ProductsComponent },
