@@ -26,13 +26,13 @@
         <!-- Right-sided navbar links. Hide them on small screens -->
         <div class="w3-right w3-hide-small">
           <router-link v-if="$store.state.user && $store.state.user.type == 'EM'" class="w3-bar-item w3-button" to="/management">Manage</router-link>
+          <router-link class="w3-bar-item w3-button" to="/products">Products</router-link>
           <router-link v-if="!$store.state.user" class="w3-bar-item w3-button" to="/register">Register</router-link>
           <router-link v-if="!$store.state.user" class="w3-bar-item w3-button" to="/login">Login</router-link>
-          <router-link to="/products">Products</router-link></li>
           <button v-if="$store.state.user" @click.prevent="LogOut" class="w3-bar-item w3-button">Logout</button>
         </div>
 
-      
+
       </div>
     </div>
 

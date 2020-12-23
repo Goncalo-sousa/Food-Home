@@ -32,7 +32,7 @@
               Delete
             </button>
           </td>
-          </tr>
+            <th></th>
         </tr>
       </tbody>
     </table>

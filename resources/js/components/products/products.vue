@@ -30,6 +30,7 @@
             Delete
           </button>
         </td>
+        <th></th>
       </tr>
     </tbody>
   </table>
@@ -37,10 +38,10 @@
 
 <script>
 export default {
-  data(){
+  data() {
     return {
-      products:[]
-    }
+      products: [],
+    };
   },
   methods: {
     editProduct(product) {
@@ -50,7 +51,7 @@ export default {
       // this.$emit("delete-product", product);
     },
   },
-   mounted() {
+  mounted() {
     axios.get("/api/products").then((response) => {
       this.products = response.data.data;
     });
