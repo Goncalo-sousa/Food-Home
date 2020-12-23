@@ -37,7 +37,11 @@
 
 <script>
 export default {
-  props: ["products"],
+  data(){
+    return {
+      products:[]
+    }
+  },
   methods: {
     editProduct(product) {
       this.$router.push({ path: `/products/${products.id}` });
@@ -45,6 +49,11 @@ export default {
     deleteProducts(product) {
       // this.$emit("delete-product", product);
     },
+  },
+   mounted() {
+    axios.get("/api/products").then((response) => {
+      this.products = response.data.data;
+    });
   },
 };
 </script>

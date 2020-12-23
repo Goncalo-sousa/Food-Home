@@ -1926,31 +1926,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2001,13 +1976,6 @@ __webpack_require__.r(__webpack_exports__);
       this.successMessage = "";
       this.failMessage = "";
     }
-  },
-  mounted: function mounted() {
-    var _this2 = this;
-
-    axios.get("/api/products").then(function (response) {
-      _this2.products = response.data.data;
-    });
   },
   components: {
     "edit-product": _components_products_edit_product_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -2595,7 +2563,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["products"],
+  data: function data() {
+    return {
+      products: []
+    };
+  },
   methods: {
     editProduct: function editProduct(product) {
       this.$router.push({
@@ -2604,6 +2576,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteProducts: function deleteProducts(product) {// this.$emit("delete-product", product);
     }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("/api/products").then(function (response) {
+      _this.products = response.data.data;
+    });
   }
 });
 
@@ -21167,56 +21146,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      [
-        _c("products", {
-          attrs: { products: _vm.products },
-          on: {
-            "edit-product": _vm.editProduct,
-            "delete-product": _vm.deleteProduct
-          }
-        }),
-        _vm._v(" "),
-        _vm.successMessage || _vm.failMessage
-          ? _c(
-              "div",
-              {
-                staticClass: "alert",
-                class: {
-                  "alert-success": _vm.successMessage,
-                  "alert-danger": _vm.failMessage
-                },
-                on: { click: _vm.closeMessage }
-              },
-              [
-                _c(
-                  "button",
-                  { staticClass: "close-btn", attrs: { type: "button" } },
-                  [_vm._v("×")]
-                ),
-                _vm._v(" "),
-                _c("strong", [
-                  _vm._v(_vm._s(_vm.successMessage || _vm.failMessage))
-                ])
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.editingProduct
-          ? _c("edit-product", {
-              attrs: { product: _vm.currentProd },
-              on: {
-                "cancel-edit": _vm.cancelEdit,
-                "save-product": _vm.saveProduct
-              }
-            })
-          : _vm._e()
-      ],
-      1
-    )
-  ])
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true

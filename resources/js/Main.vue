@@ -1,30 +1,5 @@
 <template>
-  <div>
-    <div>
-    <products 
-      v-bind:products="products"
-      @edit-product="editProduct"
-      @delete-product="deleteProduct"
-    />
-
-    <div
-      class="alert"
-      v-if="successMessage || failMessage"
-      :class="{ 'alert-success': successMessage, 'alert-danger': failMessage }"
-      @click="closeMessage"
-    >
-      <button type="button" class="close-btn">&times;</button>
-      <strong>{{ successMessage || failMessage }}</strong>
-    </div>
-
-    <edit-product
-      v-if="editingProduct"
-      :product="currentProd"
-      @cancel-edit="cancelEdit"
-      @save-product="saveProduct"
-    ></edit-product>
-    </div>
-  </div>
+ 
 </template>
 
 <script>
@@ -83,11 +58,7 @@ export default {
       this.failMessage = "";
     },
   },
-  mounted() {
-    axios.get("/api/products").then((response) => {
-      this.products = response.data.data;
-    });
-  },
+
   components: {
     "edit-product": EditProductComponent,
   },
