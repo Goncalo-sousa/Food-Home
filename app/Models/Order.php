@@ -14,18 +14,18 @@ class Order extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function users_prepared()
+    public function prepared_by()
     {
         return $this->belongsTo(User::class, 'prepared_by');
     }
 
     
-    public function users_delivered()
+    public function delivered_by()
     {
-        return $this->belongsTo(User::class, 'prepared_by');
+        return $this->belongsTo(User::class, 'delivered_by');
     }
 
-    public function customers()
+    public function customer_id()
     {
         return $this->belongsTo(Customer::class,'id');
     }

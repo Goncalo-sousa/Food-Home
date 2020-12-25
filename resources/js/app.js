@@ -13,24 +13,28 @@ import EditProductComponent from './components/products/edit_product.vue'
 import ManageUsersComponent from './components/Admin/manageUsers.vue'
 import EditUserComponent from './components/Admin/edit_user.vue'
 import ManagementComponent from './components/Admin/management.vue'
-import store from './store';
+import store from './store'
 import VueCookies from 'vue-cookies'
-import axios from 'axios';
+import axios from 'axios'
+import OrderComponent from './components/Orders/orders.vue'
 
 
 
 Vue.use(VueCookies)
 Vue.component('manage-users', ManageUsersComponent);
 Vue.component('products', ProductsComponent);
+Vue.component('orders', OrderComponent);
 
 const routes = [
     { path: '/', component: MainComponent },
     { path: '/register', name: 'Register', component: RegisterComponent },
     { path: '/login', name: 'Login', component: LoginComponent },
-    { path: '/management', name: 'Management', component: ManagementComponent},
+    { path: '/management', name: 'Management', component: ManagementComponent },
     { path: '/users/:id', component: EditUserComponent },
     { path: '/products/:id', component: EditProductComponent },
     { path: '/products', name: 'Products', component: ProductsComponent },
+    { path: '/orders', name: 'Orders', component: OrderComponent },
+    
 ]
 
 
