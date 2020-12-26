@@ -17,6 +17,7 @@ import store from './store'
 import VueCookies from 'vue-cookies'
 import axios from 'axios'
 import OrderComponent from './components/Orders/orders.vue'
+import OrderItemComponent from './components/Orders/order_item.vue'
 
 
 
@@ -34,6 +35,7 @@ const routes = [
     { path: '/products/:id', component: EditProductComponent },
     { path: '/products', name: 'Products', component: ProductsComponent },
     { path: '/orders', name: 'Orders', component: OrderComponent },
+    { path: '/orderitems', name: 'OrderItems', component: OrderItemComponent },
     
 ]
 

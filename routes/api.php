@@ -23,6 +23,8 @@ Route::delete('users/{user}', 'Api\UserController@destroy');
 
 Route::get('/orders', 'Api\OrderController@index');
 
+Route::get('/orderitems', 'Api\OrderItemController@index');
+
 Route::put('products/{product}', 'Api\ProductController@update');
 Route::delete('products/{product}', 'Api\ProductController@destroy');
 

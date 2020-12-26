@@ -9,12 +9,12 @@ class Order_item extends Model
 {
     use HasFactory;
 
-    public function products()
+    public function product_id()
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function orders()
+    public function order_id()
     {
         return $this->belongsTo(Order::class);
     }
