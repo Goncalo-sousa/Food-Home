@@ -24,10 +24,7 @@
         </th>
         <td v-if="product.deleted_at == null">
           <button class="btn btn-primary" v-on:click="editProduct(product)">
-            Edit
-          </button>
-          <button class="btn btn-danger" @click="deleteProduct(product)">
-            Delete
+            Buy
           </button>
         </td>
         <th></th>
