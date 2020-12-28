@@ -11,10 +11,15 @@ class Order extends Model
 
     public function order_items()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order_item::class);
     }
 
     public function prepared_by()
+    {
+        return $this->belongsTo(User::class, 'prepared_by');
+    }
+
+    public function cook()
     {
         return $this->belongsTo(User::class, 'prepared_by');
     }
@@ -25,9 +30,9 @@ class Order extends Model
         return $this->belongsTo(User::class, 'delivered_by');
     }
 
-    public function customer_id()
+    public function customer()
     {
-        return $this->belongsTo(Customer::class,'id');
+        return $this->belongsTo(Customer::class);
     }
 
 

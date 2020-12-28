@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Resources\Order as OrderResource;
+use Illuminate\Support\Facades\Auth;
+
+use function PHPSTORM_META\type;
 
 class OrderController extends Controller
 {
@@ -16,7 +19,21 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return OrderResource::collection(Order::all());
+        $user = Auth::user();
+        $orders = Order::with(["order_items.product","cook","customer.user"]);
+        if($user->type == "EC"){
+            $orders->where("prepared_by", $user->id)->where("status", "H");
+            
+        }else{
+            if($user->type == "C"){
+                $orders->where("customer_id", $user->id);
+            }elseif($user->type == "ED"){
+                $orders->where("delivered_id", $user->id);
+            }elseif($user->type == "EM"){
+                $orders->whereNotIn("status", ["D","C"]);
+            }
+        }
+        return OrderResource::collection($orders->get());
     }
 
     /**

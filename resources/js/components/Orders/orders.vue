@@ -1,27 +1,31 @@
 <template>
   <div>
-    <table class="table">
+    <table v-if="orders.length" class="table">
       <thead class="thead-dark">
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Type</th>
-          <th>Blocked</th>
-          <th>Photo</th>
+          <th>Order ID</th>
+          <th>Status</th>
+          <th>Opened At</th>
+          <th>Prepared By</th>
+          <th>Customer</th>
+          <th>Notes</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="order of orders" :key="order.id">
-          <td>{{ order.customer_id }}</td>
+          <td>{{ order.id }}</td>
           <td>{{ order.status }}</td>
-          <td>{{ order.total_price }}€</td>
-          <td>{{ order.date }}</td>
-          <td>{{ order.prepared_by }}</td>
-          <td>{{ order.delivered_by }}</td>
+          <td>{{ order.opened_at }}</td>
+          <td>{{ order.cook.name }}</td>
+          <td>{{ order.customer.name }}</td>
+          <td>{{ order.notes }}</td>
         </tr>
       </tbody>
     </table>
+    <div v-else>
+      <h5>No orders</h5>
+    </div>
   </div>
 </template>
 
@@ -40,5 +44,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

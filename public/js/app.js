@@ -1930,6 +1930,14 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 
@@ -2452,6 +2460,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2651,7 +2663,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\nh1 {text-align: center;}\nh2 {text-align: center;}\r\n", ""]);
+exports.push([module.i, "\nh1 {\r\n  text-align: center;\n}\nh2 {\r\n  text-align: center;\n}\r\n", ""]);
 
 // exports
 
@@ -21852,7 +21864,7 @@ var render = function() {
     _c(
       "h2",
       [
-        _vm._v("Start buying by "),
+        _vm._v("\n    Start buying by\n    "),
         !_vm.$store.state.user
           ? _c(
               "router-link",
@@ -21860,7 +21872,7 @@ var render = function() {
               [_vm._v("login")]
             )
           : _vm._e(),
-        _vm._v(" or "),
+        _vm._v("\n    or\n    "),
         !_vm.$store.state.user
           ? _c(
               "router-link",
@@ -21871,7 +21883,7 @@ var render = function() {
               [_vm._v("register")]
             )
           : _vm._e(),
-        _vm._v(" now!")
+        _vm._v("\n    now!\n  ")
       ],
       1
     )
@@ -22655,29 +22667,31 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("table", { staticClass: "table" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.orders, function(order) {
-          return _c("tr", { key: order.id }, [
-            _c("td", [_vm._v(_vm._s(order.customer_id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(order.status))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(order.total_price) + "€")]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(order.date))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(order.prepared_by))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(order.delivered_by))])
-          ])
-        }),
-        0
-      )
-    ])
+    _vm.orders.length
+      ? _c("table", { staticClass: "table" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.orders, function(order) {
+              return _c("tr", { key: order.id }, [
+                _c("td", [_vm._v(_vm._s(order.id))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(order.status))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(order.opened_at))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(order.cook.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(order.customer.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(order.notes))])
+              ])
+            }),
+            0
+          )
+        ])
+      : _c("div", [_c("h5", [_vm._v("No orders")])])
   ])
 }
 var staticRenderFns = [
@@ -22687,15 +22701,17 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", { staticClass: "thead-dark" }, [
       _c("tr", [
-        _c("th", [_vm._v("Name")]),
+        _c("th", [_vm._v("Order ID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Email")]),
+        _c("th", [_vm._v("Status")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Type")]),
+        _c("th", [_vm._v("Opened At")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Blocked")]),
+        _c("th", [_vm._v("Prepared By")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Photo")]),
+        _c("th", [_vm._v("Customer")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Notes")]),
         _vm._v(" "),
         _c("th")
       ])
@@ -40703,8 +40719,8 @@ var Errors = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\Food-Home\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\Food-Home\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\laragon\www\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })

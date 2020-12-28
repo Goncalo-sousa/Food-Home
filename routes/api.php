@@ -21,7 +21,7 @@ Route::get('/users/{user}', 'Api\UserController@show');
 Route::put('users/{user}', 'Api\UserController@update');
 Route::delete('users/{user}', 'Api\UserController@destroy');
 
-Route::get('/orders', 'Api\OrderController@index');
+Route::middleware('auth:sanctum')->get('/orders', 'Api\OrderController@index');
 
 Route::get('/orderitems', 'Api\OrderItemController@index');
 
