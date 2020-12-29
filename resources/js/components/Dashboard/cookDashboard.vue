@@ -54,22 +54,21 @@ export default {
   },
   methods: {
     changeOrderStatus: function (order) {
-      this.currentOrder = order;
-      this.currentOrder.status = "D";
-      console.log(this.currentOrder.status);
-      axios
-        .put("api/orders/" + this.currentOrder.id, this.currentOrder)
-        .then((response) => {
-          this.showSuccess = true;
-          this.successMessage = "Order Status Changed";
-          Object.assign(this.currentOrder, response.data.data);
-        });
+      let form = { status: "D" };
+      axios.put("api/orders/" + order.id, form).then((response) => {
+        this.showSuccess = true;
+        this.successMessage = "Order Status Changed";
+        this.getOrders();
+      });
+    },
+    getOrders: function () {
+      axios.get("/api/orders").then((response) => {
+        this.orders = response.data.data;
+      });
     },
   },
   mounted() {
-    axios.get("/api/orders").then((response) => {
-      this.orders = response.data.data;
-    });
+    this.getOrders();
   },
 };
 </script>
