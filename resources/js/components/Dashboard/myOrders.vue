@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 v-if="user && user.type === 'EC'">Cook Dashboard</h2>
+    <h2 v-if="user && user.type === 'C'">My Orders</h2>
     <table v-if="orders.length" class="table">
       <thead class="thead-dark">
         <tr>

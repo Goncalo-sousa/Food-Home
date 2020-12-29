@@ -14,7 +14,7 @@
       >
       now!
     </h2>
-    <!-- <img src="{{ URL::asset('home/menu.jpg') }}" class="center" alt="Menu" style="width:40%" > -->
+    <img class="center" alt="Menu" style="width: 40%" v-bind:src="'/home/menu.jpg'" />
   </div>
 </template>
 

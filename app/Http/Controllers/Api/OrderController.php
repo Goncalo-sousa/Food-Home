@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateOrderStatusRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Resources\Order as OrderResource;
@@ -20,17 +21,19 @@ class OrderController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $orders = Order::with(["order_items.product","cook","customer.user"]);
-        if($user->type == "EC"){
+        $orders = Order::with(["order_items.product", "cook", "customer.user"]);
+        if ($user->type == "EC") {
             $orders->where("prepared_by", $user->id)->where("status", "H");
-            
-        }else{
-            if($user->type == "C"){
+        } else {
+            if ($user->type == "C") {
                 $orders->where("customer_id", $user->id);
-            }elseif($user->type == "ED"){
-                $orders->where("delivered_id", $user->id);
-            }elseif($user->type == "EM"){
-                $orders->whereNotIn("status", ["D","C"]);
+            } elseif ($user->type == "ED") {
+                $orders->where("delivered_by", $user->id)->where("status", "T");
+                if(count($orders) == 0){  //RICARDO HELP
+                    $orders->where("delivered_by", $user->id)->where("status", "R"); 
+                }         
+            } elseif ($user->type == "EM") {
+                $orders->whereNotIn("status", ["D", "C"]);
             }
         }
         return OrderResource::collection($orders->get());
@@ -53,9 +56,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        //
+        return new OrderResource($order);
     }
 
     /**
@@ -65,9 +68,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateStatus(UpdateOrderStatusRequest $request,Order $order)
     {
-        //
+        $order->update($request->validated());
+        return new OrderResource($order);
     }
 
     /**

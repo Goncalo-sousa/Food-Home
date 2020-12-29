@@ -29,7 +29,7 @@ class Order extends JsonResource
             'opened_at'=>$this->opened_at,
             'closed_at'=>$this->closed_at,
             'current_status_at'=>$this->current_status_at,
-            'preparation_time'=>$this->preparation_time,
+            'preparation_time'=>gmdate("H:i:s",$this->preparation_time),
             'delivery_time'=>$this->delivery_time,
             'total_time'=>$this->total_time,
             'order_items'=>OrderItem::collection($this->order_items)
