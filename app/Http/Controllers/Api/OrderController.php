@@ -28,10 +28,7 @@ class OrderController extends Controller
             if ($user->type == "C") {
                 $orders->where("customer_id", $user->id);
             } elseif ($user->type == "ED") {
-                $orders->where("delivered_by", $user->id)->where("status", "T");
-                if(count($orders) == 0){  //RICARDO HELP
-                    $orders->where("delivered_by", $user->id)->where("status", "R"); 
-                }         
+                $orders->where("delivered_by", $user->id)->whereIn("status", ["T", "R"]);
             } elseif ($user->type == "EM") {
                 $orders->whereNotIn("status", ["D", "C"]);
             }
@@ -68,9 +65,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateStatus(UpdateOrderStatusRequest $request,Order $order)
+    public function updateStatus(Request $request, Order $order)
     {
-        $order->update($request->validated());
+        $order->update($request->only(['status']));
         return new OrderResource($order);
     }
 

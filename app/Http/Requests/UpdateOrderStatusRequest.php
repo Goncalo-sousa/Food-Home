@@ -24,7 +24,7 @@ class UpdateOrderStatusRequest extends FormRequest
     public function rules()
     {
         return [
-
+            
         ];
     }
 }
