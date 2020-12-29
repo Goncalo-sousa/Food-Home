@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Product as ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductController extends Controller
 {
@@ -61,8 +62,37 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function DeleteSoftDeleted($id)
     {
-        //
+        $product = Product::onlyTrashed()->find($id);
+
+        if (!is_null($product)) {
+            // $product->forceDelete();
+            $response = $this->successulMessage(200, 'Successfully deleted', true, 0, $product);
+            return response($response);
+        }
+        return;
+    }
+
+    private function notFoundMessage()
+    {
+
+        return [
+            'code' => 404,
+            'message' => 'Note not found',
+            'success' => false,
+        ];
+
+    }
+
+    private function successulMessage($code, $message, $status, $count, $payload)
+    {
+        return [
+            'code' => $code,
+            'message' => $message,
+            'success' => $status,
+            'count' => $count,
+            'data' => $payload,
+        ];
     }
 }
