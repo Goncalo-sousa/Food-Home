@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 v-if="user && user.type === 'EC'">Cook Dashboard</h2>
+    <h2 v-if="user && user.type === 'ED'">Deliveryman Dashboard</h2>
     <table v-if="orders.length" class="table">
       <thead class="thead-dark">
         <tr>
@@ -8,10 +8,13 @@
           <th>Status</th>
           <th>Opened At</th>
           <th>Time Elapsed</th>
-          <th>Order Items</th>
-          <th>Prepared By</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Email</th>
           <th>Customer</th>
+          <th>Order Items</th>
           <th>Notes</th>
+          <th>Pick Order</th>
           <th>Order Completed</th>
           <th></th>
         </tr>
@@ -22,10 +25,15 @@
           <td>{{ order.status }}</td>
           <td>{{ order.opened_at }}</td>
           <td>{{ order.preparation_time }}</td>
-          <td>{{ order.order_items }}</td>
-          <td>{{ order.cook.name }}</td>
+          <td>{{ order.address }}</td>
+          <td>{{ order.phone }}</td>
+          <td>{{ order.email }}</td>
           <td>{{ order.customer.name }}</td>
+          <td>{{ order.order_items }}</td>
           <td>{{ order.notes }}</td>
+          <td>
+            <button v-on:click.prevent="pickUpOrder(order)">Pick Up</button>
+          </td>
           <td>
             <button v-on:click.prevent="changeOrderStatus(order)">Done</button>
           </td>
@@ -56,6 +64,18 @@ export default {
     changeOrderStatus: function (order) {
       this.currentOrder = order;
       this.currentOrder.status = "D";
+      console.log(this.currentOrder.status);
+      axios
+        .put("api/orders/" + this.currentOrder.id, this.currentOrder)
+        .then((response) => {
+          this.showSuccess = true;
+          this.successMessage = "Order Status Changed";
+          Object.assign(this.currentOrder, response.data.data);
+        });
+    },
+    pickUpOrder: function (order) {
+      this.currentOrder = order;
+      this.currentOrder.status = "T";
       console.log(this.currentOrder.status);
       axios
         .put("api/orders/" + this.currentOrder.id, this.currentOrder)

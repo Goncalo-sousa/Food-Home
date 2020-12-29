@@ -21,6 +21,7 @@ class OrderItem extends JsonResource
             'quantity' => $this->quantity,
             'unit_price' => $this->unit_price,
             'sub_total_price' => $this->sub_total_price,
+            'product' => new Product($this->product)
         ];
     }
 }

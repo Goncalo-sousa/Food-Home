@@ -23,14 +23,19 @@
     <div class="w3-top">
       <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
         <router-link class="w3-bar-item w3-button" to="/">Food@Home</router-link>
+        <span v-if="$store.state.user">@{{$store.state.user.name}}</span>
+        <span v-if="$store.state.user">@{{$store.state.user.type}}</span>
         <!-- Right-sided navbar links. Hide them on small screens -->
         <div class="w3-right w3-hide-small">
           <router-link v-if="$store.state.user && $store.state.user.type == 'EM'" class="w3-bar-item w3-button" to="/management">Manage</router-link>
-        
           <router-link v-show="$route.path==='/'" class="w3-bar-item w3-button" to="/products">Products</router-link>
          
           <router-link v-if="!$store.state.user" class="w3-bar-item w3-button" to="/register">Register</router-link>
           <router-link v-if="!$store.state.user" class="w3-bar-item w3-button" to="/login">Login</router-link>
+          <router-link v-if="$store.state.user && $store.state.user.type == 'EC'" class="w3-bar-item w3-button" to="/cookDashboard">Cook Dashboard</router-link>
+          <router-link v-if="$store.state.user && $store.state.user.type == 'ED'" class="w3-bar-item w3-button" to="/deliverymanDashboard">Delveryman Dashboard</router-link>
+          <router-link v-if="$store.state.user && $store.state.user.type == 'C'" class="w3-bar-item w3-button" to="/myOrders">My Orders</router-link>
+          
           <button v-if="$store.state.user" @click.prevent="LogOut" class="w3-bar-item w3-button">Logout</button>
         </div>
 
@@ -42,7 +47,6 @@
 
     <div style="padding-top: 5rem">
       <router-view></router-view>
-      <img src="{{ URL::asset('home/menu.jpg') }}" class="center" alt="Menu" style="width:40%" >
     </div>
 
   </div>
