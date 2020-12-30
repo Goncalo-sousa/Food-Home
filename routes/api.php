@@ -31,6 +31,7 @@ Route::get('myOrders/{order}', 'Api\OrderController@show');
 
 Route::get('/orderitems', 'Api\OrderItemController@index');
 
+Route::get('products/{product}', 'Api\ProductController@show');
 Route::put('products/{product}', 'Api\ProductController@update');
 Route::delete('products/{product}', 'Api\ProductController@destroy');
 Route::post('products/filter', 'Api\ProductController@getFilterProducts');

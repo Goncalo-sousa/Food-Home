@@ -13,18 +13,18 @@
       </thead>
       <tbody>
         <tr v-for="user of users" :key="user.id">
-          <td v-if="user.deleted_at != null">{{ user.name }}</td>
-          <td v-if="user.deleted_at != null">{{ user.email }}</td>
-          <td v-if="user.deleted_at != null">{{ user.type }}</td>
-          <td v-if="user.deleted_at != null">{{ user.blocked }}</td>
-          <th v-if="user.deleted_at != null">
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.type }}</td>
+          <td>{{ user.blocked }}</td>
+          <th>
             <img v-if="user.photo_url != null"
               v-bind:src="'storage/fotos/' + user.photo_url"
               width="50vw"
               height="50vh"
             />
           </th>
-          <td v-if="user.deleted_at != null">
+          <td>
             <button class="btn btn-primary" v-on:click="editUser(user)">
               Edit
             </button>
@@ -32,7 +32,6 @@
               Delete
             </button>
           </td>
-            <th></th>
         </tr>
       </tbody>
     </table>
@@ -44,11 +43,10 @@ export default {
   props: ["users"],
   methods: {
     editUser(user) {
-      // this.$emit("edit-user", user); //para emitir para o pai
       this.$router.push({ path: `/users/${user.id}` });
     },
     deleteUser(user) {
-      // this.$emit("delete-user", user);
+      this.$emit("delete-user", user);
     },
   },
 };

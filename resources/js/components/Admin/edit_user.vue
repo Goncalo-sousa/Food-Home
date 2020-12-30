@@ -10,14 +10,16 @@
         <label>Email:</label>
         <input type="text" class="form-control" v-model="user.email" />
       </div>
-      <!-- <div class="form-group">
+      <div class="form-group">
         <label>Type:</label>
         <select class="form-control" v-model="user.type">
-          <option v-for="type in types" :k >
-            {{ user.type }}
-          </option>
+          <option disabled value="">Please select one</option>
+          <option>C</option>
+          <option>EC</option>
+          <option>ED</option>
+          <option>EM</option>
         </select>
-      </div> -->
+      </div>
       <div class="form-group">
         <label>Blocked:</label>
         <select class="form-control" v-model="user.blocked">
@@ -40,14 +42,20 @@
 
 <script>
 export default {
-  props: ["user"],
-  data: function () {
-    return {};
+  //props: ["user"],
+  data(){
+    return {
+      user: undefined
+    }
   },
   methods: {
-    saveUser() {
-      // this.$emit("save-user", this.user);
-      // this.$router.push({path: `/users`, params:{'save-user': this.user}});
+    saveUser: function () {
+      console.log(this.user);
+      axios.put(`/api/users/${this.user.id}`, this.user).then((result) => {
+        const user = result.data.data;
+
+        Object.assign(this.user, user);
+      });
     },
     cancelEdit() {
       // this.$emit("cancel-edit");

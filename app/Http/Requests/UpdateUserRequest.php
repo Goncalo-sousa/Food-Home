@@ -13,7 +13,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,9 +27,11 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|regex:/^[A-Za-záàâãéèêíóôõúçÁÀÂÃÉÈÍÓÔÕÚÇ ]+$/',
             'email' => 'required|email|unique:users,email,' . $this->user->id,
             'password' => 'nullable|string|min:6|confirmed',
-            'type' => 'required|regex:/C|EC|ED|EM/',
+            'type' => 'required',
+            'blocked' => 'nullable',
             'created_at' => 'nullable|date',
             'updated_at' => 'nullable|date',
         ];
     }
 }
+//|regex:/^((C)|(EC)|(ED)|(EM))$/

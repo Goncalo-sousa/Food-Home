@@ -2,15 +2,23 @@
    <div class="jumbotron">
          <h2>Edit Product</h2>
 
+    
            <form v-if="product"> 
                 <div class="form-group">
                     <label>Name</label>
                     <input type="text" class="form-control" v-model="product.name">
                 </div>
 
-                <div class="form-group">
-                    <label>Type</label>
-                    <input type="text" class="form-control" v-model="product.type">
+
+                 <div class="form-group">
+                    <label>Type:</label>
+                    <select class="form-control" v-model="product.type">
+                    <option disabled value="">Please select one</option>
+                    <option value="drink">Drink</option>
+                    <option value="cold dish">Cold dish</option>
+                    <option value="hot dish">Hot dish</option>
+                    <option value="dessert">Dessert</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -41,25 +49,29 @@
 
 <script>
 export default {
-    data: function(){
-        return {
-                product:undefined,
-        }
-    },
-    methods:{
-        saveProduct(){
-            this.$emit('save-product',this.product)
-        },
-        cancelEdit(){
-            this.$emit('cancel-edit')
-        }
+
+  data: function () {
+    return {product: undefined};
+  },
+  methods: {
+    saveProduct: function() {
+     console.log(this.product);
+      axios.put(`/api/products/${this.product.id}`, this.product).then((result) => {
+        const product = result.data.data;
+
+        Object.assign(this.product, product);
+      });
 
     },
-    async created(){
-        const productID = this.$route.params.id
-        this.product = (await axios.get(`/api/products/${productID}`)).data.data
-       
-    }
+    cancelEdit() {
+       this.$emit("cancel-edit");
+      this.$router.push({ path: "/products" });
+    },
+  },
+  async created() {
+    const productID = this.$route.params.id;
+    this.product = (await axios.get(`/api/products/${productID}`)).data.data;
+  },
 
 }
 </script>

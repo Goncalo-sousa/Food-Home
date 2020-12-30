@@ -21,12 +21,13 @@ import CookDashboard from './components/Dashboard/CookDashboard.vue'
 import DeliverymanDashboard from './components/Dashboard/deliverymanDashboard.vue'
 import MyOrders from './components/Dashboard/myOrders.vue'
 import OrderItemComponent from './components/Orders/order_item.vue'
-
+import MyProfileComponent from './components/user/myprofile.vue'
 
 
 Vue.use(VueCookies)
 Vue.component('manage-users', ManageUsersComponent);
 Vue.component('products', ProductsComponent);
+Vue.component('edit-products',EditProductComponent);
 Vue.component('orders', OrderComponent);
 Vue.component('cookDashboard', CookDashboard)
 Vue.component('deliverymanDashboard', DeliverymanDashboard)
@@ -45,6 +46,7 @@ const routes = [
     { path: '/myorders', name: 'MyOrders', component: MyOrders},
     { path: '/deliverymanDashboard', name: 'deliverymanDashboard', component: DeliverymanDashboard},
     { path: '/orderitems', name: 'OrderItems', component: OrderItemComponent },
+    { path: '/myprofile', name: 'MyProfile', component: MyProfileComponent },
 ]
 
 
