@@ -2942,17 +2942,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["product"],
   data: function data() {
-    return {
-      product: undefined
-    };
+    return {};
   },
   methods: {
-    saveProduct: function saveProduct() {
-      this.$emit('save-product', this.product);
+    saveProduct: function saveProduct() {//this.$emit("save-user", this.user);
+      //this.$router.push({path: `/users`, params:{'save-user': this.user}});
     },
-    cancelEdit: function cancelEdit() {
-      this.$emit('cancel-edit');
+    cancelEdit: function cancelEdit() {// this.$emit("cancel-edit");
+      //this.$router.push({ path: "/management" });
     }
   },
   created: function created() {
@@ -2992,6 +2991,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _edit_product_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./edit_product.vue */ "./resources/js/components/products/edit_product.vue");
 //
 //
 //
@@ -3056,13 +3056,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    manageProducts: _edit_product_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       products: [],
+      editingProduct: false,
+      showSuccess: false,
+      showFailure: false,
+      successMessage: '',
+      failMessage: '',
+      currentProduct: {},
       search: {
         name: "",
         type: ""
@@ -3071,12 +3078,25 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    editProduct: function editProduct(product) {
+    editProduct: function (_editProduct) {
+      function editProduct(_x) {
+        return _editProduct.apply(this, arguments);
+      }
+
+      editProduct.toString = function () {
+        return _editProduct.toString();
+      };
+
+      return editProduct;
+    }(function (product) {
+      console.log(product.id);
+      this.currentProduct = Object.assign({}, product);
       this.$router.push({
-        path: "/products/".concat(products.id)
+        path: "/products/".concat(product.id)
       });
-    },
-    deleteProducts: function deleteProducts(product) {// this.$emit("delete-product", product);
+      editProduct = true;
+    }),
+    deleteProduct: function deleteProduct(product) {//this.$emit("delete-product", product);
     },
     getProducts: function getProducts() {
       var _this = this;
@@ -3086,18 +3106,10 @@ __webpack_require__.r(__webpack_exports__);
           _this.showError = true;
           _this.errorMessage = response.data;
         } else {
-          _this.products = response.data;
+          _this.products = response.data.data;
         }
       })["catch"](function (error) {
         console.log(error);
-      });
-    },
-    send: function send() {
-      var obj = {
-        check_items: this.checkedNames
-      };
-      this.axios.post('api/products/filter', obj).then(function (res) {
-        return console.log(res.data);
       });
     },
     getResults: function getResults() {
@@ -23873,101 +23885,114 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("Card", { attrs: { title: "List od products" } }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-2" }),
+  return _c(
+    "table",
+    { staticClass: "table table-striped" },
+    [
+      _vm.editingProducts
+        ? _c("edit-products", { attrs: { user: _vm.currentproducts } })
+        : _vm._e(),
       _vm._v(" "),
-      _c("label", { attrs: { for: "productType" } }, [_vm._v("Type: ")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.search.type,
-              expression: "search.type"
-            }
-          ],
-          attrs: { id: "productType" },
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.$set(
-                _vm.search,
-                "type",
-                $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-              )
-            }
-          }
-        },
-        [
-          _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "hot dish" } }, [_vm._v("Hot dish:")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "cold dish" } }, [
-            _vm._v("Cold dish:")
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "drink" } }, [_vm._v("Drink:")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "dessert" } }, [_vm._v("Dessert:")])
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("span", [_vm._v(_vm._s(_vm.search))]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-2" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { value: "name" } }, [_vm._v("Name")]),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-2" }),
         _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", name: "name", id: "name" }
-        }),
+        _c("label", { attrs: { for: "productType" } }, [_vm._v("Type: ")]),
         _vm._v(" "),
         _c(
-          "button",
+          "select",
           {
-            staticClass: "btn btn-primary",
-            attrs: { type: "submit" },
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.search.type,
+                expression: "search.type"
+              }
+            ],
+            attrs: { id: "productType" },
             on: {
-              click: function($event) {
-                return _vm.getProducts()
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.$set(
+                  _vm.search,
+                  "type",
+                  $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                )
               }
             }
           },
-          [_vm._v("Search")]
+          [
+            _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "hot dish" } }, [
+              _vm._v("Hot dish:")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "cold dish" } }, [
+              _vm._v("Cold dish:")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "drink" } }, [_vm._v("Drink:")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "dessert" } }, [_vm._v("Dessert:")])
+          ]
         )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("table", { staticClass: "table table-striped" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", [_vm._v("Name")]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-2" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { value: "name" } }, [_vm._v("Name")]),
           _vm._v(" "),
-          _c("th", [_vm._v("Type")]),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.search.name,
+                expression: "search.name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", name: "name", id: "name" },
+            domProps: { value: _vm.search.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.search, "name", $event.target.value)
+              }
+            }
+          }),
           _vm._v(" "),
-          _c("th", [_vm._v("Price")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Description")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Photo")])
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              attrs: { type: "submit" },
+              on: {
+                click: function($event) {
+                  return _vm.getProducts()
+                }
+              }
+            },
+            [_vm._v("Search")]
+          )
         ])
       ]),
+      _vm._v(" "),
+      _c("span", [_vm._v(_vm._s(_vm.search))]),
+      _vm._v(" "),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "tbody",
@@ -24009,11 +24034,37 @@ var render = function() {
                       staticClass: "btn btn-primary",
                       on: {
                         click: function($event) {
+                          product
+                        }
+                      }
+                    },
+                    [_vm._v("Buy:")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
                           return _vm.editProduct(product)
                         }
                       }
                     },
-                    [_vm._v("\r\n            Buy\r\n          ")]
+                    [_vm._v("Edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteProduct(product)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete:")]
                   )
                 ])
               : _vm._e(),
@@ -24023,10 +24074,30 @@ var render = function() {
         }),
         0
       )
-    ])
-  ])
+    ],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Photo")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -40694,6 +40765,7 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.use(vue_cookies__WEBPACK_IMPORTED_MODULE_10___default.a);
 Vue.component('manage-users', _components_Admin_manageUsers_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
 Vue.component('products', _components_products_products_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
+Vue.component('manage-products', _components_products_edit_product_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
 Vue.component('orders', _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_12__["default"]);
 Vue.component('cookDashboard', _components_Dashboard_CookDashboard_vue__WEBPACK_IMPORTED_MODULE_13__["default"]);
 Vue.component('deliverymanDashboard', _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_14__["default"]);
