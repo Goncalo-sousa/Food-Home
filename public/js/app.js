@@ -3027,10 +3027,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      products: []
+      products: [],
+      search: {
+        name: "",
+        type: ""
+      },
+      checkedNames: []
     };
   },
   methods: {
@@ -3040,13 +3082,42 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteProducts: function deleteProducts(product) {// this.$emit("delete-product", product);
+    },
+    getProducts: function getProducts() {
+      var _this = this;
+
+      axios.post("/api/products/filter", this.checkedNames).then(function (response) {
+        if (response.data == "Can't search by category!") {
+          _this.showError = true;
+          _this.errorMessage = response.data;
+        } else {
+          _this.products = response.data;
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    send: function send() {
+      var obj = {
+        check_items: this.checkedNames
+      };
+      this.axios.post('api/products/filter', obj).then(function (res) {
+        return console.log(res.data);
+      });
+    },
+    getResults: function getResults() {
+      var _this2 = this;
+
+      axios.post("api/products/filter?page=" + page, this.search).then(function (response) {
+        _this2.products = response.data;
+      });
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this3 = this;
 
     axios.get("/api/products").then(function (response) {
-      _this.products = response.data.data;
+      _this3.products = response.data.data;
     });
   }
 });
@@ -23807,85 +23878,162 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-striped" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.products, function(product) {
-        return _c("tr", { key: product.id }, [
-          product.deleted_at == null
-            ? _c("th", [_vm._v(_vm._s(product.name))])
-            : _vm._e(),
-          _vm._v(" "),
-          product.deleted_at == null
-            ? _c("th", [_vm._v(_vm._s(product.type))])
-            : _vm._e(),
-          _vm._v(" "),
-          product.deleted_at == null
-            ? _c("th", [_vm._v(_vm._s(product.price) + "€")])
-            : _vm._e(),
-          _vm._v(" "),
-          product.deleted_at == null
-            ? _c("th", [_vm._v(_vm._s(product.description))])
-            : _vm._e(),
-          _vm._v(" "),
-          product.deleted_at == null
-            ? _c("th", [
-                _c("img", {
-                  attrs: {
-                    src: "storage/products/" + product.photo_url,
-                    width: "50vw",
-                    height: "50vh"
-                  }
+  return _c("Card", { attrs: { title: "List od products" } }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-2" }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "productType" } }, [_vm._v("Type: ")]),
+      _vm._v(" "),
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.search.type,
+              expression: "search.type"
+            }
+          ],
+          attrs: { id: "productType" },
+          on: {
+            change: function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
                 })
-              ])
-            : _vm._e(),
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.$set(
+                _vm.search,
+                "type",
+                $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+              )
+            }
+          }
+        },
+        [
+          _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
           _vm._v(" "),
-          product.deleted_at == null
-            ? _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        return _vm.editProduct(product)
-                      }
-                    }
-                  },
-                  [_vm._v("\n          Buy\n        ")]
-                )
-              ])
-            : _vm._e(),
+          _c("option", { attrs: { value: "hotdish" } }, [_vm._v("Hot dish:")]),
           _vm._v(" "),
-          _c("th")
+          _c("option", { attrs: { value: "colddish" } }, [
+            _vm._v("Cold dish:")
+          ]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "drink" } }, [_vm._v("Drink:")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "dessert" } }, [_vm._v("Dessert:")])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("button", { staticClass: "btn btn-info" }, [_vm._v("Submit")])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-2" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", name: "name", id: "name" }
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            attrs: { type: "submit" },
+            on: {
+              click: function($event) {
+                return _vm.send()
+              }
+            }
+          },
+          [_vm._v("Search")]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-striped" }, [
+      _c("thead", [
+        _c("tr", [
+          _c("th", [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Type")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Price")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Description")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Photo")])
         ])
-      }),
-      0
-    )
+      ]),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.products, function(product) {
+          return _c("tr", { key: product.id }, [
+            product.deleted_at == null
+              ? _c("th", [_vm._v(_vm._s(product.name))])
+              : _vm._e(),
+            _vm._v(" "),
+            product.deleted_at == null
+              ? _c("th", [_vm._v(_vm._s(product.type))])
+              : _vm._e(),
+            _vm._v(" "),
+            product.deleted_at == null
+              ? _c("th", [_vm._v(_vm._s(product.price) + "€")])
+              : _vm._e(),
+            _vm._v(" "),
+            product.deleted_at == null
+              ? _c("th", [_vm._v(_vm._s(product.description))])
+              : _vm._e(),
+            _vm._v(" "),
+            product.deleted_at == null
+              ? _c("th", [
+                  _c("img", {
+                    attrs: {
+                      src: "storage/products/" + product.photo_url,
+                      width: "50vw",
+                      height: "50vh"
+                    }
+                  })
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            product.deleted_at == null
+              ? _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.editProduct(product)
+                        }
+                      }
+                    },
+                    [_vm._v("\r\n            Buy\r\n          ")]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("th")
+          ])
+        }),
+        0
+      )
+    ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Type")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Price")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Description")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Photo")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

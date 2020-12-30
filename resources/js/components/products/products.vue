@@ -1,5 +1,40 @@
 <template>
+<Card title="List od products">
+
+
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <label for="productType">Type: </label>
+        <select id="productType" v-model="search.type">
+        <option value="">All</option>
+        <option value="hotdish">Hot dish:</option>
+        <option value="colddish">Cold dish:</option>
+        <option value="drink">Drink:</option>
+        <option value="dessert">Dessert:</option>
+</select>
+    
+
+
+      <div class="form-group">
+        <button class="btn btn-info">Submit</button>
+      </div>
+        
+        </div>
+ 
+  <div class="row">
+        <div class="col-md-2"></div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name" />
+          <button type="submit" class="btn btn-primary" v-on:click="send()">Search</button>
+
+        </div>
+    </div>
+    
   <table class="table table-striped">
+
+      
     <thead>
       <tr>
         <th>Name</th>
@@ -31,6 +66,8 @@
       </tr>
     </tbody>
   </table>
+
+</Card>
 </template>
 
 <script>
@@ -38,20 +75,58 @@ export default {
   data() {
     return {
       products: [],
+      search: {
+        name: "",
+        type: "",
+      },
+      checkedNames: [],
     };
   },
   methods: {
+    
     editProduct(product) {
       this.$router.push({ path: `/products/${products.id}` });
     },
     deleteProducts(product) {
       // this.$emit("delete-product", product);
     },
+     getProducts: function() {
+      axios
+        .post("/api/products/filter", this.checkedNames)
+        .then(response => {
+          if (response.data == "Can't search by category!") {
+            this.showError = true;
+            this.errorMessage = response.data;
+          } else {
+            this.products = response.data;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    send() {
+      let obj = {
+        check_items: this.checkedNames
+      }
+      this.axios.post('api/products/filter', obj)
+          .then(res => console.log(res.data));
+    },
+
+    getResults: function() {
+      axios
+        .post("api/products/filter?page=" + page, this.search)
+        .then(response => {
+          this.products = response.data;
+        });
+    }
   },
   mounted() {
     axios.get("/api/products").then((response) => {
       this.products = response.data.data;
     });
+
+    
   },
 };
 </script>

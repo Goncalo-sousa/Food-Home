@@ -20,6 +20,24 @@ class ProductController extends Controller
         return ProductResource::collection(Product::all());
     }
 
+    public function getFilterProducts(Request $request){
+        if(!is_null($request->name) || !is_null($request->type)){
+        
+            $products = Product::all();
+            if(!is_null($request->name)){
+                $products = $products->where('name', 'like', $request->name . '%');
+            }
+            if(!is_null($request->type)){
+                $products = $products->where('type', $request->type);
+            }
+           
+            $products = $products->paginate(10);
+        }else{
+            $products = Product::all()->paginate(10);
+        }
+        return $users;
+    }
+
 
 
     /**
