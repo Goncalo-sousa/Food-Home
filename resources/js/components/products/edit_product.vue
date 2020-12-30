@@ -41,25 +41,24 @@
 
 <script>
 export default {
-    data: function(){
-        return {
-                product:undefined,
-        }
+props: ["product"],
+  data: function () {
+    return {};
+  },
+  methods: {
+    saveProduct() {
+      //this.$emit("save-user", this.user);
+      //this.$router.push({path: `/users`, params:{'save-user': this.user}});
     },
-    methods:{
-        saveProduct(){
-            this.$emit('save-product',this.product)
-        },
-        cancelEdit(){
-            this.$emit('cancel-edit')
-        }
-
+    cancelEdit() {
+      // this.$emit("cancel-edit");
+      //this.$router.push({ path: "/management" });
     },
-    async created(){
-        const productID = this.$route.params.id
-        this.product = (await axios.get(`/api/products/${productID}`)).data.data
-       
-    }
+  },
+  async created() {
+    const productID = this.$route.params.id;
+    this.product = (await axios.get(`/api/products/${productID}`)).data.data;
+  },
 
 }
 </script>

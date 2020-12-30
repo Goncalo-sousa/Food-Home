@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Product as ProductResource;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -21,19 +22,27 @@ class ProductController extends Controller
     }
 
     public function getFilterProducts(Request $request){
+
+
         if(!is_null($request->name) || !is_null($request->type)){
         
-            $products = Product::all();
             if(!is_null($request->name)){
-                $products = $products->where('name', 'like', $request->name . '%');
+                $products = Product::where('name', 'like', $request->name . '%');
             }
             if(!is_null($request->type)){
-                $products = $products->where('type', $request->type);
+                if(isset($products))
+                {
+                    $products = $products->where('type', $request->type);
+                }
+                else{
+                    $products = Product::where('type', $request->type);
+                }
+                
             }
            
             $products = $products->paginate(10);
         }else{
-            $products = Product::all()->paginate(10);
+            $products = Product::paginate(10);
         }
         return $products;
     }
@@ -57,9 +66,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show( Product $product)
     {
-        return new ProductResource($id);
+        return new ProductResource($product);
     }
 
     /**
@@ -69,9 +78,18 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        // 
+        $product->update($request->validated());
+        return new ProductResource($product);
+    
+    }
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+        return response()->json(null, 204);
     }
 
     /**

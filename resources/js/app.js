@@ -27,6 +27,7 @@ import OrderItemComponent from './components/Orders/order_item.vue'
 Vue.use(VueCookies)
 Vue.component('manage-users', ManageUsersComponent);
 Vue.component('products', ProductsComponent);
+Vue.component('manage-products',EditProductComponent);
 Vue.component('orders', OrderComponent);
 Vue.component('cookDashboard', CookDashboard)
 Vue.component('deliverymanDashboard', DeliverymanDashboard)
