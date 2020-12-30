@@ -11,6 +11,16 @@
         <input type="text" class="form-control" v-model="user.email" />
       </div>
       <div class="form-group">
+        <label>Type:</label>
+        <select class="form-control" v-model="user.type">
+          <option disabled value="">Please select one</option>
+          <option>C</option>
+          <option>EC</option>
+          <option>ED</option>
+          <option>EM</option>
+        </select>
+      </div>
+      <div class="form-group">
         <label>Blocked:</label>
         <select class="form-control" v-model="user.blocked">
           <option disabled value="">Please select one</option>
