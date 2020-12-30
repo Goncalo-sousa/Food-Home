@@ -43,7 +43,6 @@ export default {
   props: ["users"],
   methods: {
     editUser(user) {
-      // this.$emit("edit-user", user); //para emitir para o pai
       this.$router.push({ path: `/users/${user.id}` });
     },
     deleteUser(user) {

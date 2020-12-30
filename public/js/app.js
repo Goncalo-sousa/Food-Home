@@ -1990,22 +1990,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["user"],
+  //props: ["user"],
   data: function data() {
-    return {};
+    return {
+      user: undefined
+    };
   },
   methods: {
-    saveUser: function saveUser() {// this.$emit("save-user", this.user);
-      // this.$router.push({path: `/users`, params:{'save-user': this.user}});
+    saveUser: function saveUser() {
+      var _this = this;
+
+      console.log(this.user);
+      axios.put("/api/users/".concat(this.user.id), this.user).then(function (result) {
+        var user = result.data.data;
+        Object.assign(_this.user, user);
+      });
     },
     cancelEdit: function cancelEdit() {
       // this.$emit("cancel-edit");
@@ -2015,7 +2015,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       var userID;
@@ -2023,12 +2023,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              userID = _this.$route.params.id;
+              userID = _this2.$route.params.id;
               _context.next = 3;
               return axios.get("/api/users/".concat(userID));
 
             case 3:
-              _this.user = _context.sent.data.data;
+              _this2.user = _context.sent.data.data;
 
             case 4:
             case "end":
@@ -2095,7 +2095,6 @@ __webpack_require__.r(__webpack_exports__);
   props: ["users"],
   methods: {
     editUser: function editUser(user) {
-      // this.$emit("edit-user", user); //para emitir para o pai
       this.$router.push({
         path: "/users/".concat(user.id)
       });
@@ -2138,7 +2137,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      title: "list users",
       users: [],
       editingUser: false,
       currentUser: {}
@@ -2146,7 +2144,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     editUser: function editUser(user) {
-      console.log(user.name);
       this.currentUser = Object.assign({}, user);
       this.editingUser = true;
     },
@@ -2158,23 +2155,13 @@ __webpack_require__.r(__webpack_exports__);
           return u.id == user.id;
         }), 1);
       });
-    },
-    saveUser: function saveUser(user) {
-      var _this2 = this;
-
-      axios.put("/api/users/".concat(user.id), user).then(function (result) {
-        var user = result.data.data;
-        Object.assign(_this2.users.find(function (u) {
-          return u.id == user.id;
-        }), user);
-      });
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this2 = this;
 
     axios.get("api/users").then(function (response) {
-      _this3.users = response.data.data;
+      _this2.users = response.data.data;
     });
   }
 });
