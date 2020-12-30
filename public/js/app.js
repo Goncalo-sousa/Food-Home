@@ -3228,6 +3228,12 @@ __webpack_require__.r(__webpack_exports__);
       checkedNames: []
     };
   },
+  computed: {
+    user: function user() {
+      console.log(this.$store.state.user);
+      return this.$store.state.user ? this.$store.state.user : null;
+    }
+  },
   methods: {
     editProduct: function (_editProduct) {
       function editProduct(_x) {
@@ -42401,11 +42407,16 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   },
   modules: {},
   state: {
-    user: null
+    user: null,
+    cart: [],
+    cartCount: 0
   },
   mutations: {
     setUser: function setUser(state, user) {
       state.user = user;
+    },
+    addToCart: function addToCart(state, item) {
+      console.log(item);
     }
   },
   actions: {

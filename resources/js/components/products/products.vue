@@ -83,6 +83,12 @@ export default {
       checkedNames: [],
     };
   },
+  computed: {
+    user: function () {
+      console.log(this.$store.state.user);
+      return this.$store.state.user ? this.$store.state.user : null;
+    },
+  },
   methods: {
      editProduct: function (product) {
       console.log(product.id);

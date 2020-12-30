@@ -34,4 +34,4 @@ class UpdateUserRequest extends FormRequest
         ];
     }
 }
-//|regex:/^((C)|(EC)|(ED)|(EM))$/
+//|regex:/(^C$)|(^EC$)|(^ED$)|(^EM$)/

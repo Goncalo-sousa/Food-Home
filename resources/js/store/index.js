@@ -16,12 +16,17 @@ export default new Vuex.Store({
     modules: {
     },
     state: {
-        user: null
+        user: null,
+        cart: [],
+        cartCount: 0,
     },
     mutations: {
         setUser(state, user) {
             state.user = user
         },
+        addToCart(state, item){
+            console.log(item);
+        }
     },
     actions: {
         async LogIn({ commit }, user) {
