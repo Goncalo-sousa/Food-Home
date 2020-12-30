@@ -17,7 +17,7 @@ class Order extends JsonResource
     {
         return [
             'id' => $this->id,
-            'status' => $this->status,
+            'status' => $this->getStatus(),
             'customer_id' => $this->customer_id,
             'customer' => new Customer($this->customer),
             'notes' => $this->notes,
@@ -34,5 +34,23 @@ class Order extends JsonResource
             'total_time'=>$this->total_time,
             'order_items'=>OrderItem::collection($this->order_items)
         ];
+    }
+
+    function getStatus()
+    {
+        switch ($this->status){
+            case 'D':
+                return 'Delivered';
+            case 'H':
+                return 'Holding';
+            case 'P':
+                return 'Preparing';
+            case 'R':
+                return 'Ready';
+            case 'T':
+                return 'In Transit';
+            case 'C':
+                return 'Cancelled';
+        }
     }
 }

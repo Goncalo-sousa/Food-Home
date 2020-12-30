@@ -32,7 +32,6 @@
               Delete
             </button>
           </td>
-            <th></th>
         </tr>
       </tbody>
     </table>
@@ -48,7 +47,7 @@ export default {
       this.$router.push({ path: `/users/${user.id}` });
     },
     deleteUser(user) {
-      // this.$emit("delete-user", user);
+      this.$emit("delete-user", user);
     },
   },
 };

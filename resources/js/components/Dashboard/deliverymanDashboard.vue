@@ -15,8 +15,7 @@
             <th>Customer</th>
             <th>Order Items</th>
             <th>Notes</th>
-            <th>Pick Order</th>
-            <th>Order Completed</th>
+            <th>Actions</th>
             <th></th>
           </tr>
         </thead>
@@ -26,27 +25,35 @@
             <td>{{ order.status }}</td>
             <td>{{ order.opened_at }}</td>
             <td>{{ order.preparation_time }}</td>
-            <td>{{ order.address }}</td>
-            <td>{{ order.phone }}</td>
-            <td>{{ order.email }}</td>
+            <td>{{ order.customer.address }}</td>
+            <td>{{ order.customer.phone }}</td>
+            <td>{{ order.customer.email }}</td>
             <td>{{ order.customer.name }}</td>
             <td>
               <button
                 v-if="!showActiveOrderItems"
-                v-on:click.prevent="setActiveOrderItems(order.order_items)"
+                v-on:click.prevent="setActiveOrderItems(order)"
               >
                 View Order Items
               </button>
-              <button v-else v-on:click.prevent="resetActiveOrderItems()">
+              <button
+                v-else-if="activeIndexId === order.id"
+                v-on:click.prevent="resetActiveOrderItems()"
+              >
                 Hide Order Items
               </button>
             </td>
-            <td>{{ order.notes }}</td>
+            <td>{{ getOrderNotes(order) }}</td>
             <td>
-              <button v-on:click.prevent="pickUpOrder(order)">Pick Up</button>
-            </td>
-            <td>
-              <button v-on:click.prevent="changeOrderStatus(order)">Done</button>
+              <button v-if="order.status === 'R'" v-on:click.prevent="pickUpOrder(order)">
+                Pick Up
+              </button>
+              <button
+                v-if="order.status === 'T'"
+                v-on:click.prevent="changeOrderStatus(order)"
+              >
+                Done
+              </button>
             </td>
           </tr>
         </tbody>
@@ -82,49 +89,59 @@ export default {
       orders: [],
       showActiveOrderItems: false,
       activeOrderItems: [],
+      activeIndexId: -1,
+      orderNotes: String,
     };
   },
   methods: {
     changeOrderStatus: function (order) {
       this.currentOrder = order;
       this.currentOrder.status = "D";
-      console.log(this.currentOrder.status);
       axios
         .put("api/orders/" + this.currentOrder.id, this.currentOrder)
         .then((response) => {
           this.showSuccess = true;
           this.successMessage = "Order Status Changed";
           Object.assign(this.currentOrder, response.data.data);
+          this.getOrders();
         });
+    },
+    getOrders: function () {
+      axios.get("/api/orders").then((response) => {
+        this.orders = response.data.data;
+      });
     },
     pickUpOrder: function (order) {
       this.currentOrder = order;
       this.currentOrder.status = "T";
-      console.log(this.currentOrder.status);
       axios
         .put("api/orders/" + this.currentOrder.id, this.currentOrder)
         .then((response) => {
           this.showSuccess = true;
           this.successMessage = "Order Status Changed";
           Object.assign(this.currentOrder, response.data.data);
+          this.getOrders();
         });
     },
     getItemsName: function (orderItems) {
       return orderItems.map((orderItem) => orderItem.name);
     },
-    setActiveOrderItems: function (orderItems) {
-      this.activeOrderItems = orderItems;
+    setActiveOrderItems: function (order) {
+      this.activeIndexId = order.id;
+      this.activeOrderItems = order.order_items;
       this.showActiveOrderItems = true;
     },
     resetActiveOrderItems: function () {
       this.activeOrderItems = [];
       this.showActiveOrderItems = false;
     },
+    getOrderNotes: function (order) {
+      if (order.notes == null) order.notes = "No Notes";
+      return order.notes;
+    },
   },
   mounted() {
-    axios.get("/api/orders").then((response) => {
-      this.orders = response.data.data;
-    });
+    this.getOrders();
   },
 };
 </script>

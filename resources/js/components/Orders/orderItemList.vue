@@ -5,17 +5,22 @@
         <tr>
           <th>ID</th>
           <th>Name</th>
+          <th>Type</th>
+          <th>Photo</th>
           <th>Quantity</th>
-          <th>Price</th>
-          <th></th>
+          <th>Unit Price</th>
+          <th>Total Price</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="orderitem of orderItems" :key="orderitem.id">
           <td>{{ orderitem.id }}</td>
           <td>{{ orderitem.product.name }}</td>
+          <td>{{ orderitem.product.type }}</td>
+          <td>{{ orderitem.product.photo_url }}</td>
           <td>{{ orderitem.quantity }}</td>
           <td>{{ orderitem.unit_price }}€</td>
+          <td>{{ orderitem.sub_total_price }}€</td>
         </tr>
       </tbody>
     </table>
