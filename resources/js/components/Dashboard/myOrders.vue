@@ -1,14 +1,22 @@
 <template>
   <div>
     <h2 v-if="user && user.type === 'C'">My Orders</h2>
-    <button v-if="activeOrders" v-on:click.prevent="showOrderHistory()">
+    <button
+      class="btn btn-primary my-3"
+      v-if="activeOrders"
+      v-on:click.prevent="showOrderHistory()"
+    >
       Order History
     </button>
-    <button v-if="!activeOrders" v-on:click.prevent="showActiveOrders()">
+    <button
+      class="btn btn-primary my-3"
+      v-if="!activeOrders"
+      v-on:click.prevent="showActiveOrders()"
+    >
       Active Orders
     </button>
     <div v-if="orderList.length">
-      <table class="table">
+      <table class="table table-responsive table-striped">
         <thead class="thead-dark">
           <tr>
             <th>Order ID</th>
@@ -18,7 +26,6 @@
             <th>Order Items</th>
             <th>Prepared By</th>
             <th>Notes</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -29,12 +36,14 @@
             <td>{{ order.preparation_time }}</td>
             <td>
               <button
+                class="btn btn-primary"
                 v-if="!showActiveOrderItems"
                 v-on:click.prevent="setActiveOrderItems(order)"
               >
                 View Order Items
               </button>
               <button
+                class="btn btn-primary"
                 v-else-if="activeIndexId === order.id"
                 v-on:click.prevent="resetActiveOrderItems()"
               >
@@ -63,7 +72,6 @@ export default {
   components: {
     OrderItemList,
   },
-  //props: ["user"],
   computed: {
     user: function () {
       console.log(this.$store.state.user);

@@ -27,7 +27,7 @@ import MyProfileComponent from './components/user/myprofile.vue'
 Vue.use(VueCookies)
 Vue.component('manage-users', ManageUsersComponent);
 Vue.component('products', ProductsComponent);
-Vue.component('manage-products',EditProductComponent);
+Vue.component('edit-products',EditProductComponent);
 Vue.component('orders', OrderComponent);
 Vue.component('cookDashboard', CookDashboard)
 Vue.component('deliverymanDashboard', DeliverymanDashboard)

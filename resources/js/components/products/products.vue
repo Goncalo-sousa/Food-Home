@@ -1,6 +1,6 @@
 <template>
   <table class="table table-striped">
-    <edit-products  v-if="editingProducts" :user="currentproducts" ></edit-products>
+    
       <div class="row">
         <div class="col-md-2"></div>
         <label for="productType">Type: </label>
@@ -94,12 +94,12 @@ export default {
       console.log(product.id);
       this.currentProduct = Object.assign({}, product);
        this.$router.push({ path: `/products/${product.id}` });
-       editProduct = true;
+      
 
     },
     
     deleteProduct(product) {
-       //this.$emit("delete-product", product);
+       this.$emit("delete-product", product);
     },
      getProducts: function() {
       axios

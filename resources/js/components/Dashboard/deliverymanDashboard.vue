@@ -45,11 +45,14 @@
             </td>
             <td>{{ getOrderNotes(order) }}</td>
             <td>
-              <button v-if="order.status === 'R'" v-on:click.prevent="pickUpOrder(order)">
+              <button
+                v-if="order.status === 'Ready'"
+                v-on:click.prevent="pickUpOrder(order)"
+              >
                 Pick Up
               </button>
               <button
-                v-if="order.status === 'T'"
+                v-if="order.status === 'In Transit'"
                 v-on:click.prevent="changeOrderStatus(order)"
               >
                 Done
