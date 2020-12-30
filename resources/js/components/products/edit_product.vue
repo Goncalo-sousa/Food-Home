@@ -2,15 +2,23 @@
    <div class="jumbotron">
          <h2>Edit Product</h2>
 
+    
            <form v-if="product"> 
                 <div class="form-group">
                     <label>Name</label>
                     <input type="text" class="form-control" v-model="product.name">
                 </div>
 
-                <div class="form-group">
-                    <label>Type</label>
-                    <input type="text" class="form-control" v-model="product.type">
+
+                 <div class="form-group">
+                    <label>Type:</label>
+                    <select class="form-control" v-model="product.type">
+                    <option disabled value="">Please select one</option>
+                    <option value="drink">Drink</option>
+                    <option value="cold dish">Cold dish</option>
+                    <option value="hot dish">Hot dish</option>
+                    <option value="dessert">Dessert</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -41,18 +49,23 @@
 
 <script>
 export default {
-props: ["product"],
+
   data: function () {
-    return {};
+    return {product: undefined};
   },
   methods: {
-    saveProduct() {
-      //this.$emit("save-user", this.user);
-      //this.$router.push({path: `/users`, params:{'save-user': this.user}});
+    saveProduct: function() {
+     console.log(this.product);
+      axios.put(`/api/products/${this.product.id}`, this.product).then((result) => {
+        const product = result.data.data;
+
+        Object.assign(this.product, product);
+      });
+
     },
     cancelEdit() {
-      // this.$emit("cancel-edit");
-      //this.$router.push({ path: "/management" });
+       this.$emit("cancel-edit");
+      this.$router.push({ path: "/products" });
     },
   },
   async created() {
