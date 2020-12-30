@@ -3059,11 +3059,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3086,7 +3081,7 @@ __webpack_require__.r(__webpack_exports__);
     getProducts: function getProducts() {
       var _this = this;
 
-      axios.post("/api/products/filter", this.checkedNames).then(function (response) {
+      axios.post("/api/products/filter", this.search).then(function (response) {
         if (response.data == "Can't search by category!") {
           _this.showError = true;
           _this.errorMessage = response.data;
@@ -23917,9 +23912,9 @@ var render = function() {
         [
           _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
           _vm._v(" "),
-          _c("option", { attrs: { value: "hotdish" } }, [_vm._v("Hot dish:")]),
+          _c("option", { attrs: { value: "hot dish" } }, [_vm._v("Hot dish:")]),
           _vm._v(" "),
-          _c("option", { attrs: { value: "colddish" } }, [
+          _c("option", { attrs: { value: "cold dish" } }, [
             _vm._v("Cold dish:")
           ]),
           _vm._v(" "),
@@ -23927,18 +23922,16 @@ var render = function() {
           _vm._v(" "),
           _c("option", { attrs: { value: "dessert" } }, [_vm._v("Dessert:")])
         ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("button", { staticClass: "btn btn-info" }, [_vm._v("Submit")])
-      ])
+      )
     ]),
+    _vm._v(" "),
+    _c("span", [_vm._v(_vm._s(_vm.search))]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-2" }),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+        _c("label", { attrs: { value: "name" } }, [_vm._v("Name")]),
         _vm._v(" "),
         _c("input", {
           staticClass: "form-control",
@@ -23952,7 +23945,7 @@ var render = function() {
             attrs: { type: "submit" },
             on: {
               click: function($event) {
-                return _vm.send()
+                return _vm.getProducts()
               }
             }
           },

@@ -8,26 +8,21 @@
         <label for="productType">Type: </label>
         <select id="productType" v-model="search.type">
         <option value="">All</option>
-        <option value="hotdish">Hot dish:</option>
-        <option value="colddish">Cold dish:</option>
+        <option value="hot dish">Hot dish:</option>
+        <option value="cold dish">Cold dish:</option>
         <option value="drink">Drink:</option>
         <option value="dessert">Dessert:</option>
-</select>
-    
-
-
-      <div class="form-group">
-        <button class="btn btn-info">Submit</button>
-      </div>
+       </select>
         
         </div>
+         <span>{{search}}</span>
  
   <div class="row">
         <div class="col-md-2"></div>
         <div class="form-group">
-            <label for="name">Name</label>
+            <label value="name">Name</label>
             <input type="text" class="form-control" name="name" id="name" />
-          <button type="submit" class="btn btn-primary" v-on:click="send()">Search</button>
+          <button  type="submit" class="btn btn-primary" v-on:click="getProducts()">Search</button>
 
         </div>
     </div>
@@ -92,7 +87,7 @@ export default {
     },
      getProducts: function() {
       axios
-        .post("/api/products/filter", this.checkedNames)
+        .post("/api/products/filter", this.search)
         .then(response => {
           if (response.data == "Can't search by category!") {
             this.showError = true;

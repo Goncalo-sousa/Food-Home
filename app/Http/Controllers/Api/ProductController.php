@@ -35,7 +35,7 @@ class ProductController extends Controller
         }else{
             $products = Product::all()->paginate(10);
         }
-        return $users;
+        return $products;
     }
 
 
