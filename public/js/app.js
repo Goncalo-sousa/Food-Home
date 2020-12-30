@@ -22703,65 +22703,53 @@ var render = function() {
         "tbody",
         _vm._l(_vm.users, function(user) {
           return _c("tr", { key: user.id }, [
-            user.deleted_at != null
-              ? _c("td", [_vm._v(_vm._s(user.name))])
-              : _vm._e(),
+            _c("td", [_vm._v(_vm._s(user.name))]),
             _vm._v(" "),
-            user.deleted_at != null
-              ? _c("td", [_vm._v(_vm._s(user.email))])
-              : _vm._e(),
+            _c("td", [_vm._v(_vm._s(user.email))]),
             _vm._v(" "),
-            user.deleted_at != null
-              ? _c("td", [_vm._v(_vm._s(user.type))])
-              : _vm._e(),
+            _c("td", [_vm._v(_vm._s(user.type))]),
             _vm._v(" "),
-            user.deleted_at != null
-              ? _c("td", [_vm._v(_vm._s(user.blocked))])
-              : _vm._e(),
+            _c("td", [_vm._v(_vm._s(user.blocked))]),
             _vm._v(" "),
-            user.deleted_at != null
-              ? _c("th", [
-                  user.photo_url != null
-                    ? _c("img", {
-                        attrs: {
-                          src: "storage/fotos/" + user.photo_url,
-                          width: "50vw",
-                          height: "50vh"
-                        }
-                      })
-                    : _vm._e()
-                ])
-              : _vm._e(),
+            _c("th", [
+              user.photo_url != null
+                ? _c("img", {
+                    attrs: {
+                      src: "storage/fotos/" + user.photo_url,
+                      width: "50vw",
+                      height: "50vh"
+                    }
+                  })
+                : _vm._e()
+            ]),
             _vm._v(" "),
-            user.deleted_at != null
-              ? _c("td", [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      on: {
-                        click: function($event) {
-                          return _vm.editUser(user)
-                        }
-                      }
-                    },
-                    [_vm._v("\n            Edit\n          ")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger",
-                      on: {
-                        click: function($event) {
-                          return _vm.deleteUser(user)
-                        }
-                      }
-                    },
-                    [_vm._v("\n            Delete\n          ")]
-                  )
-                ])
-              : _vm._e()
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      return _vm.editUser(user)
+                    }
+                  }
+                },
+                [_vm._v("\n            Edit\n          ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteUser(user)
+                    }
+                  }
+                },
+                [_vm._v("\n            Delete\n          ")]
+              )
+            ])
           ])
         }),
         0
