@@ -17,7 +17,13 @@
           <td>{{ orderitem.id }}</td>
           <td>{{ orderitem.product.name }}</td>
           <td>{{ orderitem.product.type }}</td>
-          <td>{{ orderitem.product.photo_url }}</td>
+          <td>
+            <img
+              width="75px"
+              height="75px"
+              :src="'/storage/products/' + orderitem.product.photo_url"
+            />
+          </td>
           <td>{{ orderitem.quantity }}</td>
           <td>{{ orderitem.unit_price }}€</td>
           <td>{{ orderitem.sub_total_price }}€</td>
