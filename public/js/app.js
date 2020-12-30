@@ -2091,7 +2091,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["users"],
   methods: {
@@ -2101,7 +2100,8 @@ __webpack_require__.r(__webpack_exports__);
         path: "/users/".concat(user.id)
       });
     },
-    deleteUser: function deleteUser(user) {// this.$emit("delete-user", user);
+    deleteUser: function deleteUser(user) {
+      this.$emit("delete-user", user);
     }
   }
 });
@@ -2149,13 +2149,32 @@ __webpack_require__.r(__webpack_exports__);
       console.log(user.name);
       this.currentUser = Object.assign({}, user);
       this.editingUser = true;
+    },
+    deleteUser: function deleteUser(user) {
+      var _this = this;
+
+      axios["delete"]("/api/users/".concat(user.id)).then(function (result) {
+        _this.users.splice(_this.users.findIndex(function (u) {
+          return u.id == user.id;
+        }), 1);
+      });
+    },
+    saveUser: function saveUser(user) {
+      var _this2 = this;
+
+      axios.put("/api/users/".concat(user.id), user).then(function (result) {
+        var user = result.data.data;
+        Object.assign(_this2.users.find(function (u) {
+          return u.id == user.id;
+        }), user);
+      });
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this3 = this;
 
     axios.get("api/users").then(function (response) {
-      _this.users = response.data.data;
+      _this3.users = response.data.data;
     });
   }
 });
@@ -22743,9 +22762,7 @@ var render = function() {
                     [_vm._v("\n            Delete\n          ")]
                   )
                 ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("th")
+              : _vm._e()
           ])
         }),
         0

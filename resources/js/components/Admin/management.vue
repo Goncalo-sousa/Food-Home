@@ -14,7 +14,7 @@
 <script>
 import manageUsers from "./manageUsers.vue";
 export default {
-  components: { manageUsers },
+  components: { manageUsers},
   data: function () {
     return {
       title: "list users",
@@ -23,11 +23,24 @@ export default {
       currentUser: {},
     };
   },
-  methods:{
+  methods: {
     editUser: function (user) {
       console.log(user.name);
       this.currentUser = Object.assign({}, user);
       this.editingUser = true;
+    },
+    deleteUser: function (user) {
+      axios.delete(`/api/users/${user.id}`).then((result) => {
+        this.users.splice(
+          this.users.findIndex((u) => u.id == user.id),1);
+      });
+    },
+    saveUser: function (user) {
+      axios.put(`/api/users/${user.id}`, user).then((result) => {
+        const user = result.data.data;
+        Object.assign(
+          this.users.find((u) => u.id == user.id),user);
+      });
     },
   },
   mounted() {
