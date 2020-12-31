@@ -1938,6 +1938,22 @@ module.exports = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 
@@ -2445,11 +2461,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var item = _step.value;
-          var totalByOne = parseFloat(item.price * item.quantity);
-          totalPrice = totalByOne + totalByOne;
-          console.log(item.price);
-          console.log(item.name);
-          console.log(totalPrice);
+          totalPrice += parseFloat(item.price * item.quantity);
         }
       } catch (err) {
         _iterator.e(err);
@@ -22734,15 +22746,15 @@ var render = function() {
     _c(
       "h2",
       [
-        _vm._v("\n    Start buying by\n    "),
+        _vm._v("\n    Start buying\n    "),
         !_vm.$store.state.user
           ? _c(
               "router-link",
               { staticClass: "w3-bar-item w3-button", attrs: { to: "/login" } },
-              [_vm._v("login")]
+              [_vm._v("by login")]
             )
           : _vm._e(),
-        _vm._v("\n    or\n    "),
+        _vm._v(" "),
         !_vm.$store.state.user
           ? _c(
               "router-link",
@@ -22750,7 +22762,18 @@ var render = function() {
                 staticClass: "w3-bar-item w3-button",
                 attrs: { to: "/register" }
               },
-              [_vm._v("register")]
+              [_vm._v("or register")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.$store.state.user
+          ? _c(
+              "router-link",
+              {
+                staticClass: "w3-bar-item w3-button",
+                attrs: { to: "/products" }
+              },
+              [_vm._v("Products")]
             )
           : _vm._e(),
         _vm._v("\n    now!\n  ")
