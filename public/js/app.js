@@ -2445,9 +2445,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var item = _step.value;
-          totalPrice = +item.price * item.quantity;
+          var totalByOne = parseFloat(item.price * item.quantity);
+          totalPrice = totalByOne + totalByOne;
           console.log(item.price);
           console.log(item.name);
+          console.log(totalPrice);
         }
       } catch (err) {
         _iterator.e(err);

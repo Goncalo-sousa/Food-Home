@@ -34,9 +34,11 @@ export default {
       let totalPrice = 0;
 
       for (let item of this.$store.state.cart) {
-        totalPrice = +item.price * item.quantity;
+       let totalByOne = parseFloat(item.price * item.quantity);
+        totalPrice = totalByOne + totalByOne;
         console.log(item.price);
         console.log(item.name);
+        console.log(totalPrice);
       }
       console.log(totalPrice);
       return parseFloat(totalPrice).toFixed(2);
