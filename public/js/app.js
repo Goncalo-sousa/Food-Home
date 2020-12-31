@@ -3225,6 +3225,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -24298,7 +24302,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("table", { staticClass: "table table-striped" }, [
+  return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-2" }),
       _vm._v(" "),
@@ -24394,90 +24398,92 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("span", [_vm._v(_vm._s(_vm.search))]),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "tbody",
-      _vm._l(_vm.products, function(product) {
-        return _c("tr", { key: product.id }, [
-          product.deleted_at == null
-            ? _c("th", [_vm._v(_vm._s(product.name))])
-            : _vm._e(),
-          _vm._v(" "),
-          product.deleted_at == null
-            ? _c("th", [_vm._v(_vm._s(product.type))])
-            : _vm._e(),
-          _vm._v(" "),
-          product.deleted_at == null
-            ? _c("th", [_vm._v(_vm._s(product.price) + "€")])
-            : _vm._e(),
-          _vm._v(" "),
-          product.deleted_at == null
-            ? _c("th", [_vm._v(_vm._s(product.description))])
-            : _vm._e(),
-          _vm._v(" "),
-          product.deleted_at == null
-            ? _c("th", [
-                _c("img", {
-                  attrs: {
-                    src: "storage/products/" + product.photo_url,
-                    width: "50vw",
-                    height: "50vh"
-                  }
-                })
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          product.deleted_at == null
-            ? _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        product
-                      }
+    _c("table", { staticClass: "table table-striped" }, [
+      _c("span", [_vm._v(_vm._s(_vm.search))]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.products, function(product) {
+          return _c("tr", { key: product.id }, [
+            product.deleted_at == null
+              ? _c("th", [_vm._v(_vm._s(product.name))])
+              : _vm._e(),
+            _vm._v(" "),
+            product.deleted_at == null
+              ? _c("th", [_vm._v(_vm._s(product.type))])
+              : _vm._e(),
+            _vm._v(" "),
+            product.deleted_at == null
+              ? _c("th", [_vm._v(_vm._s(product.price) + "€")])
+              : _vm._e(),
+            _vm._v(" "),
+            product.deleted_at == null
+              ? _c("th", [_vm._v(_vm._s(product.description))])
+              : _vm._e(),
+            _vm._v(" "),
+            product.deleted_at == null
+              ? _c("th", [
+                  _c("img", {
+                    attrs: {
+                      src: "storage/products/" + product.photo_url,
+                      width: "50vw",
+                      height: "50vh"
                     }
-                  },
-                  [_vm._v("Buy:")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        return _vm.editProduct(product)
+                  })
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            product.deleted_at == null
+              ? _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          product
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("Edit")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteProduct(product)
+                    },
+                    [_vm._v("Buy:")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.editProduct(product)
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("Delete:")]
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("th")
-        ])
-      }),
-      0
-    )
+                    },
+                    [_vm._v("Edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteProduct(product)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete:")]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("th")
+          ])
+        }),
+        0
+      )
+    ])
   ])
 }
 var staticRenderFns = [

@@ -1,7 +1,8 @@
 <template>
-  <table class="table table-striped">
-    
-      <div class="row">
+
+<div>
+
+   <div class="row">
         <div class="col-md-2"></div>
         <label for="productType">Type: </label>
         <select id="productType" v-model="search.type">
@@ -24,6 +25,9 @@
 
         </div>
     </div>
+  <table class="table table-striped">
+    
+     
      <span>{{search}}</span>
 
       
@@ -59,7 +63,7 @@
       </tr>
     </tbody>
   </table>
-
+</div>
 </template>
 
 <script>
