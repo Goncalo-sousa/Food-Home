@@ -50,7 +50,7 @@
           />
         </th>
         <td v-if="product.deleted_at == null">
-          <button class="btn btn-primary" v-on:click="(product)">Buy:</button>
+          <button class="btn btn-primary" v-on:click="addToCart(product)">Buy:</button>
           <button class="btn btn-primary" v-on:click="editProduct(product)">Edit</button>
           <button class="btn btn-primary" v-on:click="deleteProduct(product)">Delete:</button>
         </td>
@@ -94,10 +94,10 @@ export default {
       console.log(product.id);
       this.currentProduct = Object.assign({}, product);
        this.$router.push({ path: `/products/${product.id}` });
-      
-
     },
-    
+    addToCart(item) {
+        this.$store.commit('addToCart', item);
+    },
     deleteProduct(product) {
        this.$emit("delete-product", product);
     },
