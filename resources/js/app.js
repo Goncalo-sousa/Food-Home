@@ -22,16 +22,17 @@ import DeliverymanDashboard from './components/Dashboard/deliverymanDashboard.vu
 import MyOrders from './components/Dashboard/myOrders.vue'
 import OrderItemComponent from './components/Orders/order_item.vue'
 import MyProfileComponent from './components/user/myprofile.vue'
-
+import CartComponet from './components/Cart/carrinho.vue'
 
 Vue.use(VueCookies)
 Vue.component('manage-users', ManageUsersComponent);
 Vue.component('products', ProductsComponent);
-Vue.component('edit-products',EditProductComponent);
+Vue.component('edit-products', EditProductComponent);
 Vue.component('orders', OrderComponent);
 Vue.component('cookDashboard', CookDashboard)
 Vue.component('deliverymanDashboard', DeliverymanDashboard)
 Vue.component('myOrders', MyOrders)
+
 
 const routes = [
     { path: '/', component: MainComponent },
@@ -42,11 +43,12 @@ const routes = [
     { path: '/products/:id', component: EditProductComponent },
     { path: '/products', name: 'Products', component: ProductsComponent },
     { path: '/orders', name: 'Orders', component: OrderComponent },
-    { path: '/cookdashboard', name: 'CookDashboard', component: CookDashboard},
-    { path: '/myorders', name: 'MyOrders', component: MyOrders},
-    { path: '/deliverymanDashboard', name: 'deliverymanDashboard', component: DeliverymanDashboard},
+    { path: '/cookdashboard', name: 'CookDashboard', component: CookDashboard },
+    { path: '/myorders', name: 'MyOrders', component: MyOrders },
+    { path: '/deliverymanDashboard', name: 'deliverymanDashboard', component: DeliverymanDashboard },
     { path: '/orderitems', name: 'OrderItems', component: OrderItemComponent },
     { path: '/myprofile', name: 'MyProfile', component: MyProfileComponent },
+    { path: '/cart', name: 'Cart', component: CartComponet },
 ]
 
 

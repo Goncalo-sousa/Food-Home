@@ -25,7 +25,7 @@
 
 <script>
 export default {
- data() {
+  data() {
     return {
       orderitems: [],
     };
@@ -35,9 +35,8 @@ export default {
       this.orderitems = response.data.data;
     });
   },
-}
+};
 </script>
 
 <style>
-
 </style>
