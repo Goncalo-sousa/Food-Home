@@ -14,10 +14,10 @@
         <label>Type:</label>
         <select class="form-control" v-model="user.type">
           <option disabled value="">Please select one</option>
-          <option>C</option>
-          <option>EC</option>
-          <option>ED</option>
-          <option>EM</option>
+          <option value="C">Customer</option>
+          <option value="EC">Employee-Cook</option>
+          <option value="ED">Employee-Deliveryman</option>
+          <option value="EM">Employee-Manager</option>
         </select>
       </div>
       <div class="form-group">

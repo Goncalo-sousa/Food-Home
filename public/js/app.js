@@ -3334,11 +3334,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -22909,13 +22904,19 @@ var render = function() {
                   _vm._v("Please select one")
                 ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("C")]),
+                _c("option", { attrs: { value: "C" } }, [_vm._v("Customer")]),
                 _vm._v(" "),
-                _c("option", [_vm._v("EC")]),
+                _c("option", { attrs: { value: "EC" } }, [
+                  _vm._v("Employee-Cook")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("ED")]),
+                _c("option", { attrs: { value: "ED" } }, [
+                  _vm._v("Employee-Deliveryman")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("EM")])
+                _c("option", { attrs: { value: "EM" } }, [
+                  _vm._v("Employee-Manager")
+                ])
               ]
             )
           ]),
@@ -24658,8 +24659,6 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("table", { staticClass: "table table-striped" }, [
-      _c("span", [_vm._v(_vm._s(_vm.search))]),
-      _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
       _c(

@@ -25,12 +25,7 @@
 
         </div>
     </div>
-  <table class="table table-striped">
-    
-     
-     <span>{{search}}</span>
-
-      
+  <table class="table table-striped">      
     <thead>
       <tr>
         <th>Name</th>
