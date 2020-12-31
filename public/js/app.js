@@ -3347,13 +3347,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -24606,60 +24599,58 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-2" }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "productType" } }, [_vm._v("Type: ")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.search.type,
-              expression: "search.type"
-            }
-          ],
-          attrs: { id: "productType" },
-          on: {
-            change: function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.$set(
-                _vm.search,
-                "type",
-                $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-              )
-            }
-          }
-        },
-        [
-          _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "hot dish" } }, [_vm._v("Hot dish:")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "cold dish" } }, [
-            _vm._v("Cold dish:")
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "drink" } }, [_vm._v("Drink:")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "dessert" } }, [_vm._v("Dessert:")])
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-2" }),
-      _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
+        _c("div", [
+          _c("label", { attrs: { for: "productType" } }, [_vm._v("Type: ")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.search.type,
+                  expression: "search.type"
+                }
+              ],
+              attrs: { id: "productType" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.search,
+                    "type",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [_vm._v("All")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "hot dish" } }, [
+                _vm._v("Hot dish")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "cold dish" } }, [
+                _vm._v("Cold dish")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "drink" } }, [_vm._v("Drink")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "dessert" } }, [_vm._v("Dessert")])
+            ]
+          )
+        ]),
+        _vm._v(" "),
         _c("label", { attrs: { value: "name" } }, [_vm._v("Name")]),
         _vm._v(" "),
         _c("input", {
@@ -24747,34 +24738,38 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Buy:")]
+                    [_vm._v("Buy")]
                   ),
                   _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      on: {
-                        click: function($event) {
-                          return _vm.editProduct(product)
-                        }
-                      }
-                    },
-                    [_vm._v("Edit")]
-                  ),
+                  _vm.user != null && _vm.user.type == "EM"
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function($event) {
+                              return _vm.editProduct(product)
+                            }
+                          }
+                        },
+                        [_vm._v("Edit")]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary",
-                      on: {
-                        click: function($event) {
-                          return _vm.deleteProduct(product)
-                        }
-                      }
-                    },
-                    [_vm._v("Delete:")]
-                  )
+                  _vm.user != null && _vm.user.type == "EM"
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteProduct(product)
+                            }
+                          }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    : _vm._e()
                 ])
               : _vm._e(),
             _vm._v(" "),
@@ -24801,7 +24796,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Photo")])
+        _c("th", [_vm._v("Photo")]),
+        _vm._v(" "),
+        _c("th")
       ])
     ])
   }

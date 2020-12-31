@@ -16,12 +16,26 @@ class User extends JsonResource
     {   
         return [
             'id' => $this->id,
-            'type' => $this->type,
+            'type' => $this->getType(),
             'blocked' => $this->blocked,
             'name' => $this->name,
             'email' => $this->email,
             'photo_url'=>$this->photo_url,
             'deleted_at'=>$this->deleted_at,
         ];
+    }
+
+    function getType()
+    {
+        switch ($this->status){
+            case 'C':
+                return 'Customer';
+            case 'EC':
+                return 'Employee-Cook';
+            case 'ED':
+                return 'Employee-Deliveryman';
+            case 'EM':
+                return 'Employee-Manager';
+        }
     }
 }
