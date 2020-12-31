@@ -18,7 +18,8 @@
           <td>{{ user.type }}</td>
           <td>{{ user.blocked }}</td>
           <th>
-            <img v-if="user.photo_url != null"
+            <img
+              v-if="user.photo_url != null"
               v-bind:src="'storage/fotos/' + user.photo_url"
               width="50vw"
               height="50vh"
@@ -46,7 +47,13 @@ export default {
       this.$router.push({ path: `/users/${user.id}` });
     },
     deleteUser(user) {
-      this.$emit("delete-user", user);
+      // this.$emit("delete-user", user);
+      axios.delete(`/api/users/${user.id}`).then((result) => {
+        this.users.splice(
+          this.users.findIndex((u) => u.id == user.id),
+          1
+        );
+      });
     },
   },
 };

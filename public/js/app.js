@@ -2117,6 +2117,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["users"],
   methods: {
@@ -2126,7 +2127,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteUser: function deleteUser(user) {
-      this.$emit("delete-user", user);
+      var _this = this;
+
+      // this.$emit("delete-user", user);
+      axios["delete"]("/api/users/".concat(user.id)).then(function (result) {
+        _this.users.splice(_this.users.findIndex(function (u) {
+          return u.id == user.id;
+        }), 1);
+      });
     }
   }
 });
@@ -2172,22 +2180,13 @@ __webpack_require__.r(__webpack_exports__);
     editUser: function editUser(user) {
       this.currentUser = Object.assign({}, user);
       this.editingUser = true;
-    },
-    deleteUser: function deleteUser(user) {
-      var _this = this;
-
-      axios["delete"]("/api/users/".concat(user.id)).then(function (result) {
-        _this.users.splice(_this.users.findIndex(function (u) {
-          return u.id == user.id;
-        }), 1);
-      });
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this = this;
 
     axios.get("api/users").then(function (response) {
-      _this2.users = response.data.data;
+      _this.users = response.data.data;
     });
   }
 });
@@ -2449,6 +2448,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -2471,11 +2480,22 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       console.log(totalPrice);
       return parseFloat(totalPrice).toFixed(2);
+    },
+    user: function user() {
+      console.log(this.$store.state.user);
+      return this.$store.state.user ? this.$store.state.user : null;
     }
   },
   methods: {
     removeFromCart: function removeFromCart(item) {
       this.$store.commit("removeFromCart", item);
+    },
+    createOrder: function createOrder() {
+      var data;
+      axios.post("/api/orders/", data).then(function (result) {
+        var order = result.data.data;
+        console.log(order);
+      });
     }
   }
 });
@@ -3475,7 +3495,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     cancelEdit: function cancelEdit() {
       this.$router.push({
-        path: "/management"
+        path: "/"
       });
     }
   }
@@ -23542,9 +23562,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "navbar-item has-dropdown is-hoverable" }, [
-      _c("a", { staticClass: "navbar-link" }, [
-        _vm._v(" Cart (" + _vm._s(_vm.$store.state.cartCount) + ") ")
-      ]),
+      _c("a", [_vm._v(" Cart (" + _vm._s(_vm.$store.state.cartCount) + ") ")]),
       _vm._v(" "),
       _vm.$store.state.cart.length > 0
         ? _c(
@@ -23552,13 +23570,27 @@ var render = function() {
             { staticClass: "navbar-dropdown is-boxed is-right" },
             [
               _vm._l(_vm.$store.state.cart, function(item) {
-                return _c("a", { key: item.id, staticClass: "navbar-item" }, [
+                return _c("a", { key: item.id }, [
                   _vm._v(
                     "\n        " +
                       _vm._s(item.name) +
                       " x" +
                       _vm._s(item.quantity) +
-                      " "
+                      "\n        "
+                  ),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "removeBtn",
+                      attrs: { title: "Remove from cart" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.removeFromCart(item)
+                        }
+                      }
+                    },
+                    [_vm._v("\n          X")]
                   ),
                   _c("br"),
                   _vm._v("\n        " + _vm._s(item.price) + "€ "),
@@ -23568,18 +23600,28 @@ var render = function() {
               _vm._v(" "),
               _c("hr", { staticClass: "navbar-divider" }),
               _vm._v(" "),
-              _c("a", { staticClass: "navbar-item" }, [
-                _vm._v(" Total: " + _vm._s(_vm.totalPrice) + "€ ")
-              ]),
+              _c("a", [_vm._v(" Total: " + _vm._s(_vm.totalPrice) + "€ ")]),
               _vm._v(" "),
               _c("hr", { staticClass: "navbar-divider" }),
               _vm._v(" "),
-              _c("a", { staticClass: "navbar-item" }, [_vm._v(" Checkout ")])
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.createOrder()
+                    }
+                  }
+                },
+                [_vm._v("\n        Checkout\n      ")]
+              )
             ],
             2
           )
         : _c("div", { staticClass: "navbar-dropdown is-boxed is-right" }, [
-            _c("a", { staticClass: "navbar-item" }, [_vm._v(" Cart is empty ")])
+            _c("a", [_vm._v(" Cart is empty ")])
           ])
     ])
   ])

@@ -45,6 +45,10 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         //
+        $order = new Order();
+        $order->fill($request->validated());
+        $order->save();
+        return response()->json(new OrderResource($order), 201);
     }
 
     /**

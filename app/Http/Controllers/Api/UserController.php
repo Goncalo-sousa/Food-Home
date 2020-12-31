@@ -70,4 +70,31 @@ class UserController extends Controller
         $user->delete();
         return response()->json(null, 204);
     }
+
+    public function DeleteSoftDeleted($id)
+    {
+        
+        $id = User::find($id);
+        
+
+        if (!is_null($id)) {
+            // $id->forceDelete();
+            $id ->delete();
+            $response = $this->successulMessage(200, 'Successfully deleted', true, 0, $id);
+            return response($response);
+        }
+        return  response()->json(null, 204);;
+    }
+    
+
+    private function successulMessage($code, $message, $status, $count, $payload)
+    {
+        return [
+            'code' => $code,
+            'message' => $message,
+            'success' => $status,
+            'count' => $count,
+            'data' => $payload,
+        ];
+    }
 }

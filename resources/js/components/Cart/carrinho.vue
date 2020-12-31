@@ -1,26 +1,36 @@
 <template>
   <div>
     <div class="navbar-item has-dropdown is-hoverable">
-      <a class="navbar-link"> Cart ({{ $store.state.cartCount }}) </a>
+      <a> Cart ({{ $store.state.cartCount }}) </a>
 
       <div
         v-if="$store.state.cart.length > 0"
         class="navbar-dropdown is-boxed is-right"
       >
-        <a v-for="item in $store.state.cart" :key="item.id" class="navbar-item">
-          {{ item.name }} x{{ item.quantity }} <br />
+        <a v-for="item in $store.state.cart" :key="item.id">
+          {{ item.name }} x{{ item.quantity }}
+          <span
+            class="removeBtn"
+            title="Remove from cart"
+            @click.prevent="removeFromCart(item)"
+          >
+            X</span
+          ><br />
           {{ item.price }}€ <br />
         </a>
         <hr class="navbar-divider" />
-        <a class="navbar-item"> Total: {{ totalPrice }}€ </a>
+        <a> Total: {{ totalPrice }}€ </a>
 
         <hr class="navbar-divider" />
 
-        <a class="navbar-item"> Checkout </a>
+        <!-- <a class="navbar-item">Checkout</a> -->
+        <button class="btn btn-primary" @click.prevent="createOrder()">
+          Checkout
+        </button>
       </div>
 
       <div v-else class="navbar-dropdown is-boxed is-right">
-        <a class="navbar-item"> Cart is empty </a>
+        <a> Cart is empty </a>
       </div>
     </div>
   </div>
@@ -39,10 +49,22 @@ export default {
       console.log(totalPrice);
       return parseFloat(totalPrice).toFixed(2);
     },
+    user: function () {
+      console.log(this.$store.state.user);
+      return this.$store.state.user ? this.$store.state.user : null;
+    },
+    
   },
   methods: {
     removeFromCart(item) {
       this.$store.commit("removeFromCart", item);
+    },
+    createOrder: function () {
+      let data;
+      axios.post(`/api/orders/`, data).then((result) => {
+        const order = result.data.data;
+        console.log(order);
+      });
     },
   },
 };
