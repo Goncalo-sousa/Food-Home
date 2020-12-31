@@ -24651,7 +24651,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("label", { attrs: { value: "name" } }, [_vm._v("Name")]),
+        _c("label", { attrs: { value: "name" } }, [_vm._v("Name:")]),
         _vm._v(" "),
         _c("input", {
           directives: [
@@ -24767,7 +24767,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Delete")]
+                        [_vm._v("Delete:")]
                       )
                     : _vm._e()
                 ])

@@ -12,7 +12,7 @@
               <option value="dessert">Dessert</option>
             </select>
           </div>
-            <label value="name">Name</label>
+            <label value="name">Name:</label>
             <input type="text" class="form-control" name="name" id="name" v-model="search.name" />
             <button  type="submit" class="btn btn-primary" v-on:click="getProducts()">Search</button>
         </div>
@@ -44,7 +44,7 @@
         <td v-if="product.deleted_at == null">
           <button class="btn btn-primary" v-on:click="addToCart(product)">Buy</button>
           <button v-if="user != null && user.type == 'EM'" class="btn btn-primary" v-on:click="editProduct(product)">Edit</button>
-          <button v-if="user != null && user.type == 'EM'" class="btn btn-primary" v-on:click="deleteProduct(product)">Delete</button>
+          <button v-if="user != null && user.type == 'EM'" class="btn btn-primary" v-on:click="deleteProduct(product)">Delete:</button>
         </td>
         
         <th></th>
