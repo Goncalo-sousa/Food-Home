@@ -9,6 +9,7 @@ Route::get('/products', 'Api\ProductController@index');
 
 Route::get('/users/{user}', 'Api\UserController@show');
 Route::put('users/{user}', 'Api\UserController@update');
+Route::post('users/{user}', 'Api\UserController@update_avatar');
 Route::delete('users/{user}', 'Api\UserController@destroy');
 
 Route::middleware('auth:sanctum')->get('/orders', 'Api\OrderController@index');

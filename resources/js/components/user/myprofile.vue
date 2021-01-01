@@ -3,6 +3,18 @@
     <h2>My Profile</h2>
     <form v-if="user">
       <div class="form-group">
+        <label>Avatar:</label>
+        <br>
+        <img
+              v-bind:src="'storage/fotos/' + user.photo_url"
+              width="50vw"
+              height="50vh"
+            />
+        <button enctype="multipart/form-data" class="btn btn-primary" @click.prevent="updateAvatar()">
+          Choose avatar
+        </button>
+      </div>
+      <div class="form-group">
         <label>Name:</label>
         <input type="text" class="form-control" v-model="user.name" />
       </div>
@@ -14,9 +26,9 @@
         <label>Type:</label>
         <span>{{ user.type }}</span>
       </div>
-      <div class="form-group">
+      <div v-if="user.blocked == 1" class="form-group">
         <label>Blocked:</label>
-        <span>{{ user.blocked }}</span>
+        <span class="userBlocked">User blocked</span>
       </div>
       <div class="form-group">
         <button class="btn btn-primary" @click.prevent="saveUser()">
@@ -56,9 +68,21 @@ export default {
     cancelEdit() {
       this.$router.push({ path: "/" });
     },
+    updateAvatar: function () {
+      console.log(this.user);
+      axios.post(`/api/users/${this.user.id}`, this.user).then((result) => {
+        const user = result.data.data;
+
+        Object.assign(this.user, user);
+      });
+    },
   },
 };
 </script>
 
 <style>
+.userBlocked {
+  margin-right: 1rem;
+  color: red;
+}
 </style>
