@@ -30,18 +30,18 @@
     </thead>
     <tbody>
       <tr v-for="product of products" :key="product.id">
-        <th v-if="product.deleted_at == null">{{ product.name }}</th>
-        <th v-if="product.deleted_at == null">{{ product.type }}</th>
-        <th v-if="product.deleted_at == null">{{ product.price }}€</th>
-        <th v-if="product.deleted_at == null">{{ product.description }}</th>
-        <th v-if="product.deleted_at == null">
+        <th>{{ product.name }}</th>
+        <th>{{ product.type }}</th>
+        <th>{{ product.price }}€</th>
+        <th>{{ product.description }}</th>
+        <th>
           <img
             v-bind:src="'storage/products/' + product.photo_url"
             width="50vw"
             height="50vh"
           />
         </th>
-        <td v-if="product.deleted_at == null">
+        <td>
           <button class="btn btn-primary" v-on:click="addToCart(product)">Buy</button>
           <button v-if="user != null && user.type == 'EM'" class="btn btn-primary" v-on:click="editProduct(product)">Edit</button>
           <button v-if="user != null && user.type == 'EM'" class="btn btn-primary" v-on:click="deleteProduct(product)">Delete</button>
