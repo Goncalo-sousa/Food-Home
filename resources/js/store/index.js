@@ -52,6 +52,10 @@ export default new Vuex.Store({
             window.localStorage.setItem('cart', JSON.stringify(state.cart));
             window.localStorage.setItem('cartCount', state.cartCount);
         },
+        clearCart(state){
+            state.cart = [];
+            state.cartCount = 0;
+        }
     },
     actions: {
         async LogIn({ commit }, user) {

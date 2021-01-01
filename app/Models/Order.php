@@ -30,18 +30,13 @@ class Order extends Model
         return $this->hasMany(Order_item::class);
     }
 
-    public function prepared_by()
-    {
-        return $this->belongsTo(User::class, 'prepared_by');
-    }
-
     public function cook()
     {
         return $this->belongsTo(User::class, 'prepared_by');
     }
 
 
-    public function delivered_by()
+    public function deliveryman()
     {
         return $this->belongsTo(User::class, 'delivered_by');
     }

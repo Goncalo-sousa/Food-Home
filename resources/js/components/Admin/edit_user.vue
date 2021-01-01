@@ -29,9 +29,7 @@
         </select>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary" @click.prevent="saveUser()">
-          Save
-        </button>
+        <button class="btn btn-primary" @click.prevent="saveUser()">Save</button>
         <button class="btn btn-secondary" v-on:click.prevent="cancelEdit()">
           Cancel
         </button>
@@ -43,10 +41,10 @@
 <script>
 export default {
   //props: ["user"],
-  data(){
+  data() {
     return {
-      user: undefined
-    }
+      user: undefined,
+    };
   },
   methods: {
     saveUser: function () {
@@ -69,5 +67,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

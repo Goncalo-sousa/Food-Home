@@ -3,10 +3,7 @@
     <div class="navbar-item has-dropdown is-hoverable">
       <a> Cart ({{ $store.state.cartCount }}) </a>
 
-      <div
-        v-if="$store.state.cart.length > 0"
-        class="navbar-dropdown is-boxed is-right"
-      >
+      <div v-if="$store.state.cart.length > 0" class="navbar-dropdown is-boxed is-right">
         <a v-for="item in $store.state.cart" :key="item.id">
           {{ item.name }} x{{ item.quantity }}
           <span
@@ -24,9 +21,7 @@
         <hr class="navbar-divider" />
 
         <!-- <a class="navbar-item">Checkout</a> -->
-        <button class="btn btn-primary" @click.prevent="createOrder(totalPrice)">
-          Checkout
-        </button>
+        <button class="btn btn-primary" @click.prevent="createOrder()">Checkout</button>
       </div>
 
       <div v-else class="navbar-dropdown is-boxed is-right">
@@ -53,37 +48,24 @@ export default {
       console.log(this.$store.state.user);
       return this.$store.state.user ? this.$store.state.user : null;
     },
-    
   },
   methods: {
     removeFromCart(item) {
       this.$store.commit("removeFromCart", item);
     },
     createOrder: function (totalPrice) {
-      let data={
-        status: 'H',
-        customer_id: null,
-        notes: null,
-        total_price: null,
-        date: null,
-        prepared_by: null,
-        delivered_by: null,
-        opened_at: null,
-        current_status_at: null,
-        closed_at: null,
-        preparation_time: null,
-        created_at: null,
-        updated_at: null,
+      let data = {
+        products: this.$store.state.cart.map((product) => {
+          return {
+            id: product.id,
+            quantity: product.quantity,
+          };
+        }),
       };
-      data.customer_id = this.$store.state.user.id;
-      data.total_price = totalPrice;
-      data.date = Date.now();
-      data.opened_at=Date.now();
-      data.created_at=Date.now();
-      console.log(data);
-      axios.post(`/api/orders/`, data).then((result) => {
+      axios.post("/api/orders", data).then((result) => {
         const order = result.data;
-        console.log(order);
+        this.$store.commit("clearCart");
+        this.$router.push({ path: "/myOrders" });
       });
     },
   },
