@@ -61,7 +61,7 @@ export default {
     },
     createOrder: function () {
       let data;
-      axios.post(`/api/orders/`, data).then((result) => {
+      axios.post(`/api/orders/`, ).then((result) => {
         const order = result.data.data;
         console.log(order);
       });

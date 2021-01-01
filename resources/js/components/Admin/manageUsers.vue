@@ -47,13 +47,8 @@ export default {
       this.$router.push({ path: `/users/${user.id}` });
     },
     deleteUser(user) {
-      // this.$emit("delete-user", user);
-      axios.delete(`/api/users/${user.id}`).then((result) => {
-        this.users.splice(
-          this.users.findIndex((u) => u.id == user.id),
-          1
-        );
-      });
+      this.$emit("delete-user", user);
+      
     },
   },
 };

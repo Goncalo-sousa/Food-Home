@@ -2127,14 +2127,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteUser: function deleteUser(user) {
-      var _this = this;
-
-      // this.$emit("delete-user", user);
-      axios["delete"]("/api/users/".concat(user.id)).then(function (result) {
-        _this.users.splice(_this.users.findIndex(function (u) {
-          return u.id == user.id;
-        }), 1);
-      });
+      this.$emit("delete-user", user);
     }
   }
 });
@@ -2164,6 +2157,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2180,13 +2174,22 @@ __webpack_require__.r(__webpack_exports__);
     editUser: function editUser(user) {
       this.currentUser = Object.assign({}, user);
       this.editingUser = true;
+    },
+    deleteUser: function deleteUser(user) {
+      var _this = this;
+
+      axios["delete"]("/api/users/".concat(user.id)).then(function (result) {
+        _this.users.splice(_this.users.findIndex(function (u) {
+          return u.id == user.id;
+        }), 1);
+      });
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get("api/users").then(function (response) {
-      _this.users = response.data.data;
+      _this2.users = response.data.data;
     });
   }
 });
@@ -2492,7 +2495,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     createOrder: function createOrder() {
       var data;
-      axios.post("/api/orders/", data).then(function (result) {
+      axios.post("/api/orders/").then(function (result) {
         var order = result.data.data;
         console.log(order);
       });
@@ -3386,35 +3389,41 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.commit('addToCart', item);
     },
     deleteProduct: function deleteProduct(product) {
-      this.$emit("delete-product", product);
+      var _this = this;
+
+      axios["delete"]("/api/products/".concat(product.id)).then(function (result) {
+        _this.products.splice(_this.products.findIndex(function (p) {
+          return p.id == products.id;
+        }), 1);
+      });
     },
     getProducts: function getProducts() {
-      var _this = this;
+      var _this2 = this;
 
       axios.post("/api/products/filter", this.search).then(function (response) {
         if (response.data == "Can't search by category!") {
-          _this.showError = true;
-          _this.errorMessage = response.data;
+          _this2.showError = true;
+          _this2.errorMessage = response.data;
         } else {
-          _this.products = response.data.data;
+          _this2.products = response.data.data;
         }
       })["catch"](function (error) {
         console.log(error);
       });
     },
     getResults: function getResults() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.post("api/products/filter?page=" + page, this.search).then(function (response) {
-        _this2.products = response.data;
+        _this3.products = response.data;
       });
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this4 = this;
 
     axios.get("/api/products").then(function (response) {
-      _this3.products = response.data.data;
+      _this4.products = response.data.data;
     });
   }
 });
@@ -23147,7 +23156,11 @@ var render = function() {
       _vm.editingUser
         ? _c("edit-user", {
             attrs: { user: _vm.currentUser },
-            on: { "cancel-edit": _vm.cancelEdit, "save-user": _vm.saveUser }
+            on: {
+              "cancel-edit": _vm.cancelEdit,
+              "save-user": _vm.saveUser,
+              "delete-user": _vm.deleteUser
+            }
           })
         : _vm._e()
     ],
@@ -24767,7 +24780,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Delete:")]
+                        [_vm._v("Delete")]
                       )
                     : _vm._e()
                 ])

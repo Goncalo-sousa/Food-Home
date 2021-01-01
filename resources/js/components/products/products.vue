@@ -44,7 +44,7 @@
         <td v-if="product.deleted_at == null">
           <button class="btn btn-primary" v-on:click="addToCart(product)">Buy</button>
           <button v-if="user != null && user.type == 'EM'" class="btn btn-primary" v-on:click="editProduct(product)">Edit</button>
-          <button v-if="user != null && user.type == 'EM'" class="btn btn-primary" v-on:click="deleteProduct(product)">Delete:</button>
+          <button v-if="user != null && user.type == 'EM'" class="btn btn-primary" v-on:click="deleteProduct(product)">Delete</button>
         </td>
         
         <th></th>
@@ -91,7 +91,12 @@ export default {
         this.$store.commit('addToCart', item);
     },
     deleteProduct(product) {
-       this.$emit("delete-product", product);
+       axios.delete(`/api/products/${product.id}`).then((result) => {
+        this.products.splice(
+          this.products.findIndex((p) => p.id == products.id),
+          1
+        );
+      });
     },
      getProducts: function() {
       axios
