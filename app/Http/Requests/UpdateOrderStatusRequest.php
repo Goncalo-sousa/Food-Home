@@ -25,6 +25,13 @@ class UpdateOrderStatusRequest extends FormRequest
     {
         return [
             
+            // 'status' => 'required',
+            // 'customer_id' => 'required',
+            // 'notes' => 'optional',
+            // 'total_price' => 'required',
+            // 'date' => 'nullable|date',
+            // 'prepared_by'=>'nullable|date',
+            // 'delivered_by'=>'nullable|date',
         ];
     }
 }

@@ -7,6 +7,7 @@
       :user="currentUser"
       @cancel-edit="cancelEdit"
       @save-user="saveUser"
+      @delete-user="deleteUser"
     />
   </div>
 </template>
@@ -27,10 +28,12 @@ export default {
       this.currentUser = Object.assign({}, user);
       this.editingUser = true;
     },
-    deleteUser: function (user) {
+    deleteUser: function(user) {
       axios.delete(`/api/users/${user.id}`).then((result) => {
         this.users.splice(
-          this.users.findIndex((u) => u.id == user.id),1);
+          this.users.findIndex((u) => u.id == user.id),
+          1
+        );
       });
     },
   },

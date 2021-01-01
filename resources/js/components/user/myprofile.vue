@@ -43,7 +43,7 @@ export default {
       console.log(this.$store.state.user);
       return this.$store.state.user ? this.$store.state.user : null;
     },
-  },
+  },  
   methods: {
     saveUser: function () {
       console.log(this.user);
@@ -54,7 +54,7 @@ export default {
       });
     },
     cancelEdit() {
-      this.$router.push({ path: "/management" });
+      this.$router.push({ path: "/" });
     },
   },
 };

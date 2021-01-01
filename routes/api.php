@@ -24,6 +24,7 @@ Route::put('deliverymanDashboard/{order}', 'Api\OrderController@updateStatus');
 Route::put('myOrders/{order}', 'Api\OrderController@updateStatus');
 
 Route::get('orders/{order}', 'Api\OrderController@show');
+Route::post('/orders', 'Api\OrderController@store');
 
 Route::get('cookDashboard/{order}', 'Api\OrderController@show');
 Route::get('deliverymanDashboard/{order}', 'Api\OrderController@show');

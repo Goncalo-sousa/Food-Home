@@ -18,7 +18,8 @@
           <td>{{ user.type }}</td>
           <td>{{ user.blocked }}</td>
           <th>
-            <img v-if="user.photo_url != null"
+            <img
+              v-if="user.photo_url != null"
               v-bind:src="'storage/fotos/' + user.photo_url"
               width="50vw"
               height="50vh"
@@ -47,6 +48,7 @@ export default {
     },
     deleteUser(user) {
       this.$emit("delete-user", user);
+      
     },
   },
 };
