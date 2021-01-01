@@ -50,7 +50,7 @@
                 Hide Order Items
               </button>
             </td>
-            <td>{{ order.cook.name }}</td>
+            <td>{{ order.cook ? order.cook.name : "N/A" }}</td>
             <td>{{ getOrderNotes(order) }}</td>
           </tr>
         </tbody>

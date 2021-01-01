@@ -2014,8 +2014,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   //props: ["user"],
   data: function data() {
@@ -2456,11 +2454,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -2494,30 +2487,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.$store.commit("removeFromCart", item);
     },
     createOrder: function createOrder(totalPrice) {
+      var _this = this;
+
       var data = {
-        status: 'H',
-        customer_id: null,
-        notes: null,
-        total_price: null,
-        date: null,
-        prepared_by: null,
-        delivered_by: null,
-        opened_at: null,
-        current_status_at: null,
-        closed_at: null,
-        preparation_time: null,
-        created_at: null,
-        updated_at: null
+        products: this.$store.state.cart.map(function (product) {
+          return {
+            id: product.id,
+            quantity: product.quantity
+          };
+        })
       };
-      data.customer_id = this.$store.state.user.id;
-      data.total_price = totalPrice;
-      data.date = Date.now();
-      data.opened_at = Date.now();
-      data.created_at = Date.now();
-      console.log(data);
-      axios.post("/api/orders/", data).then(function (result) {
+      axios.post("/api/orders", data).then(function (result) {
         var order = result.data;
-        console.log(order);
+
+        _this.$store.commit("clearCart");
+
+        _this.$router.push({
+          path: "/myOrders"
+        });
       });
     }
   }
@@ -23020,7 +23007,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n        Save\n      ")]
+              [_vm._v("Save")]
             ),
             _vm._v(" "),
             _c(
@@ -23637,11 +23624,11 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.createOrder(_vm.totalPrice)
+                      return _vm.createOrder()
                     }
                   }
                 },
-                [_vm._v("\n        Checkout\n      ")]
+                [_vm._v("Checkout")]
               )
             ],
             2
@@ -24098,7 +24085,9 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(order.cook.name))]),
+                      _c("td", [
+                        _vm._v(_vm._s(order.cook ? order.cook.name : "N/A"))
+                      ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(_vm.getOrderNotes(order)))])
                     ])
@@ -42883,6 +42872,10 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     saveCart: function saveCart(state) {
       window.localStorage.setItem('cart', JSON.stringify(state.cart));
       window.localStorage.setItem('cartCount', state.cartCount);
+    },
+    clearCart: function clearCart(state) {
+      state.cart = [];
+      state.cartCount = 0;
     }
   },
   actions: {

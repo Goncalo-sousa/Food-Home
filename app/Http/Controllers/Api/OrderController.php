@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Order\Store;
 use App\Http\Requests\UpdateOrderStatusRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Resources\Order as OrderResource;
+use App\Models\Order_item;
+use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 use function PHPSTORM_META\type;
@@ -42,12 +46,40 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Store $request)
     {
-        //
+    
         $order = new Order();
         $order->fill($request->validated());
+        $order->customer_id = Auth::user()->id;
+        $order->total_price = 0;
+        $order->date = Carbon::now();
+        $order->opened_at = Carbon::now();
+        $order->current_status_at = Carbon::now();
         $order->save();
+
+        $products_ids = array_map(function ($product){ 
+            return $product['id'];
+        }, $request->products);
+
+        $products = Product::whereIn('id', $products_ids)->get();
+
+        $total_price = 0;
+
+        foreach($request->products as $product){
+            $orderItem = new Order_item();
+            $orderItem->order_id = $order->id;
+            $orderItem->quantity = $product['quantity'];
+            $orderItem->unit_price = $products->firstWhere('id', $product['id'])->price;
+            $orderItem->sub_total_price = ($orderItem->unit_price)*$orderItem->quantity;
+            $orderItem->product_id = $product['id'];
+            $total_price+=$orderItem->sub_total_price;
+            $orderItem->save();
+        }
+
+        $order->total_price = $total_price;
+        $order->save();
+
         return response()->json(new OrderResource($order), 201);
     }
 
