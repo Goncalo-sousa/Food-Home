@@ -23329,9 +23329,9 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c(
-          "a",
+          "button",
           {
-            staticClass: "btn btn-default",
+            staticClass: "btn btn-primary",
             on: {
               click: function($event) {
                 $event.preventDefault()
@@ -43274,8 +43274,8 @@ var Errors = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\laragon\www\Food-Home\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\Food-Home\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })

@@ -24,7 +24,7 @@
         />
       </div>
       <div class="form-group">
-        <a class="btn btn-default" v-on:click.prevent="login">Login</a>
+        <button class="btn btn-primary" v-on:click.prevent="login">Login</button>
       </div>
     </div>
   </div>
