@@ -24,7 +24,7 @@
         <hr class="navbar-divider" />
 
         <!-- <a class="navbar-item">Checkout</a> -->
-        <button class="btn btn-primary" @click.prevent="createOrder()">
+        <button class="btn btn-primary" @click.prevent="createOrder(totalPrice)">
           Checkout
         </button>
       </div>
@@ -59,10 +59,30 @@ export default {
     removeFromCart(item) {
       this.$store.commit("removeFromCart", item);
     },
-    createOrder: function () {
-      let data;
-      axios.post(`/api/orders/`, ).then((result) => {
-        const order = result.data.data;
+    createOrder: function (totalPrice) {
+      let data={
+        status: 'H',
+        customer_id: null,
+        notes: null,
+        total_price: null,
+        date: null,
+        prepared_by: null,
+        delivered_by: null,
+        opened_at: null,
+        current_status_at: null,
+        closed_at: null,
+        preparation_time: null,
+        created_at: null,
+        updated_at: null,
+      };
+      data.customer_id = this.$store.state.user.id;
+      data.total_price = totalPrice;
+      data.date = Date.now();
+      data.opened_at=Date.now();
+      data.created_at=Date.now();
+      console.log(data);
+      axios.post(`/api/orders/`, data).then((result) => {
+        const order = result.data;
         console.log(order);
       });
     },

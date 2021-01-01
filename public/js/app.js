@@ -2493,10 +2493,30 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     removeFromCart: function removeFromCart(item) {
       this.$store.commit("removeFromCart", item);
     },
-    createOrder: function createOrder() {
-      var data;
-      axios.post("/api/orders/").then(function (result) {
-        var order = result.data.data;
+    createOrder: function createOrder(totalPrice) {
+      var data = {
+        status: 'H',
+        customer_id: null,
+        notes: null,
+        total_price: null,
+        date: null,
+        prepared_by: null,
+        delivered_by: null,
+        opened_at: null,
+        current_status_at: null,
+        closed_at: null,
+        preparation_time: null,
+        created_at: null,
+        updated_at: null
+      };
+      data.customer_id = this.$store.state.user.id;
+      data.total_price = totalPrice;
+      data.date = Date.now();
+      data.opened_at = Date.now();
+      data.created_at = Date.now();
+      console.log(data);
+      axios.post("/api/orders/", data).then(function (result) {
+        var order = result.data;
         console.log(order);
       });
     }
@@ -23617,7 +23637,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.createOrder()
+                      return _vm.createOrder(_vm.totalPrice)
                     }
                   }
                 },

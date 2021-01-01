@@ -17,6 +17,12 @@ class Order extends Model
         'date',
         'prepared_by',
         'delivered_by',
+        'opened_at',
+        'current_status_at',
+        'closed_at',
+        'preparation_time',
+        'created_at',
+        'updated_at',
     ];
 
     public function order_items()
