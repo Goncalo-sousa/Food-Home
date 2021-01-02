@@ -3491,11 +3491,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      store: vuex__WEBPACK_IMPORTED_MODULE_0__["default"]
+      store: vuex__WEBPACK_IMPORTED_MODULE_0__["default"],
+      selectedFile: null
     };
   },
   computed: {
@@ -3519,13 +3523,16 @@ __webpack_require__.r(__webpack_exports__);
         path: "/"
       });
     },
+    fileSelected: function fileSelected(event) {
+      this.selectedFile = event.target.files[0];
+      console.log(this.selectedFile);
+    },
     updateAvatar: function updateAvatar() {
-      var _this2 = this;
-
-      console.log(this.user);
-      axios.post("/api/users/".concat(this.user.id), this.user).then(function (result) {
-        var user = result.data.data;
-        Object.assign(_this2.user, user);
+      var fd = new FormData();
+      fd.append("photo_url", this.selectedFile);
+      console.log(fd);
+      axios.post("/api/users/".concat(this.user.id), fd).then(function (result) {
+        console.log(result);
       });
     }
   }
@@ -24917,16 +24924,22 @@ var render = function() {
             _c("img", {
               attrs: {
                 src: "storage/fotos/" + _vm.user.photo_url,
-                width: "50vw",
-                height: "50vh"
+                width: "150px",
+                height: "150px"
               }
             }),
+            _vm._v(" "),
+            _c("form", { attrs: { enctype: "multipart/form-data" } }, [
+              _c("input", {
+                attrs: { type: "file", accept: "image/*" },
+                on: { change: _vm.fileSelected }
+              })
+            ]),
             _vm._v(" "),
             _c(
               "button",
               {
                 staticClass: "btn btn-primary",
-                attrs: { enctype: "multipart/form-data" },
                 on: {
                   click: function($event) {
                     $event.preventDefault()
@@ -24934,7 +24947,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n        Choose avatar\n      ")]
+              [_vm._v("\n        Save\n      ")]
             )
           ]),
           _vm._v(" "),

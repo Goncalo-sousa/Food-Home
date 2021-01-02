@@ -61,19 +61,10 @@ class UserController extends Controller
 
     public function update_avatar(Request $request)
     {
-            if($request->hasFile('photo_url')){
-                $photo_url = $request->file('photo_url');
-                $filename = time() . '.' . $photo_url->getClientOriginalExtension();
-                User::make($photo_url)->resize(300, 300)->save( public_path('storage/products/' . $filename ) );
-    
-                $user = User::user();
-                $user->photo_url = $filename;
-                $user->save();
-                return back()
-                ->with('success','You have successfully upload image.');
-            }
-            return back()
-            ->with('error','error');
+        $imageName = time().'.'.$request->photo_url->getClientOriginalExtension();
+        $request->photo_url->move(public_path('storage/fotos/'), $imageName);
+        
+    	return response()->json(['success'=>'You have successfully upload image.']);
     }
 
     /**

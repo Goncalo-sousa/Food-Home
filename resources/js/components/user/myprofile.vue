@@ -4,14 +4,17 @@
     <form v-if="user">
       <div class="form-group">
         <label>Avatar:</label>
-        <br>
+        <br />
         <img
-              v-bind:src="'storage/fotos/' + user.photo_url"
-              width="50vw"
-              height="50vh"
-            />
-        <button enctype="multipart/form-data" class="btn btn-primary" @click.prevent="updateAvatar()">
-          Choose avatar
+          v-bind:src="'storage/fotos/' + user.photo_url"
+          width="150px"
+          height="150px"
+        />
+        <form enctype="multipart/form-data">
+          <input type="file" accept="image/*" @change="fileSelected" />
+        </form>
+        <button class="btn btn-primary" @click.prevent="updateAvatar()">
+          Save
         </button>
       </div>
       <div class="form-group">
@@ -48,6 +51,7 @@ export default {
   data() {
     return {
       store,
+      selectedFile: null,
     };
   },
   computed: {
@@ -55,7 +59,7 @@ export default {
       console.log(this.$store.state.user);
       return this.$store.state.user ? this.$store.state.user : null;
     },
-  },  
+  },
   methods: {
     saveUser: function () {
       console.log(this.user);
@@ -68,12 +72,16 @@ export default {
     cancelEdit() {
       this.$router.push({ path: "/" });
     },
+    fileSelected: function (event) {
+      this.selectedFile = event.target.files[0];
+      console.log(this.selectedFile);
+    },
     updateAvatar: function () {
-      console.log(this.user);
-      axios.post(`/api/users/${this.user.id}`, this.user).then((result) => {
-        const user = result.data.data;
-
-        Object.assign(this.user, user);
+      const fd = new FormData();
+      fd.append("photo_url", this.selectedFile);
+      console.log(fd);
+      axios.post(`/api/users/${this.user.id}`, fd).then((result) => {
+        console.log(result);
       });
     },
   },
