@@ -6,8 +6,9 @@
           <th>Name</th>
           <th>Email</th>
           <th>Type</th>
-          <th>Blocked</th>
+          <!-- <th>Blocked</th> -->
           <th>Photo</th>
+          <th></th>
           <th></th>
         </tr>
       </thead>
@@ -15,8 +16,13 @@
         <tr v-for="user of users" :key="user.id">
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.type }}</td>
-          <td>{{ user.blocked }}</td>
+          <td>
+            <span v-if="user.type === 'C'">Customer</span>
+            <span v-else-if="user.type === 'EC'">Employee-Cook</span>
+            <span v-else-if="user.type === 'ED'">Employee-Deliveryman</span>
+            <span v-else-if="user.type === 'EM'">Employee-Manager</span>
+          </td>
+          <!-- <td>{{ user.blocked }}</td> -->
           <th>
             <img
               v-if="user.photo_url != null"
@@ -29,6 +35,8 @@
             <button class="btn btn-primary" v-on:click="editUser(user)">
               Edit
             </button>
+          </td>
+          <td>
             <button class="btn btn-danger" @click="deleteUser(user)">
               Delete
             </button>
@@ -48,7 +56,6 @@ export default {
     },
     deleteUser(user) {
       this.$emit("delete-user", user);
-      
     },
   },
 };

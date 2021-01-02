@@ -24,12 +24,14 @@
         <label>Blocked:</label>
         <select class="form-control" v-model="user.blocked">
           <option disabled value="">Please select one</option>
-          <option>0</option>
-          <option>1</option>
+          <option value="0">Active</option>
+          <option value="1">Ban</option>
         </select>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary" @click.prevent="saveUser()">Save</button>
+        <button class="btn btn-primary" @click.prevent="saveUser()">
+          Save
+        </button>
         <button class="btn btn-secondary" v-on:click.prevent="cancelEdit()">
           Cancel
         </button>
@@ -40,7 +42,6 @@
 
 <script>
 export default {
-  //props: ["user"],
   data() {
     return {
       user: undefined,
@@ -56,7 +57,6 @@ export default {
       });
     },
     cancelEdit() {
-      // this.$emit("cancel-edit");
       this.$router.push({ path: "/management" });
     },
   },

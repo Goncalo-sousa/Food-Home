@@ -34,6 +34,8 @@
           <th>Description</th>
           <th>Photo</th>
           <th></th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -51,6 +53,8 @@
           </th>
           <td v-if="user">
             <button class="btn btn-primary" v-on:click="addToCart(product)">Buy</button>
+          </td>
+          <td>
             <button
               v-if="user != null && user.type == 'EM'"
               class="btn btn-primary"
@@ -58,6 +62,8 @@
             >
               Edit
             </button>
+          </td>
+          <td>
             <button
               v-if="user != null && user.type == 'EM'"
               class="btn btn-primary"
@@ -135,9 +141,11 @@ export default {
     },
 
     getResults: function () {
-      axios.post("api/products/filter?page=" + page, this.search).then((response) => {
-        this.products = response.data;
-      });
+      axios
+        .post("api/products/filter?page=" + page, this.search)
+        .then((response) => {
+          this.products = response.data;
+        });
     },
   },
   mounted() {

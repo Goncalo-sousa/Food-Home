@@ -2014,8 +2014,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  //props: ["user"],
   data: function data() {
     return {
       user: undefined
@@ -2032,7 +2033,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     },
     cancelEdit: function cancelEdit() {
-      // this.$emit("cancel-edit");
       this.$router.push({
         path: "/management"
       });
@@ -2075,6 +2075,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3400,6 +3408,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3582,6 +3596,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3592,9 +3622,10 @@ __webpack_require__.r(__webpack_exports__);
         old_password: "",
         new_password: "",
         repeat_password: "",
-        id: ''
+        id: ""
       },
-      isInvalidPassword: false
+      isInvalidPassword: false,
+      successPassword: false
     };
   },
   computed: {
@@ -3637,6 +3668,7 @@ __webpack_require__.r(__webpack_exports__);
         this.isInvalidPassword = true;
       } else {
         this.isInvalidPassword = false;
+        this.successPassword = true;
         this.password.id = this.user.id;
         axios.post("/api/change_password", this.password).then(function (response) {
           console.log(response.data.message);
@@ -3698,7 +3730,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.userBlocked {\r\n  margin-right: 1rem;\r\n  color: red;\n}\r\n", ""]);
+exports.push([module.i, "\n.userBlocked {\r\n  margin-right: 1rem;\r\n  color: red;\n}\n.successMessege {\r\n  margin-right: 1rem;\r\n  color: green;\n}\r\n", ""]);
 
 // exports
 
@@ -44744,9 +44776,9 @@ var render = function() {
                   _vm._v("Please select one")
                 ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("0")]),
+                _c("option", { attrs: { value: "0" } }, [_vm._v("Active")]),
                 _vm._v(" "),
-                _c("option", [_vm._v("1")])
+                _c("option", { attrs: { value: "1" } }, [_vm._v("Ban")])
               ]
             )
           ]),
@@ -44763,7 +44795,7 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Save")]
+              [_vm._v("\n        Save\n      ")]
             ),
             _vm._v(" "),
             _c(
@@ -44818,9 +44850,17 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(user.email))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.type))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.blocked))]),
+            _c("td", [
+              user.type === "C"
+                ? _c("span", [_vm._v("Customer")])
+                : user.type === "EC"
+                ? _c("span", [_vm._v("Employee-Cook")])
+                : user.type === "ED"
+                ? _c("span", [_vm._v("Employee-Deliveryman")])
+                : user.type === "EM"
+                ? _c("span", [_vm._v("Employee-Manager")])
+                : _vm._e()
+            ]),
             _vm._v(" "),
             _c("th", [
               user.photo_url != null
@@ -44846,8 +44886,10 @@ var render = function() {
                   }
                 },
                 [_vm._v("\n            Edit\n          ")]
-              ),
-              _vm._v(" "),
+              )
+            ]),
+            _vm._v(" "),
+            _c("td", [
               _c(
                 "button",
                 {
@@ -44881,9 +44923,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Type")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Blocked")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Photo")]),
+        _vm._v(" "),
+        _c("th"),
         _vm._v(" "),
         _c("th")
       ])
@@ -46525,39 +46567,43 @@ var render = function() {
                       }
                     },
                     [_vm._v("Buy")]
-                  ),
-                  _vm._v(" "),
-                  _vm.user != null && _vm.user.type == "EM"
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.editProduct(product)
-                            }
-                          }
-                        },
-                        [_vm._v("\n            Edit\n          ")]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.user != null && _vm.user.type == "EM"
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteProduct(product)
-                            }
-                          }
-                        },
-                        [_vm._v("\n            Delete\n          ")]
-                      )
-                    : _vm._e()
+                  )
                 ])
               : _vm._e(),
+            _vm._v(" "),
+            _c("td", [
+              _vm.user != null && _vm.user.type == "EM"
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.editProduct(product)
+                        }
+                      }
+                    },
+                    [_vm._v("\n            Edit\n          ")]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _vm.user != null && _vm.user.type == "EM"
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteProduct(product)
+                        }
+                      }
+                    },
+                    [_vm._v("\n            Delete\n          ")]
+                  )
+                : _vm._e()
+            ]),
             _vm._v(" "),
             _c("th")
           ])
@@ -46583,6 +46629,10 @@ var staticRenderFns = [
         _c("th", [_vm._v("Description")]),
         _vm._v(" "),
         _c("th", [_vm._v("Photo")]),
+        _vm._v(" "),
+        _c("th"),
+        _vm._v(" "),
+        _c("th"),
         _vm._v(" "),
         _c("th")
       ])
@@ -46610,7 +46660,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "jumbotron" }, [
     _c("h2", [_vm._v("My Profile")]),
     _vm._v(" "),
     _vm.user
@@ -46629,25 +46679,43 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("form", { attrs: { enctype: "multipart/form-data" } }, [
+              _c("br"),
+              _vm._v(" "),
               _c("input", {
+                ref: "fileInput",
+                staticStyle: { display: "none" },
                 attrs: { type: "file", accept: "image/*" },
                 on: { change: _vm.fileSelected }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    return _vm.updateAvatar()
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.$refs.fileInput.click()
+                    }
                   }
-                }
-              },
-              [_vm._v("\n        Save\n      ")]
-            )
+                },
+                [_vm._v("\n          Upload Image\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.updateAvatar()
+                    }
+                  }
+                },
+                [_vm._v("\n          Save\n        ")]
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
@@ -46811,7 +46879,23 @@ var render = function() {
                 ? _c("span", { staticClass: "userBlocked" }, [
                     _vm._v("\n          Invalid Password")
                   ])
-                : _vm._e()
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.successPassword,
+                      expression: "successPassword"
+                    }
+                  ],
+                  staticClass: "successMessege"
+                },
+                [_vm._v("\n          Changed Password")]
+              )
             ])
           ]),
           _vm._v(" "),

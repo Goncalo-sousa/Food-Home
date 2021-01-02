@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="jumbotron">
     <h2>My Profile</h2>
     <form v-if="user">
       <div class="form-group">
@@ -11,11 +11,24 @@
           height="150px"
         />
         <form enctype="multipart/form-data">
-          <input type="file" accept="image/*" @change="fileSelected" />
+          <br />
+          <input
+            style="display: none"
+            type="file"
+            accept="image/*"
+            @change="fileSelected"
+            ref="fileInput"
+          />
+          <button
+            class="btn btn-primary"
+            @click.prevent="$refs.fileInput.click()"
+          >
+            Upload Image
+          </button>
+          <button class="btn btn-primary" @click.prevent="updateAvatar()">
+            Save
+          </button>
         </form>
-        <button class="btn btn-primary" @click.prevent="updateAvatar()">
-          Save
-        </button>
       </div>
       <div class="form-group">
         <label>Name:</label>
@@ -64,6 +77,9 @@
           <span v-if="isInvalidPassword" class="userBlocked">
             Invalid Password</span
           >
+          <span v-show="successPassword" class="successMessege">
+            Changed Password</span
+          >
         </div>
       </div>
       <hr class="navbar-divider" />
@@ -101,9 +117,10 @@ export default {
         old_password: "",
         new_password: "",
         repeat_password: "",
-        id: '',
+        id: "",
       },
       isInvalidPassword: false,
+      successPassword: false,
     };
   },
   computed: {
@@ -145,6 +162,7 @@ export default {
         this.isInvalidPassword = true;
       } else {
         this.isInvalidPassword = false;
+        this.successPassword = true;
         this.password.id = this.user.id;
         axios.post("/api/change_password", this.password).then((response) => {
           console.log(response.data.message);
@@ -159,5 +177,9 @@ export default {
 .userBlocked {
   margin-right: 1rem;
   color: red;
+}
+.successMessege {
+  margin-right: 1rem;
+  color: green;
 }
 </style>
