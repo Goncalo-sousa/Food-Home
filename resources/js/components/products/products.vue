@@ -51,7 +51,7 @@
               height="50vh"
             />
           </th>
-          <td v-if="user">
+          <td v-if="user.type == 'C'">
             <button class="btn btn-primary" v-on:click="addToCart(product)">Buy</button>
           </td>
           <td>
@@ -141,11 +141,9 @@ export default {
     },
 
     getResults: function () {
-      axios
-        .post("api/products/filter?page=" + page, this.search)
-        .then((response) => {
-          this.products = response.data;
-        });
+      axios.post("api/products/filter?page=" + page, this.search).then((response) => {
+        this.products = response.data;
+      });
     },
   },
   mounted() {

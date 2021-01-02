@@ -2478,6 +2478,29 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -2503,6 +2526,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     user: function user() {
       console.log(this.$store.state.user);
+      console.log(this.item);
       return this.$store.state.user ? this.$store.state.user : null;
     }
   },
@@ -2530,6 +2554,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           path: "/myOrders"
         });
       });
+    },
+    redirectProducts: function redirectProducts() {
+      this.$router.push({
+        path: "/products"
+      });
+    },
+    calculateSubTotalPrice: function calculateSubTotalPrice(item) {
+      return item.quantity * item.price;
     }
   }
 });
@@ -2546,6 +2578,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Orders_orderItemList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Orders/orderItemList.vue */ "./resources/js/components/Orders/orderItemList.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2605,6 +2639,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2658,6 +2699,10 @@ __webpack_require__.r(__webpack_exports__);
     resetActiveOrderItems: function resetActiveOrderItems() {
       this.activeOrderItems = [];
       this.showActiveOrderItems = false;
+    },
+    preparationTime: function preparationTime(order) {
+      var orderCreationTime = moment__WEBPACK_IMPORTED_MODULE_1___default()(order.opened_at);
+      return orderCreationTime.fromNow();
     }
   },
   mounted: function mounted() {
@@ -2677,6 +2722,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Orders_orderItemList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Orders/orderItemList.vue */ "./resources/js/components/Orders/orderItemList.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2751,6 +2798,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2796,6 +2847,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/orders").then(function (response) {
         _this2.orders = response.data.data;
       });
+    },
+    preparationTime: function preparationTime(order) {
+      var orderCreationTime = moment__WEBPACK_IMPORTED_MODULE_1___default()(order.opened_at);
+      return orderCreationTime.fromNow();
     },
     pickUpOrder: function pickUpOrder(order) {
       var _this3 = this;
@@ -2846,8 +2901,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Orders_orderItemList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Orders/orderItemList.vue */ "./resources/js/components/Orders/orderItemList.vue");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+//
 //
 //
 //
@@ -2992,7 +3048,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     preparationTime: function preparationTime(order) {
-      var orderCreationTime = moment__WEBPACK_IMPORTED_MODULE_2___default()(order.opened_at);
+      var orderCreationTime = moment__WEBPACK_IMPORTED_MODULE_1___default()(order.opened_at);
       return orderCreationTime.fromNow();
     }
   },
@@ -45391,42 +45447,61 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "navbar-item has-dropdown is-hoverable" }, [
-      _c("a", [_vm._v(" Cart (" + _vm._s(_vm.$store.state.cartCount) + ") ")]),
-      _vm._v(" "),
-      _vm.$store.state.cart.length > 0
-        ? _c(
-            "div",
-            { staticClass: "navbar-dropdown is-boxed is-right" },
-            [
-              _vm._l(_vm.$store.state.cart, function(item) {
-                return _c("a", { key: item.id }, [
-                  _vm._v(
-                    "\n        " +
-                      _vm._s(item.name) +
-                      " x" +
-                      _vm._s(item.quantity) +
-                      "\n        "
-                  ),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "removeBtn",
-                      attrs: { title: "Remove from cart" },
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.removeFromCart(item)
-                        }
-                      }
-                    },
-                    [_vm._v("\n          X")]
-                  ),
-                  _c("br"),
-                  _vm._v("\n        " + _vm._s(item.price) + "€ "),
-                  _c("br")
-                ])
-              }),
+    _c(
+      "div",
+      {
+        staticClass: "navbar-item has-dropdown is-hoverable",
+        staticStyle: { "texte-align": "center" }
+      },
+      [
+        _vm.$store.state.cart.length > 0
+          ? _c("div", { staticClass: "navbar-dropdown is-boxed is-right" }, [
+              _c("table", { staticClass: "table" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.$store.state.cart, function(item) {
+                    return _c("tr", { key: item.id }, [
+                      _c("td", [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(item.name) +
+                            "\n            "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.type))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.quantity))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.price) + "€")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.calculateSubTotalPrice(item)) + "€")
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "removeBtn",
+                            attrs: { title: "Remove from cart" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.removeFromCart(item)
+                              }
+                            }
+                          },
+                          [_vm._v("\n                X")]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]),
               _vm._v(" "),
               _c("hr", { staticClass: "navbar-divider" }),
               _vm._v(" "),
@@ -45447,16 +45522,59 @@ var render = function() {
                 },
                 [_vm._v("Checkout")]
               )
-            ],
-            2
-          )
-        : _c("div", { staticClass: "navbar-dropdown is-boxed is-right" }, [
-            _c("a", [_vm._v(" Cart is empty ")])
-          ])
-    ])
+            ])
+          : _c(
+              "div",
+              {
+                staticClass: "navbar-dropdown is-boxed is-right",
+                staticStyle: { "text-align": "center" }
+              },
+              [
+                _c("h2", [_vm._v("Cart is empty")]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.redirectProducts()
+                      }
+                    }
+                  },
+                  [_vm._v("\n        Start Buying Now!\n      ")]
+                )
+              ]
+            )
+      ]
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantity")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Unit Price")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Price")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Remove from Cart")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -45487,84 +45605,91 @@ var render = function() {
       ? _c(
           "div",
           [
-            _c("table", { staticClass: "table" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.orders, function(order) {
-                  return _c("tr", { key: order.id }, [
-                    _c("td", [_vm._v(_vm._s(order.id))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.status))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.opened_at))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.preparation_time))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      !_vm.showActiveOrderItems
-                        ? _c(
-                            "button",
-                            {
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.setActiveOrderItems(order)
+            _c(
+              "table",
+              { staticClass: "table table-responsive table-striped" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.orders, function(order) {
+                    return _c("tr", { key: order.id }, [
+                      _c("td", [_vm._v(_vm._s(order.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.status))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.opened_at))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.preparationTime(order)))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        !_vm.showActiveOrderItems
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.setActiveOrderItems(order)
+                                  }
                                 }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n              View Order Items\n            "
-                              )
-                            ]
-                          )
-                        : _vm.activeIndexId === order.id
-                        ? _c(
-                            "button",
-                            {
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.resetActiveOrderItems()
+                              },
+                              [
+                                _vm._v(
+                                  "\n              View Order Items\n            "
+                                )
+                              ]
+                            )
+                          : _vm.activeIndexId === order.id
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.resetActiveOrderItems()
+                                  }
                                 }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              Hide Order Items\n            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.cook.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.customer.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.notes))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.changeOrderStatus(order)
                               }
-                            },
-                            [
-                              _vm._v(
-                                "\n              Hide Order Items\n            "
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.cook.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.customer.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.notes))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.changeOrderStatus(order)
                             }
-                          }
-                        },
-                        [_vm._v("Done")]
-                      )
+                          },
+                          [_vm._v("\n              Done\n            ")]
+                        )
+                      ])
                     ])
-                  ])
-                }),
-                0
-              )
-            ]),
+                  }),
+                  0
+                )
+              ]
+            ),
             _vm._v(" "),
             _vm.showActiveOrderItems
               ? _c("order-item-list", {
@@ -45600,9 +45725,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Notes")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Order Completed")]),
-        _vm._v(" "),
-        _c("th")
+        _c("th", [_vm._v("Order Completed")])
       ])
     ])
   }
@@ -45637,105 +45760,113 @@ var render = function() {
       ? _c(
           "div",
           [
-            _c("table", { staticClass: "table" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.orderList, function(order) {
-                  return _c("tr", { key: order.id }, [
-                    _c("td", [_vm._v(_vm._s(order.id))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.status))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.opened_at))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.preparation_time))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.customer.address))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.customer.phone))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.customer.email))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(order.customer.name))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      !_vm.showActiveOrderItems
-                        ? _c(
-                            "button",
-                            {
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.setActiveOrderItems(order)
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n              View Order Items\n            "
-                              )
-                            ]
-                          )
-                        : _vm.activeIndexId === order.id
-                        ? _c(
-                            "button",
-                            {
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.resetActiveOrderItems()
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n              Hide Order Items\n            "
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(_vm.getOrderNotes(order)))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      order.status === "Ready"
-                        ? _c(
-                            "button",
-                            {
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.pickUpOrder(order)
-                                }
-                              }
-                            },
-                            [_vm._v("\n              Pick Up\n            ")]
-                          )
-                        : _vm._e(),
+            _c(
+              "table",
+              { staticClass: "table table-responsive table-striped" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.orderList, function(order) {
+                    return _c("tr", { key: order.id }, [
+                      _c("td", [_vm._v(_vm._s(order.id))]),
                       _vm._v(" "),
-                      order.status === "In Transit"
-                        ? _c(
-                            "button",
-                            {
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.changeOrderStatus(order)
+                      _c("td", [_vm._v(_vm._s(order.status))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.opened_at))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.preparationTime(order)))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.customer.address))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.customer.phone))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.customer.email))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.customer.name))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        !_vm.showActiveOrderItems
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.setActiveOrderItems(order)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("\n              Done\n            ")]
-                          )
-                        : _vm._e()
+                              },
+                              [
+                                _vm._v(
+                                  "\n              View Order Items\n            "
+                                )
+                              ]
+                            )
+                          : _vm.activeIndexId === order.id
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.resetActiveOrderItems()
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              Hide Order Items\n            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.getOrderNotes(order)))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        order.status === "Ready"
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.pickUpOrder(order)
+                                  }
+                                }
+                              },
+                              [_vm._v("\n              Pick Up\n            ")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        order.status === "In Transit"
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.changeOrderStatus(order)
+                                  }
+                                }
+                              },
+                              [_vm._v("\n              Done\n            ")]
+                            )
+                          : _vm._e()
+                      ])
                     ])
-                  ])
-                }),
-                0
-              )
-            ]),
+                  }),
+                  0
+                )
+              ]
+            ),
             _vm._v(" "),
             _vm.showActiveOrderItems
               ? _c("order-item-list", {
@@ -45775,9 +45906,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Notes")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Actions")]),
-        _vm._v(" "),
-        _c("th")
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   }
@@ -45804,8 +45933,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.user && _vm.user.type === "C"
-      ? _c("h2", [_vm._v("My Orders")])
+    _vm.user && _vm.user.type === "C" && _vm.activeOrders
+      ? _c("h2", [_vm._v("My Active Orders")])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.user && _vm.user.type === "C" && !_vm.activeOrders
+      ? _c("h2", [_vm._v("My Order History")])
       : _vm._e(),
     _vm._v(" "),
     _vm.activeOrders
@@ -45820,7 +45953,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("\n    Order History\n  ")]
+          [_vm._v("\n    View Order History\n  ")]
         )
       : _vm._e(),
     _vm._v(" "),
@@ -45836,7 +45969,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("\n    Active Orders\n  ")]
+          [_vm._v("\n    View Active Orders\n  ")]
         )
       : _vm._e(),
     _vm._v(" "),
@@ -46555,7 +46688,7 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _vm.user
+            _vm.user.type == "C"
               ? _c("td", [
                   _c(
                     "button",
@@ -65195,8 +65328,8 @@ var Errors = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\Food-Home\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\Food-Home\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\laragon\www\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })
