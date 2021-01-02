@@ -53,8 +53,7 @@
           </th>
           <td>
             <button
-              v-if="user.type == 'C'"
-              button
+              v-if="user != null && user.type === 'C'" 
               class="btn btn-primary"
               v-on:click="addToCart(product)"
             >
@@ -63,7 +62,7 @@
           </td>
           <td>
             <button
-              v-if="user != null && user.type == 'EM'"
+              v-if="user != null && user.type === 'EM'"
               class="btn btn-primary"
               v-on:click="editProduct(product)"
             >
@@ -72,7 +71,7 @@
           </td>
           <td>
             <button
-              v-if="user != null && user.type == 'EM'"
+              v-if="user != null && user.type === 'EM'"
               class="btn btn-primary"
               v-on:click="deleteProduct(product)"
             >

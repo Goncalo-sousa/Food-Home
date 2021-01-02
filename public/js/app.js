@@ -3506,7 +3506,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -46779,12 +46778,11 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("td", [
-              _vm.user.type == "C"
+              _vm.user != null && _vm.user.type === "C"
                 ? _c(
                     "button",
                     {
                       staticClass: "btn btn-primary",
-                      attrs: { button: "" },
                       on: {
                         click: function($event) {
                           return _vm.addToCart(product)
@@ -46797,7 +46795,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("td", [
-              _vm.user != null && _vm.user.type == "EM"
+              _vm.user != null && _vm.user.type === "EM"
                 ? _c(
                     "button",
                     {
@@ -46814,7 +46812,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("td", [
-              _vm.user != null && _vm.user.type == "EM"
+              _vm.user != null && _vm.user.type === "EM"
                 ? _c(
                     "button",
                     {
@@ -65420,8 +65418,8 @@ var Errors = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\laragon\www\Food-Home\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\Food-Home\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })
