@@ -1,7 +1,7 @@
 <template>
   <div class="jumbotron">
-    <h2>My Profile</h2>
     <form v-if="user">
+      <h2>{{user.name}}'s Profile</h2>
       <div class="form-group">
         <label>Avatar:</label>
         <br />
@@ -38,6 +38,13 @@
         <label>Email:</label>
         <input type="text" class="form-control" v-model="user.email" />
       </div>
+      <div class="form-group">
+        <label>Type:</label>
+        <span v-if="user.type === 'C'">Customer</span>
+        <span v-else-if="user.type === 'EC'">Employee-Cook</span>
+        <span v-else-if="user.type === 'ED'">Employee-Deliveryman</span>
+        <span v-else-if="user.type === 'EM'">Employee-Manager</span>
+      </div>
       <hr class="navbar-divider" />
       <h4>Change Password</h4>
       <div class="form-group">
@@ -66,14 +73,6 @@
           />
         </div>
         <div>
-          <br />
-          <button
-            type="submit"
-            class="btn btn-secondary"
-            v-on:click.prevent="changePassword()"
-          >
-            Change
-          </button>
           <span v-if="isInvalidPassword" class="userBlocked">
             Invalid Password</span
           >
@@ -83,13 +82,6 @@
         </div>
       </div>
       <hr class="navbar-divider" />
-      <div class="form-group">
-        <label>Type:</label>
-        <span v-if="user.type === 'C'">Customer</span>
-        <span v-else-if="user.type === 'EC'">Employee-Cook</span>
-        <span v-else-if="user.type === 'ED'">Employee-Deliveryman</span>
-        <span v-else-if="user.type === 'EM'">Employee-Manager</span>
-      </div>
       <div v-if="user.blocked === 1" class="form-group">
         <label>Blocked:</label>
         <span class="userBlocked">User blocked</span>
@@ -101,6 +93,13 @@
         <button class="btn btn-secondary" v-on:click.prevent="cancelEdit()">
           Cancel
         </button>
+        <button
+            type="submit"
+            class="btn btn-info"
+            v-on:click.prevent="changePassword()"
+          >
+            Change Password
+          </button>
       </div>
     </form>
   </div>

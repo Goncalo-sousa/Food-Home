@@ -3757,7 +3757,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -46884,10 +46883,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "jumbotron" }, [
-    _c("h2", [_vm._v("My Profile")]),
-    _vm._v(" "),
     _vm.user
       ? _c("form", [
+          _c("h2", [_vm._v(_vm._s(_vm.user.name) + "'s Profile")]),
+          _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("label", [_vm._v("Avatar:")]),
             _vm._v(" "),
@@ -46993,6 +46992,20 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Type:")]),
+            _vm._v(" "),
+            _vm.user.type === "C"
+              ? _c("span", [_vm._v("Customer")])
+              : _vm.user.type === "EC"
+              ? _c("span", [_vm._v("Employee-Cook")])
+              : _vm.user.type === "ED"
+              ? _c("span", [_vm._v("Employee-Deliveryman")])
+              : _vm.user.type === "EM"
+              ? _c("span", [_vm._v("Employee-Manager")])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
           _c("hr", { staticClass: "navbar-divider" }),
           _vm._v(" "),
           _c("h4", [_vm._v("Change Password")]),
@@ -47081,23 +47094,6 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", [
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-secondary",
-                  attrs: { type: "submit" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.changePassword()
-                    }
-                  }
-                },
-                [_vm._v("\n          Change\n        ")]
-              ),
-              _vm._v(" "),
               _vm.isInvalidPassword
                 ? _c("span", { staticClass: "userBlocked" }, [
                     _vm._v("\n          Invalid Password")
@@ -47123,20 +47119,6 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("hr", { staticClass: "navbar-divider" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", [_vm._v("Type:")]),
-            _vm._v(" "),
-            _vm.user.type === "C"
-              ? _c("span", [_vm._v("Customer")])
-              : _vm.user.type === "EC"
-              ? _c("span", [_vm._v("Employee-Cook")])
-              : _vm.user.type === "ED"
-              ? _c("span", [_vm._v("Employee-Deliveryman")])
-              : _vm.user.type === "EM"
-              ? _c("span", [_vm._v("Employee-Manager")])
-              : _vm._e()
-          ]),
           _vm._v(" "),
           _vm.user.blocked === 1
             ? _c("div", { staticClass: "form-group" }, [
@@ -47175,6 +47157,21 @@ var render = function() {
                 }
               },
               [_vm._v("\n        Cancel\n      ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "submit" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.changePassword()
+                  }
+                }
+              },
+              [_vm._v("\n          Change Password\n        ")]
             )
           ])
         ])
