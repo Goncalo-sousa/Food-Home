@@ -35,7 +35,7 @@
           <router-link class="w3-bar-item w3-button" to="/products">Products</router-link>
           <!-- <router-link v-show="$route.path==='/'" class="w3-bar-item w3-button" to="/products">Products</router-link> -->
          
-          <router-link class="w3-bar-item w3-button" to="/cart">Cart</router-link>
+          <router-link v-if="$store.state.user && $store.state.user.type == 'C'" class="w3-bar-item w3-button" to="/cart">Cart</router-link>
           <router-link v-if="!$store.state.user" class="w3-bar-item w3-button" to="/register">Register</router-link>
           <router-link v-if="!$store.state.user" class="w3-bar-item w3-button" to="/login">Login</router-link>
           <router-link v-if="$store.state.user && $store.state.user.type == 'EC'" class="w3-bar-item w3-button" to="/cookDashboard">Cook Dashboard</router-link>

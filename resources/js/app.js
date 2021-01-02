@@ -63,7 +63,7 @@ const app = new Vue({
     methods: {
         LogOut: function () {
             this.$store.dispatch('LogOut');
-            this.$router.push('/login');
+            this.$router.push('/login').catch(() => {});
         }
     },
     mounted: function () {

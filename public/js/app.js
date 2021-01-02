@@ -2253,11 +2253,11 @@ __webpack_require__.r(__webpack_exports__);
           console.log("User has logged in");
           console.dir(response.data);
 
-          _this.$store.dispatch('LogIn', response.data);
+          _this.$store.dispatch("LogIn", response.data);
 
           _this.$router.push({
-            path: '/'
-          });
+            path: "/"
+          })["catch"](function () {});
         })["catch"](function (error) {
           console.log("Invalid Authentication");
         });
@@ -41794,7 +41794,7 @@ var app = new Vue({
   methods: {
     LogOut: function LogOut() {
       this.$store.dispatch('LogOut');
-      this.$router.push('/login');
+      this.$router.push('/login')["catch"](function () {});
     }
   },
   mounted: function mounted() {
@@ -43040,10 +43040,11 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
             switch (_context2.prev = _context2.next) {
               case 0:
                 commit = _ref2.commit;
-                _context2.next = 3;
+                vue__WEBPACK_IMPORTED_MODULE_2___default.a.$cookies.set('XSRF-TOKEN', null);
+                _context2.next = 4;
                 return commit('setUser', null);
 
-              case 3:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -43287,8 +43288,8 @@ var Errors = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\Food-Home\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\Food-Home\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\laragon\www\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })
