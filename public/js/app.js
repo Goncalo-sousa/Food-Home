@@ -3494,12 +3494,63 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       store: vuex__WEBPACK_IMPORTED_MODULE_0__["default"],
-      selectedFile: null
+      selectedFile: null,
+      password: {
+        old_password: "",
+        new_password: "",
+        repeat_password: ""
+      },
+      isInvalidPassword: false
     };
   },
   computed: {
@@ -3534,6 +3585,25 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/api/users/".concat(this.user.id), fd).then(function (result) {
         console.log(result);
       });
+    },
+    changePassword: function changePassword() {
+      var _this2 = this;
+
+      console.log(this.password);
+
+      if (this.password.new_password != this.password.repeat_password || this.password.old_password == this.password.new_password) {
+        this.isInvalidPassword = true;
+      } else {
+        this.isInvalidPassword = false;
+        axios.post("/api/change_password", this.password).then(function (response) {
+          _this2.password = {
+            old_password: "",
+            new_password: "",
+            repeat_password: ""
+          };
+          console.log(response.data.message);
+        });
+      }
     }
   }
 });
@@ -25003,13 +25073,136 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
+          _c("hr", { staticClass: "navbar-divider" }),
+          _vm._v(" "),
+          _c("h4", [_vm._v("Change Password")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("div", [
+              _c("label", [_vm._v("Old password:")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password.old_password,
+                    expression: "password.old_password"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "password" },
+                domProps: { value: _vm.password.old_password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.password, "old_password", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("label", [_vm._v("New password:")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password.new_password,
+                    expression: "password.new_password"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "password" },
+                domProps: { value: _vm.password.new_password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.password, "new_password", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("label", [_vm._v("Confirm password:")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.password.repeat_password,
+                    expression: "password.repeat_password"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "password" },
+                domProps: { value: _vm.password.repeat_password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.password,
+                      "repeat_password",
+                      $event.target.value
+                    )
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-secondary",
+                  attrs: { type: "submit" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.changePassword()
+                    }
+                  }
+                },
+                [_vm._v("\n          Change\n        ")]
+              ),
+              _vm._v(" "),
+              _vm.isInvalidPassword
+                ? _c("span", { staticClass: "userBlocked" }, [
+                    _vm._v("\n          Invalid Password")
+                  ])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c("hr", { staticClass: "navbar-divider" }),
+          _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
             _c("label", [_vm._v("Type:")]),
             _vm._v(" "),
-            _c("span", [_vm._v(_vm._s(_vm.user.type))])
+            _vm.user.type === "C"
+              ? _c("span", [_vm._v("Customer")])
+              : _vm.user.type === "EC"
+              ? _c("span", [_vm._v("Employee-Cook")])
+              : _vm.user.type === "ED"
+              ? _c("span", [_vm._v("Employee-Deliveryman")])
+              : _vm.user.type === "EM"
+              ? _c("span", [_vm._v("Employee-Manager")])
+              : _vm._e()
           ]),
           _vm._v(" "),
-          _vm.user.blocked == 1
+          _vm.user.blocked === 1
             ? _c("div", { staticClass: "form-group" }, [
                 _c("label", [_vm._v("Blocked:")]),
                 _vm._v(" "),

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\User as UserResource;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -61,10 +62,27 @@ class UserController extends Controller
 
     public function update_avatar(Request $request)
     {
-        $imageName = time().'.'.$request->photo_url->getClientOriginalExtension();
+        $imageName = time() . '.' . $request->photo_url->getClientOriginalExtension();
         $request->photo_url->move(public_path('storage/fotos/'), $imageName);
-        
-    	return response()->json(['success'=>'You have successfully upload image.']);
+
+        return response()->json(['success' => 'You have successfully upload image.']);
+    }
+
+
+
+    public function changePassword(Request $request)
+    {
+        $user = User::find($request->id);
+        if (Hash::check($request->input('old_password'), $user->password) && ($request->input('new_password') == $request->input('repeat_password'))) {
+
+            $user->update([
+                'password' => Hash::make($request->input('new_password'))
+            ]);
+
+            return response()->json([
+                'message' => 'Password updated'
+            ]);
+        }
     }
 
     /**
