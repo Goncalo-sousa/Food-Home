@@ -33,7 +33,7 @@
             <td>{{ order.id }}</td>
             <td>{{ order.status }}</td>
             <td>{{ order.opened_at }}</td>
-            <td>{{ order.preparation_time }}</td>
+            <td>{{ preparationTime(order) }}</td>
             <td>
               <button
                 class="btn btn-primary"
@@ -68,6 +68,7 @@
 
 <script>
 import OrderItemList from "../Orders/orderItemList.vue";
+import moment from "moment";
 export default {
   components: {
     OrderItemList,
@@ -134,6 +135,10 @@ export default {
           this.orderList.push(order);
         }
       });
+    },
+    preparationTime: function (order) {
+      let orderCreationTime = moment(order.opened_at);
+      return orderCreationTime.fromNow();
     },
   },
   mounted() {

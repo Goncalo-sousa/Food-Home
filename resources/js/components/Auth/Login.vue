@@ -12,6 +12,12 @@
           id="inputEmail"
           placeholder="Email address"
         />
+        <small class="text text-danger" v-if="errors.has('blocked')">
+          Error: The User is blocked.
+        </small>
+        <small class="text text-danger" v-if="errors.has('email')">
+          Error: Email not found.
+        </small>
       </div>
       <div class="form-group">
         <label for="inputPassword">Password</label>
@@ -22,6 +28,9 @@
           name="password"
           id="inputPassword"
         />
+        <small class="text text-danger" v-if="errors.has('password')">
+          Error: Invalid password.
+        </small>
       </div>
       <div class="form-group">
         <button class="btn btn-primary" v-on:click.prevent="login">Login</button>
@@ -31,6 +40,7 @@
 </template>
 
 <script>
+import errors from "../../utils/errors.js";
 export default {
   data: function () {
     return {
@@ -38,6 +48,7 @@ export default {
         email: "",
         password: "",
       },
+      errors: new errors(),
     };
   },
   methods: {
@@ -52,6 +63,9 @@ export default {
             this.$router.push({ path: "/" }).catch(() => {});
           })
           .catch((error) => {
+            if (error.response.status === 422) {
+              this.errors.record(error.response.data.errors, "");
+            }
             console.log("Invalid Authentication");
           });
       });
