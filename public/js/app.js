@@ -3470,6 +3470,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -46688,22 +46695,23 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _vm.user.type == "C"
-              ? _c("td", [
-                  _c(
+            _c("td", [
+              _vm.user.type == "C"
+                ? _c(
                     "button",
                     {
                       staticClass: "btn btn-primary",
+                      attrs: { button: "" },
                       on: {
                         click: function($event) {
                           return _vm.addToCart(product)
                         }
                       }
                     },
-                    [_vm._v("Buy")]
+                    [_vm._v("\n            Buy\n          ")]
                   )
-                ])
-              : _vm._e(),
+                : _vm._e()
+            ]),
             _vm._v(" "),
             _c("td", [
               _vm.user != null && _vm.user.type == "EM"

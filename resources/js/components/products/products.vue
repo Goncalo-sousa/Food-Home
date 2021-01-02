@@ -51,8 +51,15 @@
               height="50vh"
             />
           </th>
-          <td v-if="user.type == 'C'">
-            <button class="btn btn-primary" v-on:click="addToCart(product)">Buy</button>
+          <td>
+            <button
+              v-if="user.type == 'C'"
+              button
+              class="btn btn-primary"
+              v-on:click="addToCart(product)"
+            >
+              Buy
+            </button>
           </td>
           <td>
             <button
