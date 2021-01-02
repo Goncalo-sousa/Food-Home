@@ -1,10 +1,6 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
-<<<<<<< HEAD
 // import VuexPersistence from "vuex-persistedstate";
-=======
-//import VuexPersistence from "vuex-persistedstate";
->>>>>>> 8e6874d96c0b5a34ec4368a7a89f30dad4ef6ced
 //import auth from './modules/auth';
 
 // Load Vuex
@@ -65,7 +61,6 @@ export default new Vuex.Store({
             state.cart = [];
             state.cartCount = 0;
         },
-        // saveSingleUserConnections: (state, connections) => { state.savedSingleUserConnections = connections; },
     },
     actions: {
         async LogIn({ commit }, user) {

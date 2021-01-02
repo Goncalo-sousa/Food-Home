@@ -65123,9 +65123,130 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./resources/js/store/index.js ***!
   \*************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\laragon\\www\\Food-Home\\resources\\js\\store\\index.js: Unexpected token (3:0)\n\n\u001b[0m \u001b[90m 1 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mVuex\u001b[39m from \u001b[32m'vuex'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 2 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mVue\u001b[39m from \u001b[32m'vue'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 3 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 4 | \u001b[39m\u001b[90m// import VuexPersistence from \"vuex-persistedstate\";\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 | \u001b[39m\u001b[90m//import VuexPersistence from \"vuex-persistedstate\";\u001b[39m\u001b[0m\n    at Parser._raise (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:748:17)\n    at Parser.raiseWithData (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:741:17)\n    at Parser.raise (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:735:17)\n    at Parser.unexpected (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:9097:16)\n    at Parser.parseExprAtom (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:10548:20)\n    at Parser.parseExprSubscripts (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:10122:23)\n    at Parser.parseUpdate (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:10102:21)\n    at Parser.parseMaybeUnary (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:10091:17)\n    at Parser.parseExprOps (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:9961:23)\n    at Parser.parseMaybeConditional (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:9935:23)\n    at Parser.parseMaybeAssign (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:9898:21)\n    at Parser.parseExpressionBase (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:9843:23)\n    at C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:9837:39\n    at Parser.allowInAnd (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:11515:16)\n    at Parser.parseExpression (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:9837:17)\n    at Parser.parseStatementContent (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:11781:23)\n    at Parser.parseStatement (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:11650:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:12232:25)\n    at Parser.parseBlockBody (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:12218:10)\n    at Parser.parseTopLevel (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:11581:10)\n    at Parser.parse (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:13392:10)\n    at parse (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\parser\\lib\\index.js:13445:38)\n    at parser (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\core\\lib\\parser\\index.js:54:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\core\\lib\\transformation\\normalize-file.js:99:38)\n    at normalizeFile.next (<anonymous>)\n    at run (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\core\\lib\\transformation\\index.js:31:50)\n    at run.next (<anonymous>)\n    at Function.transform (C:\\laragon\\www\\Food-Home\\node_modules\\@babel\\core\\lib\\transform.js:27:41)\n    at transform.next (<anonymous>)\n    at step (C:\\laragon\\www\\Food-Home\\node_modules\\gensync\\index.js:261:32)\n    at C:\\laragon\\www\\Food-Home\\node_modules\\gensync\\index.js:273:13\n    at async.call.result.err.err (C:\\laragon\\www\\Food-Home\\node_modules\\gensync\\index.js:223:11)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+ // import VuexPersistence from "vuex-persistedstate";
+//import auth from './modules/auth';
+// Load Vuex
+
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); // Create store
+// const vuexLocal = new VuexPersistence({
+//     storage: window.localStorage,
+//   });
+
+/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  getters: {
+    user: function user(state) {
+      return state.user;
+    },
+    isAuthenticated: function isAuthenticated(state) {
+      return !!state.user;
+    }
+  },
+  modules: {},
+  state: {
+    user: null,
+    cart: [],
+    cartCount: 0,
+    plugins: [vuexLocal.plugin]
+  },
+  mutations: {
+    setUser: function setUser(state, user) {
+      state.user = user;
+    },
+    addToCart: function addToCart(state, item) {
+      var found = state.cart.find(function (product) {
+        return product.id == item.id;
+      });
+
+      if (found) {
+        found.quantity++;
+        found.totalPrice = found.quantity * found.price;
+      } else {
+        state.cart.push(item);
+        vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(item, 'quantity', 1);
+        vue__WEBPACK_IMPORTED_MODULE_2___default.a.set(item, 'totalPrice', item.price);
+      }
+
+      state.cartCount++;
+      this.commit('saveCart');
+    },
+    removeFromCart: function removeFromCart(state, item) {
+      var index = state.cart.indexOf(item);
+
+      if (index > -1) {
+        var product = state.cart[index];
+        state.cartCount -= product.quantity;
+        state.cart.splice(index, 1);
+      }
+
+      this.commit('saveCart');
+    },
+    saveCart: function saveCart(state) {
+      window.localStorage.setItem('cart', JSON.stringify(state.cart));
+      window.localStorage.setItem('cartCount', state.cartCount);
+    },
+    clearCart: function clearCart(state) {
+      state.cart = [];
+      state.cartCount = 0;
+    }
+  },
+  actions: {
+    LogIn: function LogIn(_ref, user) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref.commit;
+                _context.next = 3;
+                return commit('setUser', user);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    LogOut: function LogOut(_ref2) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit;
+                vue__WEBPACK_IMPORTED_MODULE_2___default.a.$cookies.set('XSRF-TOKEN', null);
+                _context2.next = 4;
+                return commit('setUser', null);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
+  }
+}));
 
 /***/ }),
 
