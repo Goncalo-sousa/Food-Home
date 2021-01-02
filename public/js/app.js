@@ -65132,7 +65132,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'vuex-persistedstate'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -65140,15 +65139,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-
- //import auth from './modules/auth';
+ //import VuexPersistence from "vuex-persistedstate";
+//import auth from './modules/auth';
 // Load Vuex
 
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); // Create store
+//const vuexLocal = new VuexPersistence({
+//storage: window.localStorage,
+// });
 
-var vuexLocal = new !(function webpackMissingModule() { var e = new Error("Cannot find module 'vuex-persistedstate'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())({
-  storage: window.localStorage
-});
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   getters: {
     user: function user(state) {
