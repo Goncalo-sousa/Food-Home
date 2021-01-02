@@ -37,7 +37,7 @@
             </button>
           </td>
           <td>
-            <button class="btn btn-danger" @click="deleteUser(user)">
+            <button class="btn btn-danger" v-on:click="deleteUser(user)">
               Delete
             </button>
           </td>

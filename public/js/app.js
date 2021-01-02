@@ -2163,7 +2163,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2184,6 +2183,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteUser: function deleteUser(user) {
       var _this = this;
 
+      console.log(user);
       axios["delete"]("/api/users/".concat(user.id)).then(function (result) {
         _this.users.splice(_this.users.findIndex(function (u) {
           return u.id == user.id;
@@ -44957,16 +44957,15 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("manage-users", { attrs: { users: _vm.users } }),
+      _c("manage-users", {
+        attrs: { users: _vm.users },
+        on: { "delete-user": _vm.deleteUser }
+      }),
       _vm._v(" "),
       _vm.editingUser
         ? _c("edit-user", {
             attrs: { user: _vm.currentUser },
-            on: {
-              "cancel-edit": _vm.cancelEdit,
-              "save-user": _vm.saveUser,
-              "delete-user": _vm.deleteUser
-            }
+            on: { "cancel-edit": _vm.cancelEdit, "save-user": _vm.saveUser }
           })
         : _vm._e()
     ],
@@ -63635,7 +63634,8 @@ Vue.component('edit-products', _components_products_edit_product_vue__WEBPACK_IM
 Vue.component('orders', _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_12__["default"]);
 Vue.component('cookDashboard', _components_Dashboard_CookDashboard_vue__WEBPACK_IMPORTED_MODULE_13__["default"]);
 Vue.component('deliverymanDashboard', _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_14__["default"]);
-Vue.component('myOrders', _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_15__["default"]);
+Vue.component('myOrders', _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_15__["default"]); // Vue.component('pagination',require('laravel-vue-pagination'))
+
 var routes = [{
   path: '/',
   component: _Main_vue__WEBPACK_IMPORTED_MODULE_1__["default"]

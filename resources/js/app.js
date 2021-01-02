@@ -32,6 +32,7 @@ Vue.component('orders', OrderComponent);
 Vue.component('cookDashboard', CookDashboard)
 Vue.component('deliverymanDashboard', DeliverymanDashboard)
 Vue.component('myOrders', MyOrders)
+// Vue.component('pagination',require('laravel-vue-pagination'))
 
 
 const routes = [
