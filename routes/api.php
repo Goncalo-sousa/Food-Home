@@ -38,6 +38,7 @@ Route::get('products/{product}', 'Api\ProductController@show');
 Route::put('products/{product}', 'Api\ProductController@update');
 Route::delete('products/{product}', 'Api\ProductController@destroy');
 Route::post('products/filter', 'Api\ProductController@getFilterProducts');
+Route::post('products/changeimage/{product}', 'Api\ProductController@update_avatar');
 
 Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout');

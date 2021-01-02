@@ -47,6 +47,14 @@ class ProductController extends Controller
         return $products;
     }
 
+    public function update_avatar(Request $request, Product $product)
+    {
+        $imageName = time() . '.' . $request->photo_url->getClientOriginalExtension();
+        $request->photo_url->move(public_path('storage/products/'), $imageName);
+        $product->photo_url = $imageName;
+        $product->save();
+        return response()->json(['success' => 'You have successfully upload image.']);
+    }
 
 
     /**

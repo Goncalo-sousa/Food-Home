@@ -1,11 +1,15 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
-//import createPersistedState from "vuex-persistedstate";
+import VuexPersistence from "vuex-persistedstate";
 //import auth from './modules/auth';
 
 // Load Vuex
 Vue.use(Vuex);
 // Create store
+const vuexLocal = new VuexPersistence({
+    storage: window.localStorage,
+  });
+
 export default new Vuex.Store({
     getters: {
         user: function (state) {
@@ -19,6 +23,7 @@ export default new Vuex.Store({
         user: null,
         cart: [],
         cartCount: 0,
+        plugins: [vuexLocal.plugin],
     },
     mutations: {
         setUser(state, user) {
@@ -52,10 +57,11 @@ export default new Vuex.Store({
             window.localStorage.setItem('cart', JSON.stringify(state.cart));
             window.localStorage.setItem('cartCount', state.cartCount);
         },
-        clearCart(state){
+        clearCart(state) {
             state.cart = [];
             state.cartCount = 0;
-        }
+        },
+        // saveSingleUserConnections: (state, connections) => { state.savedSingleUserConnections = connections; },
     },
     actions: {
         async LogIn({ commit }, user) {
@@ -63,7 +69,7 @@ export default new Vuex.Store({
         },
         async LogOut({ commit }) {
             Vue.$cookies.set('XSRF-TOKEN', null)
-            await commit('setUser', null)     
+            await commit('setUser', null)
         },
     }
 });
