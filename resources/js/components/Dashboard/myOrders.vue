@@ -1,19 +1,20 @@
 <template>
   <div>
-    <h2 v-if="user && user.type === 'C'">My Orders</h2>
+    <h2 v-if="user && user.type === 'C' && activeOrders">My Active Orders</h2>
+    <h2 v-if="user && user.type === 'C' && !activeOrders">My Order History</h2>
     <button
       class="btn btn-primary my-3"
       v-if="activeOrders"
       v-on:click.prevent="showOrderHistory()"
     >
-      Order History
+      View Order History
     </button>
     <button
       class="btn btn-primary my-3"
       v-if="!activeOrders"
       v-on:click.prevent="showActiveOrders()"
     >
-      Active Orders
+      View Active Orders
     </button>
     <div v-if="orderList.length">
       <table class="table table-responsive table-striped">

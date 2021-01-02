@@ -2,7 +2,7 @@
   <div>
     <h2 v-if="user && user.type === 'ED'">Deliveryman Dashboard</h2>
     <div v-if="orderList.length">
-      <table class="table">
+      <table class="table table-responsive table-striped">
         <thead class="thead-dark">
           <tr>
             <th>Order ID</th>
@@ -16,7 +16,6 @@
             <th>Order Items</th>
             <th>Notes</th>
             <th>Actions</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -24,19 +23,21 @@
             <td>{{ order.id }}</td>
             <td>{{ order.status }}</td>
             <td>{{ order.opened_at }}</td>
-            <td>{{ order.preparation_time }}</td>
+            <td>{{ preparationTime(order) }}</td>
             <td>{{ order.customer.address }}</td>
             <td>{{ order.customer.phone }}</td>
             <td>{{ order.customer.email }}</td>
             <td>{{ order.customer.name }}</td>
             <td>
               <button
+                class="btn btn-primary"
                 v-if="!showActiveOrderItems"
                 v-on:click.prevent="setActiveOrderItems(order)"
               >
                 View Order Items
               </button>
               <button
+                class="btn btn-primary"
                 v-else-if="activeIndexId === order.id"
                 v-on:click.prevent="resetActiveOrderItems()"
               >
@@ -46,12 +47,14 @@
             <td>{{ getOrderNotes(order) }}</td>
             <td>
               <button
+                class="btn btn-primary"
                 v-if="order.status === 'Ready'"
                 v-on:click.prevent="pickUpOrder(order)"
               >
                 Pick Up
               </button>
               <button
+                class="btn btn-primary"
                 v-if="order.status === 'In Transit'"
                 v-on:click.prevent="changeOrderStatus(order)"
               >
@@ -74,6 +77,7 @@
 
 <script>
 import OrderItemList from "../Orders/orderItemList.vue";
+import moment from "moment";
 export default {
   components: {
     OrderItemList,
@@ -113,6 +117,10 @@ export default {
       axios.get("/api/orders").then((response) => {
         this.orders = response.data.data;
       });
+    },
+    preparationTime: function (order) {
+      let orderCreationTime = moment(order.opened_at);
+      return orderCreationTime.fromNow();
     },
     pickUpOrder: function (order) {
       this.currentOrder = order;

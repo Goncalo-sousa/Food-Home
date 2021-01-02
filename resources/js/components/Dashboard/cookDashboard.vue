@@ -2,7 +2,7 @@
   <div>
     <h2 v-if="user && user.type === 'EC'">Cook Dashboard</h2>
     <div v-if="orders.length">
-      <table class="table">
+      <table class="table table-responsive table-striped">
         <thead class="thead-dark">
           <tr>
             <th>Order ID</th>
@@ -14,7 +14,6 @@
             <th>Customer</th>
             <th>Notes</th>
             <th>Order Completed</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -22,15 +21,17 @@
             <td>{{ order.id }}</td>
             <td>{{ order.status }}</td>
             <td>{{ order.opened_at }}</td>
-            <td>{{ order.preparation_time }}</td>
+            <td>{{ preparationTime(order) }}</td>
             <td>
               <button
+                class="btn btn-primary"
                 v-if="!showActiveOrderItems"
                 v-on:click.prevent="setActiveOrderItems(order)"
               >
                 View Order Items
               </button>
               <button
+                class="btn btn-primary"
                 v-else-if="activeIndexId === order.id"
                 v-on:click.prevent="resetActiveOrderItems()"
               >
@@ -41,7 +42,12 @@
             <td>{{ order.customer.name }}</td>
             <td>{{ order.notes }}</td>
             <td>
-              <button v-on:click.prevent="changeOrderStatus(order)">Done</button>
+              <button
+                class="btn btn-primary"
+                v-on:click.prevent="changeOrderStatus(order)"
+              >
+                Done
+              </button>
             </td>
           </tr>
         </tbody>
@@ -59,6 +65,7 @@
 
 <script>
 import OrderItemList from "../Orders/orderItemList.vue";
+import moment from "moment";
 export default {
   components: {
     OrderItemList,
@@ -102,6 +109,10 @@ export default {
     resetActiveOrderItems: function () {
       this.activeOrderItems = [];
       this.showActiveOrderItems = false;
+    },
+    preparationTime: function (order) {
+      let orderCreationTime = moment(order.opened_at);
+      return orderCreationTime.fromNow();
     },
   },
   mounted() {
