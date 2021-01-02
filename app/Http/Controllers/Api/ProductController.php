@@ -40,9 +40,9 @@ class ProductController extends Controller
                 
             }
            
-            $products = $products->paginate(10);
+            $products = $products->paginate(20);
         }else{
-            $products = Product::paginate(10);
+            $products = Product::paginate(50);
         }
         return $products;
     }

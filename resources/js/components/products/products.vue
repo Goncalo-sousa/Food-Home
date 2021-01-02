@@ -124,8 +124,8 @@ export default {
         );
       });
     },
-    getProducts: function () {
-      axios
+    getProducts: async function () {
+     await axios
         .post("/api/products/filter", this.search)
         .then((response) => {
           if (response.data == "Can't search by category!") {
@@ -140,16 +140,16 @@ export default {
         });
     },
 
-    getResults: function () {
-      axios
+    getResults: async function () {
+     await axios
         .post("api/products/filter?page=" + page, this.search)
         .then((response) => {
           this.products = response.data;
         });
     },
   },
-  mounted() {
-    axios.get("/api/products").then((response) => {
+ async mounted() {
+   await axios.get("/api/products").then((response) => {
       this.products = response.data.data;
     });
   },
