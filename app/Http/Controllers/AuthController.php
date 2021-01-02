@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\User as UserResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -25,14 +26,20 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $user = User::where('email', $request->email)->first();
+        
+        if(!$user){
+            return response()->json(['errors' => ['email' => ['Email not found.']]], 422); 
+        }
+        if($user->blocked){
+            return response()->json(['errors' => ['blocked' => ['The user is blocked.']]], 422); 
+        }
+
+        $credentials = array_merge($request->only('email', 'password'), ['blocked' => 0]);
         if (Auth::attempt($credentials)) {
             return Auth::user();
         } else {
-            return response()->json(
-                ['message' => 'Unauthenticated .'],
-                401
-            );
+            return response()->json(['errors' => ['password' => ['Invalid Password.']]], 422); 
         }
     }
     public function logout()

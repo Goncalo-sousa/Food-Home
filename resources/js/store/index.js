@@ -62,7 +62,8 @@ export default new Vuex.Store({
             await commit('setUser', user)
         },
         async LogOut({ commit }) {
-            await commit('setUser', null)
+            Vue.$cookies.set('XSRF-TOKEN', null)
+            await commit('setUser', null)     
         },
     }
 });
