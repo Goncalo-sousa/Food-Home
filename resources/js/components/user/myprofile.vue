@@ -101,6 +101,7 @@ export default {
         old_password: "",
         new_password: "",
         repeat_password: "",
+        id: '',
       },
       isInvalidPassword: false,
     };
@@ -144,12 +145,8 @@ export default {
         this.isInvalidPassword = true;
       } else {
         this.isInvalidPassword = false;
+        this.password.id = this.user.id;
         axios.post("/api/change_password", this.password).then((response) => {
-          this.password = {
-            old_password: "",
-            new_password: "",
-            repeat_password: "",
-          };
           console.log(response.data.message);
         });
       }

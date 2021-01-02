@@ -60,11 +60,12 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function update_avatar(Request $request)
+    public function update_avatar(Request $request, User $user)
     {
         $imageName = time() . '.' . $request->photo_url->getClientOriginalExtension();
         $request->photo_url->move(public_path('storage/fotos/'), $imageName);
-
+        $user->photo_url = $imageName;
+        $user->save();
         return response()->json(['success' => 'You have successfully upload image.']);
     }
 

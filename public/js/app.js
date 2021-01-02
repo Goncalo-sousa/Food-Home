@@ -2838,8 +2838,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Orders_orderItemList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Orders/orderItemList.vue */ "./resources/js/components/Orders/orderItemList.vue");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -2984,7 +2984,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     preparationTime: function preparationTime(order) {
-      var orderCreationTime = moment__WEBPACK_IMPORTED_MODULE_1___default()(order.opened_at);
+      var orderCreationTime = moment__WEBPACK_IMPORTED_MODULE_2___default()(order.opened_at);
       return orderCreationTime.fromNow();
     }
   },
@@ -3591,7 +3591,8 @@ __webpack_require__.r(__webpack_exports__);
       password: {
         old_password: "",
         new_password: "",
-        repeat_password: ""
+        repeat_password: "",
+        id: ''
       },
       isInvalidPassword: false
     };
@@ -3630,20 +3631,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     changePassword: function changePassword() {
-      var _this2 = this;
-
       console.log(this.password);
 
       if (this.password.new_password != this.password.repeat_password || this.password.old_password == this.password.new_password) {
         this.isInvalidPassword = true;
       } else {
         this.isInvalidPassword = false;
+        this.password.id = this.user.id;
         axios.post("/api/change_password", this.password).then(function (response) {
-          _this2.password = {
-            old_password: "",
-            new_password: "",
-            repeat_password: ""
-          };
           console.log(response.data.message);
         });
       }
@@ -65115,8 +65110,8 @@ var Errors = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\laragon\www\Food-Home\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\Food-Home\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ })
