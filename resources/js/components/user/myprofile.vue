@@ -160,6 +160,7 @@ export default {
         this.password.old_password == this.password.new_password
       ) {
         this.isInvalidPassword = true;
+        this.successPassword = false;
       } else {
         this.isInvalidPassword = false;
         this.successPassword = true;

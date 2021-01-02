@@ -3666,6 +3666,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.password.new_password != this.password.repeat_password || this.password.old_password == this.password.new_password) {
         this.isInvalidPassword = true;
+        this.successPassword = false;
       } else {
         this.isInvalidPassword = false;
         this.successPassword = true;
