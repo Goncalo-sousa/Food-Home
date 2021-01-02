@@ -87,7 +87,6 @@ export default {
         });
     },
     cancelEdit() {
-      this.$emit("cancel-edit");
       this.$router.push({ path: "/products" });
     },
     fileSelected: function (event) {

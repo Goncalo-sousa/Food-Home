@@ -124,10 +124,7 @@ export default {
     },
     deleteProduct(product) {
       axios.delete(`/api/products/${product.id}`).then((result) => {
-        this.products.splice(
-          this.products.findIndex((p) => p.id == products.id),
-          1
-        );
+        this.products.splice(this.products.findIndex((p) => p.id == product.id),1);
       });
     },
     getProducts: async function () {
