@@ -10,6 +10,7 @@ import LoginComponent from './components/Auth/Login'
 import RegisterComponent from './components/Auth/Register.vue'
 import ProductsComponent from './components/products/products.vue'
 import EditProductComponent from './components/products/edit_product.vue'
+import CreateProductComponent from './components/products/create_product.vue'
 import ManageUsersComponent from './components/Admin/manageUsers.vue'
 import EditUserComponent from './components/Admin/edit_user.vue'
 import ManagementComponent from './components/Admin/management.vue'
@@ -32,6 +33,7 @@ Vue.component('orders', OrderComponent);
 Vue.component('cookDashboard', CookDashboard)
 Vue.component('deliverymanDashboard', DeliverymanDashboard)
 Vue.component('myOrders', MyOrders)
+Vue.component('create-product', CreateProductComponent);
 // Vue.component('paginate',require('laravel-vue-pagination'))
 
 
@@ -44,6 +46,7 @@ const routes = [
     { path: '/users/:id', component: EditUserComponent },
     { path: '/products/:id', component: EditProductComponent },
     { path: '/products', name: 'Products', component: ProductsComponent },
+    { path: '/createproducts', name: 'CreateProducts', component: CreateProductComponent },
     { path: '/orders', name: 'Orders', component: OrderComponent },
     { path: '/cookdashboard', name: 'CookDashboard', component: CookDashboard },
     { path: '/myorders', name: 'MyOrders', component: MyOrders },

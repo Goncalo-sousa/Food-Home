@@ -65,8 +65,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $product = new Product;
+        $product->fill($request->validated());
+        $product->save();
+        return response()->json(new ProductResource($product), 201);
     }
+
+
 
     /**
      * Display the specified resource.

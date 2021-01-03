@@ -23,6 +23,14 @@
         <button type="submit" class="btn btn-primary" v-on:click="getProducts()">
           Search
         </button>
+        <br><br><br>
+        <button
+              v-if="user != null && user.type === 'EM'"
+              class="btn btn-primary"
+              v-on:click="createProduct()"
+            >
+              Create
+       </button>
       </div>
     </div>
     <table class="table table-striped">
@@ -114,6 +122,11 @@ export default {
     },
   },
   methods: {
+    createProduct: function () {
+      
+      //console.log(product.id);
+      this.$router.push({ path: `/createproducts/` });
+    },
     editProduct: function (product) {
       console.log(product.id);
       this.currentProduct = Object.assign({}, product);
