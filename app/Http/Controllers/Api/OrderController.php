@@ -13,22 +13,23 @@ use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\VarDumper\Caster\DsCaster;
 
 use function PHPSTORM_META\type;
 
 class OrderController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function index()
     {
         $user = Auth::user();
         $orders = Order::with(["order_items.product", "cook", "customer.user"]);
         if ($user->type == "EC") {
-            $orders->where("prepared_by", $user->id)->where("status", "H");
+            $orders->where("prepared_by", $user->id)->whereIn("status", ["H", "P"]);
         } else {
             if ($user->type == "C") {
                 $orders->where("customer_id", $user->id);
@@ -40,16 +41,16 @@ class OrderController extends Controller
         }
         return OrderResource::collection($orders->get());
     }
-
+    
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
     public function store(Store $request)
     {
-    
+        
         $order = new Order();
         $order->fill($request->validated());
         $order->customer_id = Auth::user()->id;
@@ -58,15 +59,15 @@ class OrderController extends Controller
         $order->opened_at = Carbon::now();
         $order->current_status_at = Carbon::now();
         $order->save();
-
+        
         $products_ids = array_map(function ($product){ 
             return $product['id'];
         }, $request->products);
-
+        
         $products = Product::whereIn('id', $products_ids)->get();
-
+        
         $total_price = 0;
-
+        
         foreach($request->products as $product){
             $orderItem = new Order_item();
             $orderItem->order_id = $order->id;
@@ -77,43 +78,77 @@ class OrderController extends Controller
             $total_price+=$orderItem->sub_total_price;
             $orderItem->save();
         }
-
+        
         $order->total_price = $total_price;
+        $order->prepared_by = $this->getLatestAvailableCook();
+        if($order->prepared_by != null){
+            $order->status = 'P';
+        }
         $order->save();
-
+        
         return response()->json(new OrderResource($order), 201);
     }
-
+    
+    public function getLatestAvailableCook (){
+        
+        $cooks = Order::where('status', 'P') 
+        ->whereNotNull('prepared_by')
+        ->pluck('prepared_by');
+        
+        return $order = Order::select(\DB::raw('prepared_by, min(opened_at) as opened_at'))
+        ->join('users', 'users.id', '=', 'orders.prepared_by')
+        ->whereNotIn('status' , ['H', 'P'])
+        ->whereNotNull('prepared_by')
+        ->whereNotIn('prepared_by', $cooks)
+        ->where('blocked', '0')
+        ->groupBy('prepared_by')
+        ->orderBy('opened_at', 'asc')
+        ->pluck('prepared_by')
+        ->first();
+    }
+    
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function show(Order $order)
     {
         return new OrderResource($order);
     }
-
+    
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function updateStatus(Request $request, Order $order)
     {
         $order->update($request->only(['status']));
+        if ($pendingOrder = $this->getHoldingOrder()) {
+            $pendingOrder->prepared_by = $this->getLatestAvailableCook();
+            if($pendingOrder->prepared_by != null){
+                $pendingOrder->status = 'P';
+            }
+            $pendingOrder->save();
+        }
+        
         return new OrderResource($order);
     }
-
+    
+    public function getHoldingOrder(){
+        return Order::where('status', 'H')->orderBy('opened_at', 'asc')->first();
+    }
+    
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
     public function destroy($id)
     {
         //

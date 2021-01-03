@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2 v-if="user && user.type === 'EC'">Cook Dashboard</h2>
-    <div v-if="orderList.length">
+    <h2 v-if="user && user.type === 'M'">Order Management Dashboard</h2>
+    <div v-if="orders.length">
       <table class="table table-responsive table-striped">
         <thead class="thead-dark">
           <tr>
@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="order of orderList" :key="order.id">
+          <tr v-for="order of orders" :key="order.id">
             <td>{{ order.id }}</td>
             <td>{{ order.status }}</td>
             <td>{{ order.opened_at }}</td>
@@ -74,10 +74,6 @@ export default {
     user: function () {
       console.log(this.$store.state.user);
       return this.$store.state.user ? this.$store.state.user : null;
-    },
-    orderList: function () {
-      const preparingOrders = this.orders.filter((order) => order.status === "P");
-      return preparingOrders.length ? preparingOrders : this.orders;
     },
   },
   data() {
