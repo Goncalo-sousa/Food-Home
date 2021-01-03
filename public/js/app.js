@@ -2409,6 +2409,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45293,259 +45295,270 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      ref: "form",
-      staticClass: "register-form",
-      attrs: { action: "" },
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.onSubmit($event)
+  return _c("div", { staticClass: "jumbotron" }, [
+    _c(
+      "form",
+      {
+        ref: "form",
+        staticClass: "register-form",
+        attrs: { action: "" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.onSubmit($event)
+          }
         }
-      }
-    },
-    [
-      _c("h2", [_vm._v("Register")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "firstname" } }, [_vm._v("Name")]),
+      },
+      [
+        _c("h2", [_vm._v("Register")]),
         _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.trim",
-              value: _vm.user.name,
-              expression: "user.name",
-              modifiers: { trim: true }
-            }
-          ],
-          attrs: {
-            required: "",
-            type: "text",
-            id: "name",
-            placeholder: "Name"
-          },
-          domProps: { value: _vm.user.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "firstname" } }, [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.trim",
+                value: _vm.user.name,
+                expression: "user.name",
+                modifiers: { trim: true }
               }
-              _vm.$set(_vm.user, "name", $event.target.value.trim())
+            ],
+            attrs: {
+              required: "",
+              type: "text",
+              id: "name",
+              placeholder: "Name"
             },
-            blur: function($event) {
-              return _vm.$forceUpdate()
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm.errors.has("name")
-          ? _c("small", [
-              _vm._v("\n      Error: Name does not match the criteria.\n    ")
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.trim",
-              value: _vm.user.email,
-              expression: "user.email",
-              modifiers: { trim: true }
-            }
-          ],
-          attrs: {
-            required: "",
-            type: "email",
-            id: "email",
-            placeholder: "Email Address"
-          },
-          domProps: { value: _vm.user.email },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+            domProps: { value: _vm.user.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "name", $event.target.value.trim())
+              },
+              blur: function($event) {
+                return _vm.$forceUpdate()
               }
-              _vm.$set(_vm.user, "email", $event.target.value.trim())
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.has("name")
+            ? _c("small", [
+                _vm._v(
+                  "\n       Error: Name does not match the criteria.\n     "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.trim",
+                value: _vm.user.email,
+                expression: "user.email",
+                modifiers: { trim: true }
+              }
+            ],
+            attrs: {
+              required: "",
+              type: "email",
+              id: "email",
+              placeholder: "Email Address"
             },
-            blur: function($event) {
-              return _vm.$forceUpdate()
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm.errors.has("email")
-          ? _c("small", [
-              _vm._v(
-                "\n      Error: Email does not match the criteria or it's already in use.\n    "
-              )
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "phone" } }, [_vm._v("Phone")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.trim",
-              value: _vm.user.phone,
-              expression: "user.phone",
-              modifiers: { trim: true }
-            }
-          ],
-          attrs: { required: "", id: "phone", placeholder: "Phone Number" },
-          domProps: { value: _vm.user.phone },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+            domProps: { value: _vm.user.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "email", $event.target.value.trim())
+              },
+              blur: function($event) {
+                return _vm.$forceUpdate()
               }
-              _vm.$set(_vm.user, "phone", $event.target.value.trim())
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.has("email")
+            ? _c("small", [
+                _vm._v(
+                  "\n       Error: Email does not match the criteria or it's already in use.\n     "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "phone" } }, [_vm._v("Phone")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.trim",
+                value: _vm.user.phone,
+                expression: "user.phone",
+                modifiers: { trim: true }
+              }
+            ],
+            attrs: { required: "", id: "phone", placeholder: "Phone Number" },
+            domProps: { value: _vm.user.phone },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "phone", $event.target.value.trim())
+              },
+              blur: function($event) {
+                return _vm.$forceUpdate()
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.has("phone")
+            ? _c("small", [
+                _vm._v(
+                  "\n       Error: Phone does not match the criteria.\n     "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "address" } }, [_vm._v("Address")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model.trim",
+                value: _vm.user.address,
+                expression: "user.address",
+                modifiers: { trim: true }
+              }
+            ],
+            attrs: { required: "", id: "address", placeholder: "Address" },
+            domProps: { value: _vm.user.address },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "address", $event.target.value.trim())
+              },
+              blur: function($event) {
+                return _vm.$forceUpdate()
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.has("address")
+            ? _c("small", [
+                _vm._v(
+                  "\n       Error: Address does not match the criteria.\n     "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "password" } }, [_vm._v("Password")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.user.password,
+                expression: "user.password"
+              }
+            ],
+            attrs: {
+              required: "",
+              type: "password",
+              placeholder: "Password",
+              id: "password"
             },
-            blur: function($event) {
-              return _vm.$forceUpdate()
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm.errors.has("phone")
-          ? _c("small", [
-              _vm._v("\n      Error: Phone does not match the criteria.\n    ")
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "address" } }, [_vm._v("Address")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.trim",
-              value: _vm.user.address,
-              expression: "user.address",
-              modifiers: { trim: true }
-            }
-          ],
-          attrs: { required: "", id: "address", placeholder: "Address" },
-          domProps: { value: _vm.user.address },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+            domProps: { value: _vm.user.password },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "password", $event.target.value)
               }
-              _vm.$set(_vm.user, "address", $event.target.value.trim())
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.has("password")
+            ? _c("small", [
+                _vm._v(
+                  "\n       Error: Password does not match the criteria.\n     "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "password_confirmation" } }, [
+            _vm._v("Password Verification")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.user.password_confirmation,
+                expression: "user.password_confirmation"
+              }
+            ],
+            attrs: {
+              required: "",
+              type: "password",
+              placeholder: "Password Confirmation",
+              id: "password_confirmation"
             },
-            blur: function($event) {
-              return _vm.$forceUpdate()
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm.errors.has("address")
-          ? _c("small", [
-              _vm._v(
-                "\n      Error: Address does not match the criteria.\n    "
-              )
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "password" } }, [_vm._v("Password")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.user.password,
-              expression: "user.password"
-            }
-          ],
-          attrs: {
-            required: "",
-            type: "password",
-            placeholder: "Password",
-            id: "password"
-          },
-          domProps: { value: _vm.user.password },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+            domProps: { value: _vm.user.password_confirmation },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "password_confirmation", $event.target.value)
               }
-              _vm.$set(_vm.user, "password", $event.target.value)
             }
-          }
-        }),
-        _vm._v(" "),
-        _vm.errors.has("password")
-          ? _c("small", [
-              _vm._v(
-                "\n      Error: Password does not match the criteria.\n    "
-              )
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "password_confirmation" } }, [
-          _vm._v("Password Verification")
+          }),
+          _vm._v(" "),
+          _vm.errors.has("password")
+            ? _c("small", [
+                _vm._v(
+                  "\n       Error: Password Corfirmation does not the password.\n     "
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.user.password_confirmation,
-              expression: "user.password_confirmation"
-            }
-          ],
+          staticClass: "btn btn-primary",
           attrs: {
-            required: "",
-            type: "password",
-            placeholder: "Password Confirmation",
-            id: "password_confirmation"
-          },
-          domProps: { value: _vm.user.password_confirmation },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.user, "password_confirmation", $event.target.value)
-            }
+            type: "submit",
+            disabled: !_vm.isFormValid,
+            value: "Register"
           }
-        }),
-        _vm._v(" "),
-        _vm.errors.has("password")
-          ? _c("small", [
-              _vm._v(
-                "\n      Error: Password Corfirmation does not the password.\n    "
-              )
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        attrs: { type: "submit", disabled: !_vm.isFormValid, value: "Register" }
-      })
-    ]
-  )
+        })
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -65161,8 +65174,8 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   state: {
     user: null,
     cart: [],
-    cartCount: 0,
-    plugins: [vuexLocal.plugin]
+    cartCount: 0 // plugins: [vuexLocal.plugin],
+
   },
   mutations: {
     setUser: function setUser(state, user) {

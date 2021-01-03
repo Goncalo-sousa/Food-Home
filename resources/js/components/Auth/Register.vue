@@ -1,4 +1,5 @@
  <template id="registerTemplate">
+ <div class="jumbotron">
   <form @submit.prevent="onSubmit" ref="form" action="" class="register-form">
     <h2>Register</h2>
     <div class="form-group">
@@ -77,8 +78,9 @@
         Error: Password Corfirmation does not the password.
       </small>
     </div>
-    <input type="submit" :disabled="!isFormValid" value="Register" />
+    <input type="submit" class="btn btn-primary" :disabled="!isFormValid" value="Register" />
   </form>
+ </div>
 </template>
  
 <script>
