@@ -2,6 +2,13 @@ require('./bootstrap');
 
 window.Vue = require('vue')
 
+import VueSocketIO from "vue-socket.io"
+Vue.use(
+ new VueSocketIO({
+ debug: true,
+ connection: "http://food-home.test:8080"
+ })
+)
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 

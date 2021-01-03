@@ -2030,6 +2030,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.put("/api/users/".concat(this.user.id), this.user).then(function (result) {
         var user = result.data.data;
         Object.assign(_this.user, user);
+
+        _this.$router.push({
+          path: "/management"
+        });
       });
     },
     cancelEdit: function cancelEdit() {
@@ -2573,7 +2577,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           };
         })
       };
-      axios.post("/api/orders", data).then(function (result) {
+      axios.post("/api/orders", data, this.user).then(function (result) {
         var order = result.data;
 
         _this.$store.commit("clearCart");
@@ -2589,7 +2593,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     calculateSubTotalPrice: function calculateSubTotalPrice(item) {
-      return item.quantity * item.price;
+      return parseFloat(item.quantity * item.price).toFixed(2);
     }
   }
 });
@@ -3396,7 +3400,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.product);
       axios.post("/api/products/create", this.product).then(function (result) {
         _this.$router.push({
-          name: "products"
+          path: "/products"
         });
       })["catch"](function (errors) {
         if (errors.response.status === 422) {
@@ -64276,35 +64280,41 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _Main_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Main.vue */ "./resources/js/Main.vue");
-/* harmony import */ var _components_Auth_Login__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Auth/Login */ "./resources/js/components/Auth/Login.vue");
-/* harmony import */ var _components_Auth_Register_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Auth/Register.vue */ "./resources/js/components/Auth/Register.vue");
-/* harmony import */ var _components_products_products_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/products/products.vue */ "./resources/js/components/products/products.vue");
-/* harmony import */ var _components_products_edit_product_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/products/edit_product.vue */ "./resources/js/components/products/edit_product.vue");
-/* harmony import */ var _components_products_create_product_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/products/create_product.vue */ "./resources/js/components/products/create_product.vue");
-/* harmony import */ var _components_Admin_manageUsers_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Admin/manageUsers.vue */ "./resources/js/components/Admin/manageUsers.vue");
-/* harmony import */ var _components_Admin_edit_user_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Admin/edit_user.vue */ "./resources/js/components/Admin/edit_user.vue");
-/* harmony import */ var _components_Admin_management_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Admin/management.vue */ "./resources/js/components/Admin/management.vue");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
-/* harmony import */ var vue_cookies__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue-cookies */ "./node_modules/vue-cookies/vue-cookies.js");
-/* harmony import */ var vue_cookies__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vue_cookies__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Orders/orders.vue */ "./resources/js/components/Orders/orders.vue");
-/* harmony import */ var _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Dashboard/cookDashboard.vue */ "./resources/js/components/Dashboard/cookDashboard.vue");
-/* harmony import */ var _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Dashboard/deliverymanDashboard.vue */ "./resources/js/components/Dashboard/deliverymanDashboard.vue");
-/* harmony import */ var _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Dashboard/myOrders.vue */ "./resources/js/components/Dashboard/myOrders.vue");
-/* harmony import */ var _components_Orders_order_item_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Orders/order_item.vue */ "./resources/js/components/Orders/order_item.vue");
-/* harmony import */ var _components_user_myprofile_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/user/myprofile.vue */ "./resources/js/components/user/myprofile.vue");
-/* harmony import */ var _components_Cart_carrinho_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Cart/carrinho.vue */ "./resources/js/components/Cart/carrinho.vue");
+!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-socket.io'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _Main_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Main.vue */ "./resources/js/Main.vue");
+/* harmony import */ var _components_Auth_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Auth/Login */ "./resources/js/components/Auth/Login.vue");
+/* harmony import */ var _components_Auth_Register_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Auth/Register.vue */ "./resources/js/components/Auth/Register.vue");
+/* harmony import */ var _components_products_products_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/products/products.vue */ "./resources/js/components/products/products.vue");
+/* harmony import */ var _components_products_edit_product_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/products/edit_product.vue */ "./resources/js/components/products/edit_product.vue");
+/* harmony import */ var _components_products_create_product_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/products/create_product.vue */ "./resources/js/components/products/create_product.vue");
+/* harmony import */ var _components_Admin_manageUsers_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Admin/manageUsers.vue */ "./resources/js/components/Admin/manageUsers.vue");
+/* harmony import */ var _components_Admin_edit_user_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Admin/edit_user.vue */ "./resources/js/components/Admin/edit_user.vue");
+/* harmony import */ var _components_Admin_management_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Admin/management.vue */ "./resources/js/components/Admin/management.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var vue_cookies__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-cookies */ "./node_modules/vue-cookies/vue-cookies.js");
+/* harmony import */ var vue_cookies__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(vue_cookies__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Orders/orders.vue */ "./resources/js/components/Orders/orders.vue");
+/* harmony import */ var _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Dashboard/cookDashboard.vue */ "./resources/js/components/Dashboard/cookDashboard.vue");
+/* harmony import */ var _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Dashboard/deliverymanDashboard.vue */ "./resources/js/components/Dashboard/deliverymanDashboard.vue");
+/* harmony import */ var _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Dashboard/myOrders.vue */ "./resources/js/components/Dashboard/myOrders.vue");
+/* harmony import */ var _components_Orders_order_item_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/Orders/order_item.vue */ "./resources/js/components/Orders/order_item.vue");
+/* harmony import */ var _components_user_myprofile_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/user/myprofile.vue */ "./resources/js/components/user/myprofile.vue");
+/* harmony import */ var _components_Cart_carrinho_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Cart/carrinho.vue */ "./resources/js/components/Cart/carrinho.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
+Vue.use(new !(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-socket.io'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())({
+  debug: true,
+  connection: "http://food-home.test:8080"
+}));
+
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
 
@@ -64324,81 +64334,81 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 
-Vue.use(vue_cookies__WEBPACK_IMPORTED_MODULE_11___default.a);
-Vue.component('manage-users', _components_Admin_manageUsers_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
-Vue.component('products', _components_products_products_vue__WEBPACK_IMPORTED_MODULE_4__["default"]);
-Vue.component('edit-products', _components_products_edit_product_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
-Vue.component('orders', _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_13__["default"]);
-Vue.component('cookDashboard', _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_14__["default"]);
-Vue.component('deliverymanDashboard', _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_15__["default"]);
-Vue.component('myOrders', _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_16__["default"]);
-Vue.component('create-product', _components_products_create_product_vue__WEBPACK_IMPORTED_MODULE_6__["default"]); // Vue.component('paginate',require('laravel-vue-pagination'))
+Vue.use(vue_cookies__WEBPACK_IMPORTED_MODULE_12___default.a);
+Vue.component('manage-users', _components_Admin_manageUsers_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
+Vue.component('products', _components_products_products_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
+Vue.component('edit-products', _components_products_edit_product_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
+Vue.component('orders', _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_14__["default"]);
+Vue.component('cookDashboard', _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_15__["default"]);
+Vue.component('deliverymanDashboard', _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_16__["default"]);
+Vue.component('myOrders', _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_17__["default"]);
+Vue.component('create-product', _components_products_create_product_vue__WEBPACK_IMPORTED_MODULE_7__["default"]); // Vue.component('paginate',require('laravel-vue-pagination'))
 
 var routes = [{
   path: '/',
-  component: _Main_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  component: _Main_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
   path: '/register',
   name: 'Register',
-  component: _components_Auth_Register_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _components_Auth_Register_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
   path: '/login',
   name: 'Login',
-  component: _components_Auth_Login__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _components_Auth_Login__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
   path: '/management',
   name: 'Management',
-  component: _components_Admin_management_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+  component: _components_Admin_management_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
 }, {
   path: '/users/:id',
-  component: _components_Admin_edit_user_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+  component: _components_Admin_edit_user_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, {
   path: '/products/:id',
-  component: _components_products_edit_product_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+  component: _components_products_edit_product_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
   path: '/products',
   name: 'Products',
-  component: _components_products_products_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+  component: _components_products_products_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
   path: '/createproducts',
   name: 'CreateProducts',
-  component: _components_products_create_product_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+  component: _components_products_create_product_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, {
   path: '/orders',
   name: 'Orders',
-  component: _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
+  component: _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
 }, {
   path: '/cookdashboard',
   name: 'CookDashboard',
-  component: _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+  component: _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
 }, {
   path: '/myorders',
   name: 'MyOrders',
-  component: _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+  component: _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
   path: '/deliverymanDashboard',
   name: 'deliverymanDashboard',
-  component: _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
+  component: _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
 }, {
   path: '/orderitems',
   name: 'OrderItems',
-  component: _components_Orders_order_item_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
+  component: _components_Orders_order_item_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
 }, {
   path: '/myprofile',
   name: 'MyProfile',
-  component: _components_user_myprofile_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
+  component: _components_user_myprofile_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
 }, {
   path: '/cart',
   name: 'Cart',
-  component: _components_Cart_carrinho_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
+  component: _components_Cart_carrinho_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
 }];
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes //routes
 
 });
 var app = new Vue({
   el: '#app',
-  store: _store__WEBPACK_IMPORTED_MODULE_10__["default"],
+  store: _store__WEBPACK_IMPORTED_MODULE_11__["default"],
   router: router,
   methods: {
     LogOut: function LogOut() {
@@ -64412,7 +64422,7 @@ var app = new Vue({
     var token = Vue.$cookies.get('XSRF-TOKEN');
 
     if (token) {
-      axios__WEBPACK_IMPORTED_MODULE_12___default.a.get('/api/user', {
+      axios__WEBPACK_IMPORTED_MODULE_13___default.a.get('/api/user', {
         headers: _defineProperty({}, 'X-XSRF-TOKEN', token)
       }).then(function (response) {
         _this.$store.dispatch('LogIn', response.data);
@@ -64423,12 +64433,12 @@ var app = new Vue({
   }
 });
 router.beforeEach(function (to, from, next) {
-  if (to.name == 'Management' && !_store__WEBPACK_IMPORTED_MODULE_10__["default"].getters.isAuthenticated) next({
+  if (to.name == 'Management' && !_store__WEBPACK_IMPORTED_MODULE_11__["default"].getters.isAuthenticated) next({
     name: 'Login'
   });else next();
 });
 router.beforeEach(function (to, from, next) {
-  if (to.name == 'Management' && _store__WEBPACK_IMPORTED_MODULE_10__["default"].state.user.type != 'EM') next({
+  if (to.name == 'Management' && _store__WEBPACK_IMPORTED_MODULE_11__["default"].state.user.type != 'EM') next({
     path: '/'
   });else next();
 });

@@ -54,6 +54,7 @@ export default {
         const user = result.data.data;
 
         Object.assign(this.user, user);
+        this.$router.push({ path: "/management" });
       });
     },
     cancelEdit() {

@@ -89,7 +89,7 @@ export default {
           };
         }),
       };
-      axios.post("/api/orders", data).then((result) => {
+      axios.post("/api/orders", data, this.user).then((result) => {
         const order = result.data;
         this.$store.commit("clearCart");
         this.$router.push({ path: "/myOrders" });
@@ -99,7 +99,7 @@ export default {
       this.$router.push({ path: "/products" });
     },
     calculateSubTotalPrice: function (item) {
-      return item.quantity * item.price;
+      return parseFloat(item.quantity * item.price).toFixed(2);
     },
   },
 };
