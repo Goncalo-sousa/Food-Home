@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Product as ProductResource;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -21,27 +22,25 @@ class ProductController extends Controller
         return ProductResource::collection(Product::all());
     }
 
-    public function getFilterProducts(Request $request){
+    public function getFilterProducts(Request $request)
+    {
 
 
-        if(!is_null($request->name) || !is_null($request->type)){
-        
-            if(!is_null($request->name)){
+        if (!is_null($request->name) || !is_null($request->type)) {
+
+            if (!is_null($request->name)) {
                 $products = Product::where('name', 'like', $request->name . '%');
             }
-            if(!is_null($request->type)){
-                if(isset($products))
-                {
+            if (!is_null($request->type)) {
+                if (isset($products)) {
                     $products = $products->where('type', $request->type);
-                }
-                else{
+                } else {
                     $products = Product::where('type', $request->type);
                 }
-                
             }
-           
+
             $products = $products->paginate(20);
-        }else{
+        } else {
             $products = Product::paginate(50);
         }
         return $products;
@@ -65,10 +64,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'photo_url'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $product = new Product($request->input());
+
+        if($file = $request->hasFile('photo_url')) {
+            
+            $file = $request->file('photo_url') ;
+            
+            $fileName = $file->getClientOriginalName() ;
+            $destinationPath = public_path().'storage/products/' ;
+            $file->move($destinationPath,$fileName);
+            $product->product_image = $fileName ;
+        }
+        $product->save() ;
         
-        $product = new Product;
-        $product->fill($request->validated());
-        $product->save();
         return response()->json(new ProductResource($product), 201);
     }
 
@@ -80,7 +92,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( Product $product)
+    public function show(Product $product)
     {
         return new ProductResource($product);
     }
@@ -97,7 +109,6 @@ class ProductController extends Controller
         // 
         $product->update($request->validated());
         return new ProductResource($product);
-    
     }
 
     public function destroy(Product $product)
@@ -112,5 +123,4 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   
 }

@@ -2,7 +2,7 @@
   <div class="jumbotron">
     <h2>Create Product</h2>
 
-    <form >
+    <form>
       <label for="name">Name</label>
       <input
         required
@@ -30,7 +30,7 @@
 
       <div class="form-group">
         <label>Foto</label>
-        <br>
+        <br />
         <img
           v-bind:src="'storage/products/' + product.photo_url"
           width="150px"
@@ -51,15 +51,12 @@
           >
             Upload Image
           </button>
-          <button class="btn btn-primary" @click.prevent="updateImage()">
-            Save
-          </button>
         </form>
       </div>
 
       <div class="form-group">
         <label>Price</label>
-        <input type="text" class="form-control" v-model="product.price" />
+        <input type="number" class="form-control" v-model="product.price" />
       </div>
 
       <div class="form-group">
@@ -77,16 +74,25 @@
 <script>
 export default {
   data: function () {
-    return { product: {name: "",type: "",description:"",photo_url:"", price:""}};
+    return {
+      product: {
+        name: "",
+        type: "",
+        description: "",
+        photo_url: null,
+        price: "",
+      },
+    };
   },
   methods: {
     saveProduct: function () {
       console.log(this.product);
       axios
-        .post(`/products/create`, this.product)
+        .post("/api/products/create", this.product)
         .then((result) => {
           this.$router.push({ name: "products" });
-        }).catch((errors) => {
+        })
+        .catch((errors) => {
           if (errors.response.status === 422) {
             this.errors.record(errors.response.data.errors, "");
           }
@@ -97,15 +103,10 @@ export default {
     },
     fileSelected: function (event) {
       this.selectedFile = event.target.files[0];
-      console.log(this.selectedFile);
-    },
-    updateImage: function () {
       const fd = new FormData();
       fd.append("photo_url", this.selectedFile);
-      console.log(fd);
-      axios.post(`/api/products/changeimage/${this.product.id}`, fd).then((result) => {
-        console.log(result);
-      });
+      this.product.photo_url = this.selectedFile.name;
+      console.log(this.selectedFile);
     },
   },
 };

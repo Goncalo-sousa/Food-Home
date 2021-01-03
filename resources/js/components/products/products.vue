@@ -20,17 +20,16 @@
           id="name"
           v-model="search.name"
         />
-        <button type="submit" class="btn btn-primary" v-on:click="getProducts()">
+        <button class="btn btn-primary" v-on:click="createProduct()">
+          Create
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          v-on:click="getProducts()"
+        >
           Search
         </button>
-        <br><br><br>
-        <button
-              v-if="user != null && user.type === 'EM'"
-              class="btn btn-primary"
-              v-on:click="createProduct()"
-            >
-              Create
-       </button>
       </div>
     </div>
     <table class="table table-striped">
@@ -61,7 +60,7 @@
           </th>
           <td>
             <button
-              v-if="user != null && user.type === 'C'" 
+              v-if="user != null && user.type === 'C'"
               class="btn btn-primary"
               v-on:click="addToCart(product)"
             >
@@ -113,6 +112,7 @@ export default {
         type: "",
       },
       checkedNames: [],
+      selectedFile: null,
     };
   },
   computed: {
@@ -123,9 +123,7 @@ export default {
   },
   methods: {
     createProduct: function () {
-      
-      //console.log(product.id);
-      this.$router.push({ path: `/createproducts/` });
+      this.$router.push({ path: '/createproducts' });
     },
     editProduct: function (product) {
       console.log(product.id);
@@ -137,11 +135,14 @@ export default {
     },
     deleteProduct(product) {
       axios.delete(`/api/products/${product.id}`).then((result) => {
-        this.products.splice(this.products.findIndex((p) => p.id == product.id),1);
+        this.products.splice(
+          this.products.findIndex((p) => p.id == product.id),
+          1
+        );
       });
     },
     getProducts: async function () {
-     await axios
+      await axios
         .post("/api/products/filter", this.search)
         .then((response) => {
           if (response.data == "Can't search by category!") {
@@ -157,15 +158,15 @@ export default {
     },
 
     getResults: async function () {
-     await axios
+      await axios
         .post("api/products/filter?page=" + page, this.search)
         .then((response) => {
           this.products = response.data;
         });
     },
   },
- async mounted() {
-   await axios.get("/api/products").then((response) => {
+  async mounted() {
+    await axios.get("/api/products").then((response) => {
       this.products = response.data.data;
     });
   },
