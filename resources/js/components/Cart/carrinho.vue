@@ -60,7 +60,6 @@ export default {
   computed: {
     totalPrice: function () {
       let totalPrice = 0;
-
       for (let item of this.$store.state.cart) {
         totalPrice += parseFloat(item.price * item.quantity);
       }
@@ -72,6 +71,10 @@ export default {
       console.log(this.item);
       return this.$store.state.user ? this.$store.state.user : null;
     },
+  },
+  mounted: function () {
+    console.log("ola");
+    console.log(window.localStorage.getItem("cart"));
   },
   methods: {
     removeFromCart(item) {

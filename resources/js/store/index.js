@@ -1,14 +1,10 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
-// import VuexPersistence from "vuex-persistedstate";
+import createPersistedState from "vuex-persistedstate";
 //import auth from './modules/auth';
 
 // Load Vuex
 Vue.use(Vuex);
-// Create store
-// const vuexLocal = new VuexPersistence({
-//     storage: window.localStorage,
-//   });
 
 export default new Vuex.Store({
     getters: {
@@ -19,11 +15,11 @@ export default new Vuex.Store({
     },
     modules: {
     },
+    plugins: [createPersistedState()],
     state: {
         user: null,
         cart: [],
         cartCount: 0,
-        //plugins: [vuexLocal.plugin],
     },
     mutations: {
         setUser(state, user) {
