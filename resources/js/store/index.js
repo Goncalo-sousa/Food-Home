@@ -23,7 +23,7 @@ export default new Vuex.Store({
         user: null,
         cart: [],
         cartCount: 0,
-        // plugins: [vuexLocal.plugin],
+        //plugins: [vuexLocal.plugin],
     },
     mutations: {
         setUser(state, user) {

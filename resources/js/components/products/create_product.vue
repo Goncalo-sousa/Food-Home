@@ -1,12 +1,16 @@
 <template >
   <div class="jumbotron">
-    <h2>Edit Product</h2>
+    <h2>Create Product</h2>
 
-    <form v-if="product">
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" v-model="product.name" />
-      </div>
+    <form >
+      <label for="name">Name</label>
+      <input
+        required
+        type="text"
+        v-model="product.name"
+        id="name"
+        placeholder="Name"
+      />
 
       <div class="form-group">
         <label>Type:</label>
@@ -73,17 +77,19 @@
 <script>
 export default {
   data: function () {
-    return { product: undefined };
+    return { product: {name: "",type: "",description:"",photo_url:"", price:""}};
   },
   methods: {
     saveProduct: function () {
       console.log(this.product);
       axios
-        .put(`/api/products/${this.product.id}`, this.product)
+        .post(`/products/create`, this.product)
         .then((result) => {
-          const product = result.data.data;
-
-          Object.assign(this.product, product);
+          this.$router.push({ name: "products" });
+        }).catch((errors) => {
+          if (errors.response.status === 422) {
+            this.errors.record(errors.response.data.errors, "");
+          }
         });
     },
     cancelEdit() {
@@ -101,10 +107,6 @@ export default {
         console.log(result);
       });
     },
-  },
-  async created() {
-    const productID = this.$route.params.id;
-    this.product = (await axios.get(`/api/products/${productID}`)).data.data;
   },
 };
 </script>
