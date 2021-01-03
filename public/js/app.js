@@ -2030,6 +2030,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       axios.put("/api/users/".concat(this.user.id), this.user).then(function (result) {
         var user = result.data.data;
         Object.assign(_this.user, user);
+
+        _this.$router.push({
+          path: "/management"
+        });
       });
     },
     cancelEdit: function cancelEdit() {
@@ -2569,7 +2573,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           };
         })
       };
-      axios.post("/api/orders", data).then(function (result) {
+      axios.post("/api/orders", data, this.user).then(function (result) {
         var order = result.data;
 
         _this.$store.commit("clearCart");
@@ -2585,7 +2589,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     calculateSubTotalPrice: function calculateSubTotalPrice(item) {
-      return item.quantity * item.price;
+      return parseFloat(item.quantity * item.price).toFixed(2);
     }
   }
 });
@@ -3386,7 +3390,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.product);
       axios.post("/api/products/create", this.product).then(function (result) {
         _this.$router.push({
-          name: "products"
+          path: "/products"
         });
       })["catch"](function (errors) {
         if (errors.response.status === 422) {

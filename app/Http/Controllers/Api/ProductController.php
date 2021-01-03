@@ -7,6 +7,7 @@ use App\Http\Resources\Product as ProductResource;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use GuzzleHttp\Promise\Create;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -64,23 +65,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'photo_url'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
         $product = new Product($request->input());
 
-        if($file = $request->hasFile('photo_url')) {
-            
-            $file = $request->file('photo_url') ;
-            
-            $fileName = $file->getClientOriginalName() ;
-            $destinationPath = public_path().'storage/products/' ;
-            $file->move($destinationPath,$fileName);
-            $product->product_image = $fileName ;
+        if ($file = $request->hasFile('photo_url')) {
+
+            $file = $request->file('photo_url');
+
+            $fileName = time() . '.' . $file->getClientOriginalName();
+            $destinationPath = public_path() . 'storage/products/';
+            $file->move($destinationPath, $fileName);
+            $product->product_image = $fileName;
         }
-        $product->save() ;
-        
+        $product->save();
+
         return response()->json(new ProductResource($product), 201);
     }
 

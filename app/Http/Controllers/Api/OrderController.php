@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Order as OrderResource;
 use App\Models\Order_item;
 use App\Models\Product;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 

@@ -90,7 +90,7 @@ export default {
       axios
         .post("/api/products/create", this.product)
         .then((result) => {
-          this.$router.push({ name: "products" });
+          this.$router.push({ path: "/products" });
         })
         .catch((errors) => {
           if (errors.response.status === 422) {
