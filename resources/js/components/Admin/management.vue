@@ -1,7 +1,8 @@
 <template>
   <div>
+    <global-messages></global-messages>
     <manage-users v-bind:users="users" @delete-user="deleteUser" />
-
+    
     <edit-user
       v-if="editingUser"
       :user="currentUser"
@@ -13,6 +14,7 @@
 
 <script>
 import manageUsers from "./manageUsers.vue";
+
 export default {
   components: { manageUsers },
   data: function () {
