@@ -31,6 +31,7 @@ import MyOrders from './components/Dashboard/myOrders.vue'
 import OrderItemComponent from './components/Orders/order_item.vue'
 import MyProfileComponent from './components/user/myprofile.vue'
 import CartComponet from './components/Cart/carrinho.vue'
+import Messages from './components/Messages/globalMessages.vue'
 
 Vue.use(VueCookies)
 Vue.component('manage-users', ManageUsersComponent);
