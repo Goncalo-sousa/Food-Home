@@ -50,7 +50,6 @@ class OrderController extends Controller
     */
     public function store(Store $request)
     {
-        
         $order = new Order();
         $order->fill($request->validated());
         $order->customer_id = Auth::user()->id;
