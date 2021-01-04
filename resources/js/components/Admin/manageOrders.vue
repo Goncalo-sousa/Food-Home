@@ -11,7 +11,6 @@
             <th>Time Elapsed</th>
             <th>Order Items</th>
             <th>Prepared By</th>
-            <th>Customer</th>
             <th>Notes</th>
             <th>Order Completed</th>
           </tr>
@@ -39,7 +38,6 @@
               </button>
             </td>
             <td>{{ order.cook.name }}</td>
-            <td>{{ order.customer.name }}</td>
             <td>{{ order.notes }}</td>
             <td>
               <button
@@ -72,7 +70,6 @@ export default {
   },
   computed: {
     user: function () {
-      console.log(this.$store.state.user);
       return this.$store.state.user ? this.$store.state.user : null;
     },
   },
@@ -86,7 +83,7 @@ export default {
   },
   methods: {
     changeOrderStatus: function (order) {
-      let form = { status: "D" };
+      let form = { status: "C" };
       axios.put("api/orders/" + order.id, form).then((response) => {
         this.showSuccess = true;
         this.successMessage = "Order Status Changed";

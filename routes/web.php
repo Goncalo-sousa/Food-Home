@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Resources\Order;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('vue.index');
+   return view('vue.index');
 });

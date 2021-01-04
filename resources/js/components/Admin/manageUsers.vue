@@ -32,14 +32,10 @@
             />
           </th>
           <td>
-            <button class="btn btn-primary" v-on:click="editUser(user)">
-              Edit
-            </button>
+            <button class="btn btn-primary" v-on:click="editUser(user)">Edit</button>
           </td>
           <td>
-            <button class="btn btn-danger" v-on:click="deleteUser(user)">
-              Delete
-            </button>
+            <button class="btn btn-danger" v-on:click="deleteUser(user)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -61,5 +57,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

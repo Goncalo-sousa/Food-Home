@@ -76,7 +76,7 @@ export default {
       return this.$store.state.user ? this.$store.state.user : null;
     },
     orderList: function () {
-      const preparingOrders = this.orders.filter((order) => order.status === "P");
+      const preparingOrders = this.orders.filter((order) => order.status === "R");
       return preparingOrders.length ? preparingOrders : this.orders;
     },
   },
@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     changeOrderStatus: function (order) {
-      let form = { status: "D" };
+      let form = { status: "R" };
       axios.put("api/orders/" + order.id, form).then((response) => {
         this.showSuccess = true;
         this.successMessage = "Order Status Changed";
