@@ -1,8 +1,8 @@
 <template>
   <div class="container">
+    <h3>Type of Products</h3>
     <BarChart v-if="loaded" :chartdata="chartdata" :options="options" />
-    <LineChart v-if="loaded" :chartdata="chartdata" :options="options" />
-
+    <LineChart v-if="loaded" :chartdataOrders="chartdataOrders" :options="options" />
   </div>
 </template>
 
@@ -16,22 +16,10 @@ export default {
     BarChart,
     LineChart,
   },
-  // data() {
-  //   return {
-  //     chartData: {
-  //       Books: 24,
-  //       Magazine: 30,
-  //       Newspapers: 10,
-  //     },
-  //     products: {
-  //       data:[],
-  //       month:[],
-  //     },
-  //   };
-  // },
   data: () => ({
     loaded: false,
     chartdata: null,
+    chartdataOrders: null,
     options: null,
   }),
   async mounted() {
@@ -40,6 +28,11 @@ export default {
       this.chartdata = response.data;
       this.loaded = true;
       console.log(this.chartdata);
+    });
+    await axios.get("/api/statisticsOrders").then((response) => {
+      this.chartdataOrders = response.data;
+      this.loaded = true;
+      console.log(this.chartdataOrders);
     });
   },
 };

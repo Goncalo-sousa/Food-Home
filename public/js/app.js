@@ -2412,6 +2412,7 @@ __webpack_require__.r(__webpack_exports__);
       labels: this.chartdata.labels,
       datasets: [{
         label: 'Products',
+        backgroundColor: "#f87979",
         data: this.chartdata.data
       }]
     }, {
@@ -2455,7 +2456,7 @@ __webpack_require__.r(__webpack_exports__);
   //   );
   // },
   props: {
-    chartdata: {
+    chartdataOrders: {
       type: Object,
       "default": null
     },
@@ -2466,10 +2467,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.renderChart({
-      labels: this.chartdata.labels,
+      labels: this.chartdataOrders.labels,
       datasets: [{
         label: 'Products',
-        data: this.chartdata.data
+        backgroundColor: "#f87979",
+        data: this.chartdataOrders.data
       }]
     }, {
       responsive: true,
@@ -2517,23 +2519,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     BarChart: _BarChart_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     LineChart: _LineChart_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  // data() {
-  //   return {
-  //     chartData: {
-  //       Books: 24,
-  //       Magazine: 30,
-  //       Newspapers: 10,
-  //     },
-  //     products: {
-  //       data:[],
-  //       month:[],
-  //     },
-  //   };
-  // },
   data: function data() {
     return {
       loaded: false,
       chartdata: null,
+      chartdataOrders: null,
       options: null
     };
   },
@@ -2554,6 +2544,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
 
             case 3:
+              _context.next = 5;
+              return axios.get("/api/statisticsOrders").then(function (response) {
+                _this.chartdataOrders = response.data;
+                _this.loaded = true;
+                console.log(_this.chartdataOrders);
+              });
+
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -62425,6 +62423,8 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
+      _c("h3", [_vm._v("Type of Products")]),
+      _vm._v(" "),
       _vm.loaded
         ? _c("BarChart", {
             attrs: { chartdata: _vm.chartdata, options: _vm.options }
@@ -62433,7 +62433,10 @@ var render = function() {
       _vm._v(" "),
       _vm.loaded
         ? _c("LineChart", {
-            attrs: { chartdata: _vm.chartdata, options: _vm.options }
+            attrs: {
+              chartdataOrders: _vm.chartdataOrders,
+              options: _vm.options
+            }
           })
         : _vm._e()
     ],
