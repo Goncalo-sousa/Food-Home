@@ -2070,6 +2070,147 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/manageOrders.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Admin/manageOrders.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Orders_orderItemList_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Orders/orderItemList.vue */ "./resources/js/components/Orders/orderItemList.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    OrderItemList: _Orders_orderItemList_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    user: function user() {
+      return this.$store.state.user ? this.$store.state.user : null;
+    }
+  },
+  data: function data() {
+    return {
+      orders: [],
+      showActiveOrderItems: false,
+      activeOrderItems: [],
+      activeIndexId: -1
+    };
+  },
+  methods: {
+    changeOrderStatus: function changeOrderStatus(order) {
+      var _this = this;
+
+      var form = {
+        status: "C"
+      };
+      axios.put("api/orders/" + order.id, form).then(function (response) {
+        _this.showSuccess = true;
+        _this.successMessage = "Order Status Changed";
+
+        _this.getOrders();
+      });
+    },
+    getOrders: function getOrders() {
+      var _this2 = this;
+
+      axios.get("/api/orders").then(function (response) {
+        _this2.orders = response.data.data;
+      });
+    },
+    getItemsName: function getItemsName(orderItems) {
+      return orderItems.map(function (orderItem) {
+        return orderItem.name;
+      });
+    },
+    setActiveOrderItems: function setActiveOrderItems(order) {
+      this.activeIndexId = order.id;
+      this.activeOrderItems = order.order_items;
+      this.showActiveOrderItems = true;
+    },
+    resetActiveOrderItems: function resetActiveOrderItems() {
+      this.activeOrderItems = [];
+      this.showActiveOrderItems = false;
+    },
+    preparationTime: function preparationTime(order) {
+      var orderCreationTime = moment__WEBPACK_IMPORTED_MODULE_1___default()(order.opened_at);
+      return orderCreationTime.fromNow();
+    }
+  },
+  mounted: function mounted() {
+    this.getOrders();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/manageUsers.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Admin/manageUsers.vue?vue&type=script&lang=js& ***!
@@ -2079,10 +2220,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
 //
 //
 //
@@ -2890,7 +3027,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     orderList: function orderList() {
       var preparingOrders = this.orders.filter(function (order) {
-        return order.status === "P";
+        return order.status === "R";
       });
       return preparingOrders.length ? preparingOrders : this.orders;
     }
@@ -2908,7 +3045,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var form = {
-        status: "D"
+        status: "R"
       };
       axios.put("api/orders/" + order.id, form).then(function (response) {
         _this.showSuccess = true;
@@ -3051,7 +3188,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     orderList: function orderList() {
       var onTransitOrders = this.orders.filter(function (order) {
-        return order.status === "T";
+        return order.status === "In Transit";
       });
       return onTransitOrders.length ? onTransitOrders : this.orders;
     }
@@ -3095,6 +3232,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.currentOrder = order;
       this.currentOrder.status = "T";
+      this.currentOrder.delivered_by = this.user.id;
       axios.put("api/orders/" + this.currentOrder.id, this.currentOrder).then(function (response) {
         _this3.showSuccess = true;
         _this3.successMessage = "Order Status Changed";
@@ -3269,7 +3407,7 @@ __webpack_require__.r(__webpack_exports__);
       this.activeOrders = false;
       this.orderList = [];
       this.orders.forEach(function (order) {
-        if (order.status == "Delivered") {
+        if (order.status == "Delivered" || order.status == "Cancelled") {
           _this2.orderList.push(order);
         }
       });
@@ -3280,7 +3418,7 @@ __webpack_require__.r(__webpack_exports__);
       this.activeOrders = true;
       this.orderList = [];
       this.orders.forEach(function (order) {
-        if (order.status != "Delivered") {
+        if (order.status == "Ready" || order.status == "Holding" || order.status == "Preparing" || order.status == "Transit") {
           _this3.orderList.push(order);
         }
       });
@@ -61960,6 +62098,157 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/manageOrders.vue?vue&type=template&id=97ee0fd6&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Admin/manageOrders.vue?vue&type=template&id=97ee0fd6& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.user && _vm.user.type === "M"
+      ? _c("h2", [_vm._v("Order Management Dashboard")])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.orders.length
+      ? _c(
+          "div",
+          [
+            _c(
+              "table",
+              { staticClass: "table table-responsive table-striped" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.orders, function(order) {
+                    return _c("tr", { key: order.id }, [
+                      _c("td", [_vm._v(_vm._s(order.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.status))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.opened_at))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(_vm.preparationTime(order)))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        !_vm.showActiveOrderItems
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.setActiveOrderItems(order)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              View Order Items\n            "
+                                )
+                              ]
+                            )
+                          : _vm.activeIndexId === order.id
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.resetActiveOrderItems()
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n              Hide Order Items\n            "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.cook.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.notes))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.changeOrderStatus(order)
+                              }
+                            }
+                          },
+                          [_vm._v("\n              Done\n            ")]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm.showActiveOrderItems
+              ? _c("order-item-list", {
+                  attrs: { orderItems: _vm.activeOrderItems }
+                })
+              : _vm._e()
+          ],
+          1
+        )
+      : _c("div", [_c("h5", [_vm._v("No orders")])])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Order ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Opened At")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Time Elapsed")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Order Items")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prepared By")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Notes")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Order Completed")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/manageUsers.vue?vue&type=template&id=7ca21c88&":
 /*!********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Admin/manageUsers.vue?vue&type=template&id=7ca21c88& ***!
@@ -62022,7 +62311,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Edit\n          ")]
+                [_vm._v("Edit")]
               )
             ]),
             _vm._v(" "),
@@ -62037,7 +62326,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Delete\n          ")]
+                [_vm._v("Delete")]
               )
             ])
           ])
@@ -81318,17 +81607,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_cookies__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(vue_cookies__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Orders/orders.vue */ "./resources/js/components/Orders/orders.vue");
-/* harmony import */ var _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Dashboard/cookDashboard.vue */ "./resources/js/components/Dashboard/cookDashboard.vue");
-/* harmony import */ var _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Dashboard/deliverymanDashboard.vue */ "./resources/js/components/Dashboard/deliverymanDashboard.vue");
-/* harmony import */ var _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Dashboard/myOrders.vue */ "./resources/js/components/Dashboard/myOrders.vue");
-/* harmony import */ var _components_Orders_order_item_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/Orders/order_item.vue */ "./resources/js/components/Orders/order_item.vue");
-/* harmony import */ var _components_user_myprofile_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/user/myprofile.vue */ "./resources/js/components/user/myprofile.vue");
-/* harmony import */ var _components_Cart_carrinho_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/Cart/carrinho.vue */ "./resources/js/components/Cart/carrinho.vue");
-/* harmony import */ var _components_Messages_globalMessages_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/Messages/globalMessages.vue */ "./resources/js/components/Messages/globalMessages.vue");
-/* harmony import */ var _components_Admin_statistics_statisticsDashboard_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/Admin/statistics/statisticsDashboard.vue */ "./resources/js/components/Admin/statistics/statisticsDashboard.vue");
-/* harmony import */ var _components_Admin_statistics_BarChart_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/Admin/statistics/BarChart.vue */ "./resources/js/components/Admin/statistics/BarChart.vue");
-/* harmony import */ var _components_Admin_statistics_LineChart_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/Admin/statistics/LineChart.vue */ "./resources/js/components/Admin/statistics/LineChart.vue");
+/* harmony import */ var _components_Admin_manageOrders_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Admin/manageOrders.vue */ "./resources/js/components/Admin/manageOrders.vue");
+/* harmony import */ var _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/Orders/orders.vue */ "./resources/js/components/Orders/orders.vue");
+/* harmony import */ var _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/Dashboard/cookDashboard.vue */ "./resources/js/components/Dashboard/cookDashboard.vue");
+/* harmony import */ var _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/Dashboard/deliverymanDashboard.vue */ "./resources/js/components/Dashboard/deliverymanDashboard.vue");
+/* harmony import */ var _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/Dashboard/myOrders.vue */ "./resources/js/components/Dashboard/myOrders.vue");
+/* harmony import */ var _components_Orders_order_item_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/Orders/order_item.vue */ "./resources/js/components/Orders/order_item.vue");
+/* harmony import */ var _components_user_myprofile_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/user/myprofile.vue */ "./resources/js/components/user/myprofile.vue");
+/* harmony import */ var _components_Cart_carrinho_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/Cart/carrinho.vue */ "./resources/js/components/Cart/carrinho.vue");
+/* harmony import */ var _components_Messages_globalMessages_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/Messages/globalMessages.vue */ "./resources/js/components/Messages/globalMessages.vue");
+/* harmony import */ var _components_Admin_statistics_statisticsDashboard_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/Admin/statistics/statisticsDashboard.vue */ "./resources/js/components/Admin/statistics/statisticsDashboard.vue");
+/* harmony import */ var _components_Admin_statistics_BarChart_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/Admin/statistics/BarChart.vue */ "./resources/js/components/Admin/statistics/BarChart.vue");
+/* harmony import */ var _components_Admin_statistics_LineChart_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/Admin/statistics/LineChart.vue */ "./resources/js/components/Admin/statistics/LineChart.vue");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
@@ -81364,18 +81654,20 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
 
+
 Vue.use(vue_cookies__WEBPACK_IMPORTED_MODULE_12___default.a);
 Vue.component('manage-users', _components_Admin_manageUsers_vue__WEBPACK_IMPORTED_MODULE_8__["default"]);
+Vue.component('manage-orders', _components_Admin_manageOrders_vue__WEBPACK_IMPORTED_MODULE_14__["default"]);
 Vue.component('products', _components_products_products_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
 Vue.component('edit-products', _components_products_edit_product_vue__WEBPACK_IMPORTED_MODULE_6__["default"]);
-Vue.component('orders', _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_14__["default"]);
-Vue.component('cookDashboard', _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_15__["default"]);
-Vue.component('deliverymanDashboard', _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_16__["default"]);
-Vue.component('myOrders', _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_17__["default"]);
+Vue.component('orders', _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_15__["default"]);
+Vue.component('cookDashboard', _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_16__["default"]);
+Vue.component('deliverymanDashboard', _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_17__["default"]);
+Vue.component('myOrders', _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_18__["default"]);
 Vue.component('create-product', _components_products_create_product_vue__WEBPACK_IMPORTED_MODULE_7__["default"]);
-Vue.component('statisticsDashboard', _components_Admin_statistics_statisticsDashboard_vue__WEBPACK_IMPORTED_MODULE_22__["default"]);
-Vue.component('BarChart', _components_Admin_statistics_BarChart_vue__WEBPACK_IMPORTED_MODULE_23__["default"]);
-Vue.component('LineChart', _components_Admin_statistics_LineChart_vue__WEBPACK_IMPORTED_MODULE_24__["default"]); // Vue.component('paginate',require('laravel-vue-pagination'))
+Vue.component('statisticsDashboard', _components_Admin_statistics_statisticsDashboard_vue__WEBPACK_IMPORTED_MODULE_23__["default"]);
+Vue.component('BarChart', _components_Admin_statistics_BarChart_vue__WEBPACK_IMPORTED_MODULE_24__["default"]);
+Vue.component('LineChart', _components_Admin_statistics_LineChart_vue__WEBPACK_IMPORTED_MODULE_25__["default"]); // Vue.component('paginate',require('laravel-vue-pagination'))
 
 var routes = [{
   path: '/',
@@ -81389,9 +81681,13 @@ var routes = [{
   name: 'Login',
   component: _components_Auth_Login__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
-  path: '/management',
-  name: 'Management',
+  path: '/manageUsers',
+  name: 'ManagementUsers',
   component: _components_Admin_management_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+}, {
+  path: '/manageOrders',
+  name: 'ManagementOrders',
+  component: _components_Admin_manageOrders_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
 }, {
   path: '/users/:id',
   component: _components_Admin_edit_user_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
@@ -81409,35 +81705,35 @@ var routes = [{
 }, {
   path: '/orders',
   name: 'Orders',
-  component: _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+  component: _components_Orders_orders_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
 }, {
   path: '/cookdashboard',
   name: 'CookDashboard',
-  component: _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
+  component: _components_Dashboard_cookDashboard_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
 }, {
   path: '/myorders',
   name: 'MyOrders',
-  component: _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
+  component: _components_Dashboard_myOrders_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
 }, {
   path: '/deliverymanDashboard',
   name: 'deliverymanDashboard',
-  component: _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+  component: _components_Dashboard_deliverymanDashboard_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
   path: '/orderitems',
   name: 'OrderItems',
-  component: _components_Orders_order_item_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
+  component: _components_Orders_order_item_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
 }, {
   path: '/myprofile',
   name: 'MyProfile',
-  component: _components_user_myprofile_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
+  component: _components_user_myprofile_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
 }, {
   path: '/cart',
   name: 'Cart',
-  component: _components_Cart_carrinho_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
+  component: _components_Cart_carrinho_vue__WEBPACK_IMPORTED_MODULE_21__["default"]
 }, {
   path: '/statistics',
   name: 'Statistics',
-  component: _components_Admin_statistics_statisticsDashboard_vue__WEBPACK_IMPORTED_MODULE_22__["default"]
+  component: _components_Admin_statistics_statisticsDashboard_vue__WEBPACK_IMPORTED_MODULE_23__["default"]
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes //routes
@@ -81578,6 +81874,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_user_vue_vue_type_template_id_2ad49a85___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_user_vue_vue_type_template_id_2ad49a85___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/manageOrders.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/Admin/manageOrders.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _manageOrders_vue_vue_type_template_id_97ee0fd6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manageOrders.vue?vue&type=template&id=97ee0fd6& */ "./resources/js/components/Admin/manageOrders.vue?vue&type=template&id=97ee0fd6&");
+/* harmony import */ var _manageOrders_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./manageOrders.vue?vue&type=script&lang=js& */ "./resources/js/components/Admin/manageOrders.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _manageOrders_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _manageOrders_vue_vue_type_template_id_97ee0fd6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _manageOrders_vue_vue_type_template_id_97ee0fd6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Admin/manageOrders.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/manageOrders.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/Admin/manageOrders.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_manageOrders_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./manageOrders.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/manageOrders.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_manageOrders_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Admin/manageOrders.vue?vue&type=template&id=97ee0fd6&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/Admin/manageOrders.vue?vue&type=template&id=97ee0fd6& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_manageOrders_vue_vue_type_template_id_97ee0fd6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./manageOrders.vue?vue&type=template&id=97ee0fd6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Admin/manageOrders.vue?vue&type=template&id=97ee0fd6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_manageOrders_vue_vue_type_template_id_97ee0fd6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_manageOrders_vue_vue_type_template_id_97ee0fd6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

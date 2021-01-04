@@ -123,7 +123,7 @@ export default {
       this.activeOrders = false;
       this.orderList = [];
       this.orders.forEach((order) => {
-        if (order.status == "Delivered") {
+        if (order.status == "Delivered" || order.status == "Cancelled") {
           this.orderList.push(order);
         }
       });
@@ -132,7 +132,12 @@ export default {
       this.activeOrders = true;
       this.orderList = [];
       this.orders.forEach((order) => {
-        if (order.status != "Delivered") {
+        if (
+          order.status == "Ready" ||
+          order.status == "Holding" ||
+          order.status == "Preparing" ||
+          order.status == "Transit"
+        ) {
           this.orderList.push(order);
         }
       });

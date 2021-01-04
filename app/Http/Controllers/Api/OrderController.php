@@ -13,7 +13,6 @@ use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\VarDumper\Caster\DsCaster;
 
 use function PHPSTORM_META\type;
 
@@ -34,7 +33,12 @@ class OrderController extends Controller
             if ($user->type == "C") {
                 $orders->where("customer_id", $user->id);
             } elseif ($user->type == "ED") {
-                $orders->where("delivered_by", $user->id)->whereIn("status", ["T", "R"]);
+
+                $orders->where(function ($subquery) use ($user) {
+                    $subquery
+                        ->where('delivered_by', $user->id)->where('status', 'T')
+                        ->orWhereNull('delivered_by')->where('status', 'R');
+                });
             } elseif ($user->type == "EM") {
                 $orders->whereNotIn("status", ["D", "C"]);
             }
@@ -126,14 +130,32 @@ class OrderController extends Controller
     */
     public function updateStatus(Request $request, Order $order)
     {
-        $order->update($request->only(['status']));
+        $order->update($request->only(['status', 'delivered_by']));
+
         if ($pendingOrder = $this->getHoldingOrder()) {
             $pendingOrder->prepared_by = $this->getLatestAvailableCook();
             if($pendingOrder->prepared_by != null){
                 $pendingOrder->status = 'P';
+                $pendingOrder->current_status_at = Carbon::now();
             }
             $pendingOrder->save();
         }
+
+        $currentStatusDate = Carbon::parse($order->current_status_at);
+
+        if($request->status == "R"){
+            $order->preparation_time = Carbon::now()->diffInSeconds($currentStatusDate);
+            $order->current_status_at = Carbon::now()->toDateTimeString();
+        }
+
+        if($request->status == "D"){
+            $order->delivery_time = Carbon::now()->diffInSeconds($currentStatusDate);
+            $order->current_status_at = Carbon::now()->toDateTimeString();
+            $order->closed_at = Carbon::now()->toDateTimeString();
+            $order->total_time = Carbon::now()->diffInSeconds(Carbon::parse($order->opened_at));
+        }
+
+        $order->save();
         
         return new OrderResource($order);
     }

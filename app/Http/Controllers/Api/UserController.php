@@ -94,7 +94,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $user->customer->delete();
+        $user->customer->orders->order_items->delete();
+        $user->customer->orders->delete();
         $user->delete();
         return response()->json(null, 204);
     }
+    
 }

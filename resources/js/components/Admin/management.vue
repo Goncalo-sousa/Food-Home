@@ -2,7 +2,7 @@
   <div>
     <global-messages></global-messages>
     <manage-users v-bind:users="users" @delete-user="deleteUser" />
-    
+
     <edit-user
       v-if="editingUser"
       :user="currentUser"
@@ -39,7 +39,7 @@ export default {
       });
     },
   },
- async mounted() {
+  async mounted() {
     await axios.get("api/users").then((response) => {
       this.users = response.data.data;
     });
@@ -47,5 +47,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

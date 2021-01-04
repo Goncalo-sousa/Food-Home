@@ -87,7 +87,9 @@ export default {
       return this.$store.state.user ? this.$store.state.user : null;
     },
     orderList: function () {
-      const onTransitOrders = this.orders.filter((order) => order.status === "T");
+      const onTransitOrders = this.orders.filter(
+        (order) => order.status === "In Transit"
+      );
       return onTransitOrders.length ? onTransitOrders : this.orders;
     },
   },
@@ -125,6 +127,7 @@ export default {
     pickUpOrder: function (order) {
       this.currentOrder = order;
       this.currentOrder.status = "T";
+      this.currentOrder.delivered_by = this.user.id;
       axios
         .put("api/orders/" + this.currentOrder.id, this.currentOrder)
         .then((response) => {
