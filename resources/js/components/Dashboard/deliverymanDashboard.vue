@@ -93,6 +93,11 @@ export default {
       return onTransitOrders.length ? onTransitOrders : this.orders;
     },
   },
+  sockets:{
+      order_cooked(id){
+          alert("Order for delivery!! Order id =" +id +" !!");
+      }
+  },
   data() {
     return {
       orders: [],

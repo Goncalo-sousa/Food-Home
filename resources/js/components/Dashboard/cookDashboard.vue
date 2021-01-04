@@ -86,7 +86,14 @@ export default {
       showActiveOrderItems: false,
       activeOrderItems: [],
       activeIndexId: -1,
+      idorderrecebido: null,
     };
+  },
+  sockets:{
+      new_order(id){
+          this.idorderrecebido = id;
+          alert("New order created!! Order id =" +id +" !!");
+      }
   },
   methods: {
     changeOrderStatus: function (order) {
@@ -95,6 +102,7 @@ export default {
         this.showSuccess = true;
         this.successMessage = "Order Status Changed";
         this.getOrders();
+        this.$socket.emit("order_cooked",order.id);
       });
     },
     getOrders: function () {

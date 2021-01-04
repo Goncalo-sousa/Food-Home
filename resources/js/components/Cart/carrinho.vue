@@ -93,6 +93,7 @@ export default {
         const order = result.data;
         this.$store.commit("clearCart");
         this.$router.push({ path: "/myOrders" });
+        this.$socket.emit("new_order", order.id);
       });
     },
     redirectProducts: function () {
