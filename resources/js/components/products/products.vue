@@ -3,6 +3,13 @@
     <div class="row">
       <div class="form-group">
         <div>
+          <br>
+          <br>
+        <div v-show="user && user.type != 'M'">
+            <global-messages ></global-messages>
+        </div>
+           
+          
           <label for="productType">Type: </label>
           <select id="productType" v-model="search.type">
             <option value="">All</option>
@@ -94,9 +101,10 @@
 </template>
 
 <script>
+import MessageComponent from '../Messages/globalMessages.vue'
 import manageProducts from "./edit_product.vue";
 export default {
-  components: { manageProducts },
+  components: { manageProducts, 'global-messages': MessageComponent},
 
   data() {
     return {
@@ -163,6 +171,22 @@ export default {
         .then((response) => {
           this.products = response.data;
         });
+    },
+  },
+  sockets: {
+    connect () {
+      // If user is logged resend the message user_logged
+      if (this.$store.state.user) {
+        this.$socket.emit('user_logged', this.$store.state.user)
+      }
+    },
+    private_message (payload) {
+      this.$toasted.show('Message from "' + payload.originalUser.name +
+        '":<br><br>' + payload.message, { type: 'info' })
+    },
+    destination_user_not_logged (payload) {
+      this.$toasted.show('User "' + payload.destinationUser.name + '" is not available!',
+        { type: 'warning' })
     },
   },
   async mounted() {

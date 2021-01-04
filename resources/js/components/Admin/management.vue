@@ -13,10 +13,13 @@
 </template>
 
 <script>
+  //props: ["user"],
+  
 import manageUsers from "./manageUsers.vue";
-
+import MessageComponent from '../Messages/globalMessages.vue'
 export default {
-  components: { manageUsers },
+
+  components: { manageUsers, 'global-messages': MessageComponent },
   data: function () {
     return {
       users: [],
@@ -38,6 +41,23 @@ export default {
         );
       });
     },
+    
+  },
+  sockets: {
+    connect () {
+      // If user is logged resend the message user_logged
+      if (this.$store.state.user) {
+        this.$socket.emit('user_logged', this.$store.state.user)
+      }
+    },
+    private_message (payload) {
+      this.$toasted.show('Message from "' + payload.originalUser.name +
+        '":<br><br>' + payload.message, { type: 'info' })
+    },
+    destination_user_not_logged (payload) {
+      this.$toasted.show('User "' + payload.destinationUser.name + '" is not available!',
+        { type: 'warning' })
+    }
   },
  async mounted() {
     await axios.get("api/users").then((response) => {
