@@ -41,10 +41,10 @@
             <td>{{ order.notes }}</td>
             <td>
               <button
-                class="btn btn-primary"
+                class="btn btn-danger"
                 v-on:click.prevent="changeOrderStatus(order)"
               >
-                Done
+                Cancel
               </button>
             </td>
           </tr>

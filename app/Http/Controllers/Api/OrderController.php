@@ -166,15 +166,16 @@ class OrderController extends Controller
     
     public function getOrdersStatistics()
     {
-        $mes9 = Order::where('date','between','2020-09-01', 'and', '2020-09-31')->count();
-        $mes10 = Order::where('date','between','2020-10-01', 'and', '2020-10-31')->count();
-        $mes11 = Order::where('date','between','2020-11-01', 'and', '2020-11-31')->count();
-        $mes12 = Order::where('date','between','2020-12-01', 'and', '2020-12-31')->count();
-        $mes2021 = Order::where('date','between','2021-01-01', 'and', '2021-01-31')->count();
+        // $mes9 = Order::where('date','between',"2020-09-01", 'and', "2020-09-31");
+        $mes9 = Order::whereBetween('date', ["2020-09-01", "2020-09-31"])->count();
+        $mes10 = Order::whereBetween('date', ["2020-10-01", "2020-10-31"])->count();
+        $mes11 = Order::whereBetween('date', ["2020-11-01", "2020-11-31"])->count();
+        $mes12 = Order::whereBetween('date', ["2020-12-01", "2020-12-31"])->count();
+        $mes2021 = Order::whereBetween('date', ["2021-01-01", "2021-01-31"])->count();
         
         $labels = array('Setembro 2020', 'Outubro 2020', 'Novembro 2020', 'Dezembro 2020', 'Janeiro 2021');
         $data  = array($mes9, $mes10, $mes11, $mes12, $mes2021);
-        return response()->json(["data"=> $data, "labels"=>$labels]);
+        return response()->json(["data"=> $data, "label"=>$labels]);
     }
    
 

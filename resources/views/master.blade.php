@@ -45,7 +45,7 @@
           <router-link v-if="$store.state.user && $store.state.user.type == 'ED'" class="w3-bar-item w3-button" to="/deliverymanDashboard">Delveryman Dashboard</router-link>
           <router-link v-if="$store.state.user && $store.state.user.type == 'C'" class="w3-bar-item w3-button" to="/myOrders">My Orders</router-link>
           
-          <router-link v-if="$store.state.user"  class="w3-bar-item w3-button" to="/myprofile">My Profile</router-link>
+          <router-link v-if="$store.state.user && $store.state.user.type == 'C'"  class="w3-bar-item w3-button" to="/myprofile">My Profile</router-link>
           <button v-if="$store.state.user" @click.prevent="LogOut" class="w3-bar-item w3-button">Logout</button>
         </div>
 

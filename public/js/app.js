@@ -2293,6 +2293,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _manageUsers_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./manageUsers.vue */ "./resources/js/components/Admin/manageUsers.vue");
+/* harmony import */ var _Messages_globalMessages_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Messages/globalMessages.vue */ "./resources/js/components/Messages/globalMessages.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2313,10 +2314,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//props: ["user"],
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    manageUsers: _manageUsers_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    manageUsers: _manageUsers_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    'global-messages': _Messages_globalMessages_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -2338,6 +2342,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this.users.splice(_this.users.findIndex(function (u) {
           return u.id == user.id;
         }), 1);
+      });
+    }
+  },
+  sockets: {
+    connect: function connect() {
+      // If user is logged resend the message user_logged
+      if (this.$store.state.user) {
+        this.$socket.emit('user_logged', this.$store.state.user);
+      }
+    },
+    private_message: function private_message(payload) {
+      this.$toasted.show('Message from "' + payload.originalUser.name + '":<br><br>' + payload.message, {
+        type: 'info'
+      });
+    },
+    destination_user_not_logged: function destination_user_not_logged(payload) {
+      this.$toasted.show('User "' + payload.destinationUser.name + '" is not available!', {
+        type: 'warning'
       });
     }
   },
@@ -2467,9 +2489,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.renderChart({
-      labels: this.chartdataOrders.labels,
+      labels: this.chartdataOrders.label,
       datasets: [{
-        label: 'Products',
+        label: 'Orders',
         backgroundColor: "#f87979",
         data: this.chartdataOrders.data
       }]
@@ -2929,6 +2951,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     calculateSubTotalPrice: function calculateSubTotalPrice(item) {
       return parseFloat(item.quantity * item.price).toFixed(2);
+    }
+  },
+  sockets: {
+    global_message: function global_message(payload) {
+      var newLine = payload.user ? payload.user.name : '(Anonymous)';
+      newLine += ' said: ' + payload.message + '\n';
+      this.allMsgText += newLine;
     }
   }
 });
@@ -4009,7 +4038,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _edit_product_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit_product.vue */ "./resources/js/components/products/edit_product.vue");
+/* harmony import */ var _Messages_globalMessages_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Messages/globalMessages.vue */ "./resources/js/components/Messages/globalMessages.vue");
+/* harmony import */ var _edit_product_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit_product.vue */ "./resources/js/components/products/edit_product.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4111,10 +4141,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    manageProducts: _edit_product_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    manageProducts: _edit_product_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    'global-messages': _Messages_globalMessages_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -4225,6 +4264,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return getResults;
     }()
+  },
+  sockets: {
+    connect: function connect() {
+      // If user is logged resend the message user_logged
+      if (this.$store.state.user) {
+        this.$socket.emit('user_logged', this.$store.state.user);
+      }
+    },
+    private_message: function private_message(payload) {
+      this.$toasted.show('Message from "' + payload.originalUser.name + '":<br><br>' + payload.message, {
+        type: 'info'
+      });
+    },
+    destination_user_not_logged: function destination_user_not_logged(payload) {
+      this.$toasted.show('User "' + payload.destinationUser.name + '" is not available!', {
+        type: 'warning'
+      });
+    }
   },
   mounted: function mounted() {
     var _this4 = this;
@@ -62186,7 +62243,7 @@ var render = function() {
                         _c(
                           "button",
                           {
-                            staticClass: "btn btn-primary",
+                            staticClass: "btn btn-danger",
                             on: {
                               click: function($event) {
                                 $event.preventDefault()
@@ -62194,7 +62251,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("\n              Done\n            ")]
+                          [_vm._v("\n              Cancel\n            ")]
                         )
                       ])
                     ])
@@ -64405,6 +64462,26 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "form-group" }, [
         _c("div", [
+          _c("br"),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.user && _vm.user.type != "M",
+                  expression: "user && user.type != 'M'"
+                }
+              ]
+            },
+            [_c("global-messages")],
+            1
+          ),
+          _vm._v(" "),
           _c("label", { attrs: { for: "productType" } }, [_vm._v("Type: ")]),
           _vm._v(" "),
           _c(

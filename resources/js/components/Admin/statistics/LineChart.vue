@@ -32,7 +32,7 @@ export default {
     },
   },
   mounted() {
-    this.renderChart({labels:this.chartdataOrders.labels, datasets: [{label:'Products',backgroundColor: "#f87979", data:this.chartdataOrders.data}]}, {responsive: true, maintainAspectRatio: false});
+    this.renderChart({labels:this.chartdataOrders.label, datasets: [{label:'Orders',backgroundColor: "#f87979", data:this.chartdataOrders.data}]}, {responsive: true, maintainAspectRatio: false});
   },
 };
 </script>
