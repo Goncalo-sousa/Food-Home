@@ -22,8 +22,23 @@ export default new Vuex.Store({
         cartCount: 0,
     },
     mutations: {
+        clearUser (state) {
+            if (state.user) {
+                this._vm.$socket.emit('user_logged_out', state.user)
+            }
+            state.user = null
+        },
         setUser(state, user) {
             state.user = user
+            if (state.user !== user) {
+                if (state.user) {
+                    this._vm.$socket.emit('user_logged_out', state.user)
+                }
+                state.user = user
+                if (state.user) {
+                    this._vm.$socket.emit('user_logged', state.user)
+                }
+            }
         },
         addToCart(state, item) {
             let found = state.cart.find(product => product.id == item.id);

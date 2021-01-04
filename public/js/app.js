@@ -2942,6 +2942,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _this.$router.push({
           path: "/myOrders"
         });
+
+        _this.$socket.emit("new_order", order.id);
       });
     },
     redirectProducts: function redirectProducts() {
@@ -3064,8 +3066,15 @@ __webpack_require__.r(__webpack_exports__);
       orders: [],
       showActiveOrderItems: false,
       activeOrderItems: [],
-      activeIndexId: -1
+      activeIndexId: -1,
+      idorderrecebido: null
     };
+  },
+  sockets: {
+    new_order: function new_order(id) {
+      this.idorderrecebido = id;
+      alert("New order created!! Order id =" + id + " !!");
+    }
   },
   methods: {
     changeOrderStatus: function changeOrderStatus(order) {
@@ -3079,6 +3088,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.successMessage = "Order Status Changed";
 
         _this.getOrders();
+
+        _this.$socket.emit("order_cooked", order.id);
       });
     },
     getOrders: function getOrders() {
@@ -3218,6 +3229,11 @@ __webpack_require__.r(__webpack_exports__);
         return order.status === "In Transit";
       });
       return onTransitOrders.length ? onTransitOrders : this.orders;
+    }
+  },
+  sockets: {
+    order_cooked: function order_cooked(id) {
+      alert("Order for delivery!! Order id =" + id + " !!");
     }
   },
   data: function data() {
@@ -20726,7 +20742,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.msgInputs[data-v-3af548d2] {\r\n  width: 100%;\n}\n.div-radio[data-v-3af548d2] {\r\n  margin-top: 10px;\r\n  margin-bottom: 2px;\n}\ninput[type=\"radio\"][data-v-3af548d2] {\r\n  margin-left: 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.msgInputs[data-v-3af548d2] {\n  width: 100%;\n}\n.div-radio[data-v-3af548d2] {\n  margin-top: 10px;\n  margin-bottom: 2px;\n}\ninput[type=\"radio\"][data-v-3af548d2] {\n  margin-left: 10px;\n}\n", ""]);
 
 // exports
 
@@ -83399,8 +83415,27 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     cartCount: 0
   },
   mutations: {
+    clearUser: function clearUser(state) {
+      if (state.user) {
+        this._vm.$socket.emit('user_logged_out', state.user);
+      }
+
+      state.user = null;
+    },
     setUser: function setUser(state, user) {
       state.user = user;
+
+      if (state.user !== user) {
+        if (state.user) {
+          this._vm.$socket.emit('user_logged_out', state.user);
+        }
+
+        state.user = user;
+
+        if (state.user) {
+          this._vm.$socket.emit('user_logged', state.user);
+        }
+      }
     },
     addToCart: function addToCart(state, item) {
       var found = state.cart.find(function (product) {
