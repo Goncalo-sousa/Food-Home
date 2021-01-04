@@ -101,7 +101,15 @@ export default {
     calculateSubTotalPrice: function (item) {
       return parseFloat(item.quantity * item.price).toFixed(2);
     },
+
   },
+  sockets: {
+   global_message (payload) {
+   let newLine = payload.user ? payload.user.name : '(Anonymous)'
+   newLine += ' said: ' + payload.message + '\n'
+   this.allMsgText += newLine
+  }
+ },
 };
 </script>
 
