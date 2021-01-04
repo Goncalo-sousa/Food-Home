@@ -10,6 +10,7 @@ use GuzzleHttp\Promise\Create;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -113,6 +114,18 @@ class ProductController extends Controller
         $product->delete();
         return response()->json(null, 204);
     }
+
+    public function getProductsStatistics()
+    {
+        $productDrink = Product::where('type','like','drink')->count();
+        $productDessert = Product::where('type','like','dessert')->count();
+        $productHotdish = Product::where('type','like','hot dish')->count();
+        $productColddish = Product::where('type','like','cold dish')->count();
+        $labels = array('Drink', 'Dessert', 'Hot dish', 'Cold dish');
+        $data  = array($productDrink, $productDessert, $productHotdish, $productColddish);
+        return response()->json(["data"=> $data, "labels"=>$labels]);
+    }
+
 
     /**
      * Remove the specified resource from storage.
