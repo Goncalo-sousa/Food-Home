@@ -31,7 +31,8 @@
         <span v-if="$store.state.user">@{{$store.state.user.type}}</span>
         <!-- Right-sided navbar links. Hide them on small screens -->
         <div class="w3-right w3-hide-small">
-          <router-link v-if="$store.state.user && $store.state.user.type == 'EM'" class="w3-bar-item w3-button" to="/management">Manage</router-link>
+          <router-link v-if="$store.state.user && $store.state.user.type == 'EM'" class="w3-bar-item w3-button" to="/manageUsers">Manage Users</router-link>
+          <router-link v-if="$store.state.user && $store.state.user.type == 'EM'" class="w3-bar-item w3-button" to="/manageOrders">Manage Orders</router-link>
           <router-link class="w3-bar-item w3-button" to="/products">Products</router-link>
           <!-- <router-link v-show="$route.path==='/'" class="w3-bar-item w3-button" to="/products">Products</router-link> -->
          

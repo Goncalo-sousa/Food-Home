@@ -22,5 +22,6 @@ class Customer extends JsonResource
             'phone' => $this->phone,
             'nif' => $this->nif,
         ];
+        
     }
 }

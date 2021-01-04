@@ -24,6 +24,7 @@ import ManagementComponent from './components/Admin/management.vue'
 import store from './store'
 import VueCookies from 'vue-cookies'
 import axios from 'axios'
+import OrderManagementComponent from './components/Admin/manageOrders.vue'
 import OrderComponent from './components/Orders/orders.vue'
 import CookDashboard from './components/Dashboard/cookDashboard.vue'
 import DeliverymanDashboard from './components/Dashboard/deliverymanDashboard.vue'
@@ -35,6 +36,7 @@ import Messages from './components/Messages/globalMessages.vue'
 
 Vue.use(VueCookies)
 Vue.component('manage-users', ManageUsersComponent);
+Vue.component('manage-orders', OrderManagementComponent);
 Vue.component('products', ProductsComponent);
 Vue.component('edit-products', EditProductComponent);
 Vue.component('orders', OrderComponent);
@@ -50,7 +52,8 @@ const routes = [
     { path: '/', component: MainComponent },
     { path: '/register', name: 'Register', component: RegisterComponent },
     { path: '/login', name: 'Login', component: LoginComponent },
-    { path: '/management', name: 'Management', component: ManagementComponent },
+    { path: '/manageUsers', name: 'ManagementUsers', component: ManagementComponent },
+    { path: '/manageOrders', name: 'ManagementOrders', component: OrderManagementComponent},
     { path: '/users/:id', component: EditUserComponent },
     { path: '/products/:id', component: EditProductComponent },
     { path: '/products', name: 'Products', component: ProductsComponent },
